@@ -3,14 +3,13 @@ package co.dev.vo;
 public class ReviewVO {
 
 	private int cafeNo;
-	private String rContents;
-	private int rStar;
-	private int rLike;
-	private String rDate;
-	private String rUser;
-	private String rImage = null;
-	
-	
+	private int no;
+	private String content;
+	private int star;
+	private int like;
+	private String date;
+	private String user;
+	private String img;
 
 	public int getCafeNo() {
 		return cafeNo;
@@ -20,52 +19,60 @@ public class ReviewVO {
 		this.cafeNo = cafeNo;
 	}
 
-	public String getrContents() {
-		return rContents;
+	public int getNo() {
+		return no;
 	}
 
-	public void setrContents(String rContents) {
-		this.rContents = rContents;
+	public void setNo(int no) {
+		this.no = no;
 	}
 
-	public int getrStar() {
-		return rStar;
+	public String getContent() {
+		return content;
 	}
 
-	public void setrStar(int rStar) {
-		this.rStar = rStar;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public int getrLike() {
-		return rLike;
+	public int getStar() {
+		return star;
 	}
 
-	public void setrLike(int rLike) {
-		this.rLike = rLike;
+	public void setStar(int star) {
+		this.star = star;
 	}
 
-	public String getrDate() {
-		return rDate;
+	public int getLike() {
+		return like;
 	}
 
-	public void setrDate(String rDate) {
-		this.rDate = rDate;
+	public void setLike(int like) {
+		this.like = like;
 	}
 
-	public String getrUser() {
-		return rUser;
+	public String getDate() {
+		return date;
 	}
 
-	public void setrUser(String rUser) {
-		this.rUser = rUser;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getrImage() {
-		return rImage;
+	public String getUser() {
+		return user;
 	}
 
-	public void setrImage(String rImage) {
-		this.rImage = rImage;
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 }

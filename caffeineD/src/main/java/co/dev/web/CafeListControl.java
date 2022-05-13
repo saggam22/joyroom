@@ -31,12 +31,12 @@ public class CafeListControl implements Controller {
 		if (reviewList != null) {
 			
 			request.setAttribute("reviewList", reviewList);
-			request.getRequestDispatcher("view/cafeListOutput.jsp").forward(request, response);
+			request.getRequestDispatcher("view/review.jsp").forward(request, response);
 			return;
 			
 		} else {
 			
-			request.getRequestDispatcher("view/cafeListOutput.jsp").forward(request, response);
+			request.getRequestDispatcher("view/review.jsp").forward(request, response);
 			return;	
 			
 		}

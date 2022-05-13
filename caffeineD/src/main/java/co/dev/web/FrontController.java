@@ -28,8 +28,9 @@ public class FrontController extends HttpServlet {
 
 		map.put("/cafeList.do", new CafeListControl());
 		
-		// review 등록
-		map.put("/reviewInsert.do", new ReviewInsertControl());
+		// review
+		map.put("/reviewInsert.do", new ReviewInsertControl()); // 등록
+		map.put("/reviewLike.do", new ReviewLikeControl());		// 리뷰 좋아요
 
 
 	}
@@ -40,9 +41,7 @@ public class FrontController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		String url = request.getRequestURI(); 					
-		System.out.println(url);							// /0502_WebProject/memberInsert.do
 		String context = request.getContextPath();				
-		System.out.println(context);						// /0503_WebProject
 		String path = url.substring(context.length());
 		System.out.println(path);							// /memberInsert.do
 
