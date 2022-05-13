@@ -29,7 +29,7 @@ public class FrontController extends HttpServlet {
 		map.put("/cafeList.do", new CafeListControl());
 		
 		// review 등록
-		map.put("/reviewInsert.do", new reviewInsertControl());
+		map.put("/reviewInsert.do", new ReviewInsertControl());
 
 
 	}
