@@ -14,25 +14,23 @@ public class ReviewLikeControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setContentType("text/json;charset=utf-8");
+		
 		CfnService service = new CfnService();
 		
 		String job = request.getParameter("job");
+		String user = request.getParameter("id");
 		int reviewNo = Integer.valueOf(request.getParameter("reviewNo"));
-		int likeCount = 0;
+
 		
 		if (job.equals("like")) {
-			likeCount = service.likeCountPlus(reviewNo); // 리뷰 테이블에 like 수 추가
+			service.likeCountPlus(reviewNo); // 리뷰 테이블에 like 수 추가
+			service.likeInfoInsert(user, reviewNo); 		 // 좋아요 테이블에 유저, 리뷰 정보 추가
 			
 		} else if (job.equals("unlike")) {
-			likeCount = service.likeCountMinus(reviewNo);
+			service.likeCountMinus(reviewNo);
+			service.likeInfoDelete(user, reviewNo);
 		}
-		
-		request.setAttribute("likeCount", likeCount);
-		
-//		service.likeInfoInsert(); // 좋아요 테이블에 유저, 리뷰 정보 추가
-		
-		
-
 
 	}
 

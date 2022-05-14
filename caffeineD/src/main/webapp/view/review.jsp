@@ -4,135 +4,240 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>view/cafeListOutput.jsp</title>
-</head>
-<style>
-.pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5); font-size:0; text-align:center;}
-.pop_wrap:after{display:inline-block; height:100%; vertical-align:middle; content:'';}
-.pop_wrap .pop_inner{display:inline-block; padding:20px 30px; background:#fff; width:500px; vertical-align:middle; font-size:15px;}
-</style>
+	<meta charset="UTF-8">
+	<title>review.jsp</title>
+	</head>
+	<style>
+		.pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5); font-size:0; text-align:center;}
+		.pop_wrap:after{display:inline-block; height:100%; vertical-align:middle; content:'';}
+		.pop_wrap .pop_inner{display:inline-block; padding:20px 30px; background:#fff; width:500px; vertical-align:middle; font-size:15px; text-align:left;}
+		button {background:rgba(0,0,0,0); border:none; padding:0}
+		.star {color:#f5d36c;}
+	</style>
 <body>
-<c:choose>
-<c:when test="${!empty error}"><script>alert("${error }")</script></c:when>
-<c:otherwise><c:if test="${!empty success }"><script>alert("${success }")</script></c:if></c:otherwise>
-</c:choose>
+	<c:choose>
+	<c:when test="${!empty error}"><script>alert("${error }")</script></c:when>
+	<c:otherwise><c:if test="${!empty success }"><script>alert("${success }")</script></c:if></c:otherwise>
+	</c:choose>
 
 	<div class="wrap">
-  <a href="#pop_info" class="btn_open">등록</a>
-  
-  <div id="pop_info" class="pop_wrap" style="display:none;">
-    <div class="pop_inner">
-		<button type="button" class="btn_close">X</button><br>
-		
-    <form action="${pageContext.servletContext.contextPath }/reviewInsert.do" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="user" value="wlqls12@naver.com">
-		<input type="hidden" name="cafeNo" value="1">
-      평점 
-      <select name="star">
-				<option value="5">★★★★★</option>
-				<option value="4">★★★★☆</option>
-				<option value="3">★★★☆☆</option>
-				<option value="2">★★☆☆☆</option>
-				<option value="1">★☆☆☆☆</option>
-			</select><br>
-		<input type="file" name="img"><br>
-		<textarea name="content" placeholder="리뷰 내용을 입력해 주세요." cols="50" rows="10"></textarea><br>
+	  	<a href="#reviewInsert" class="btn_open">등록</a>
+	 
+		<!-- 리뷰 등록 -->
+		<div id="reviewInsert" class="pop_wrap" style="display:none;">
+				
+			<div class="pop_inner">
+				<button type="button" class="btn_close">X</button><br>	
+					<form action="${pageContext.servletContext.contextPath }/reviewInsert.do" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="user" value="wlqls12@naver.com">
+						<input type="hidden" name="cafeNo" value="1">
+						<div id="insertStar">
+							<input class="starVal" type="hidden" name="star" value="">
+							<button class="starBtn" type="button" name="1"><img src="${pageContext.servletContext.contextPath }/img/eptstar.svg.png" width="15px"></button>
+							<button class="starBtn" type="button" name="2"><img src="${pageContext.servletContext.contextPath }/img/eptstar.svg.png" width="15px"></button>
+							<button class="starBtn" type="button" name="3"><img src="${pageContext.servletContext.contextPath }/img/eptstar.svg.png" width="15px"></button>
+							<button class="starBtn" type="button" name="4"><img src="${pageContext.servletContext.contextPath }/img/eptstar.svg.png" width="15px"></button>
+							<button class="starBtn" type="button" name="5"><img src="${pageContext.servletContext.contextPath }/img/eptstar.svg.png" width="15px"></button>
+						</div>
+						<div><input type="file" name="img"></div>
+						<textarea id="rContent" name="content" placeholder="리뷰 내용을 입력해 주세요." cols="50" rows="10"></textarea><br>
+						<button type="submit">등록</button>
+					</form>
+			</div>
+		</div>
+	</div>
 
-		<input type="submit" value="등록">
-	</form>
-     
-    </div>
-  </div>
- </div>
  
-<c:choose>
-	<c:when test="${empty reviewList }"><h3>리뷰가 없습니다.</h3></c:when>
-	<c:otherwise>
-		<c:forEach var="review" items="${reviewList }">
-			<table id="${review.no }">
-			<tr><td></td>
-				<td><c:if test="${!empty review.img }">
+	<c:choose>
+		<c:when test="${empty reviewList }">리뷰가 없습니다.</c:when>
+		<c:otherwise>
+			<article>
+			<c:forEach var="review" items="${reviewList }">
+			<div id="${review.no }" class="review">
+				<div><c:if test="${!empty review.img }">
 					<img width="200px" src="${pageContext.servletContext.contextPath }/upload/${review.img }">
-					</c:if></td>
-			</tr>
-			<tr><td>user</td><td>${review.user }</td></tr>
-			<tr><td>date</td><td>${review.date }</td></tr>
-			<tr><td>star</td><td>${review.star }</td></tr>
-			<tr><td>like</td><td>${review.like }<input class="likeBtn" type="button" name="like" value="좋아요"></td></tr>
-			<tr><td>content</td><td>${review.content }</td></tr>
-			</table><br>
-		</c:forEach>
-	</c:otherwise>
-</c:choose>
+					</c:if>
+				</div>
+				<div>${review.user }</div>
+				<div>
+					<span class="star"><c:choose>
+						<c:when test="${review.star eq '5' }">★★★★★</c:when>
+						<c:when test="${review.star eq '4' }">★★★★☆</c:when>
+						<c:when test="${review.star eq '3' }">★★★☆☆</c:when>
+						<c:when test="${review.star eq '2' }">★★☆☆☆</c:when>
+						<c:when test="${review.star eq '1' }">★☆☆☆☆</c:when>
+					</c:choose></span>
+					${review.date }
+				</div>
+				<div>
+					<span id="likeCount_${review.no }">${review.like }</span>
+					<button id="likeBtn_${review.no }" class="likeBtn" type="button" name="">
+						<img id="heart_${review.no }" src="" width="15px">
+					</button>
+				</div>
+				<div>
+					${review.content }
+				</div>
+			</div>
+			</c:forEach>
+			</article>
+		</c:otherwise>
+	</c:choose>
 
 
 </body>
 
 <script type="text/javascript">
 
-var target = document.querySelectorAll('.btn_open');
-var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
-var targetID;
-
-// 팝업 열기
-for(var i = 0; i < target.length; i++){
-  target[i].addEventListener('click', function(){
-    targetID = this.getAttribute('href');
-    document.querySelector(targetID).style.display = 'block';
-  });
-}
-
-// 팝업 닫기
-for(var j = 0; j < target.length; j++){
-  btnPopClose[j].addEventListener('click', function(){
-    this.parentNode.parentNode.style.display = 'none';
-  });
-}
-
-
-// 좋아요
-let likeBtn = document.querySelectorAll('.likeBtn');
-
-for(var i = 0; i < likeBtn.length; i++){
-	likeBtn[i].addEventListener('click', function(){
-			// 버튼을 누르면 해당 리뷰의 전체 좋아요 수 +1
-			// 현재 유저가 해당 리뷰에 좋아요를 눌렀다는 것을 저장 -> 다음에 들어왔을 때 좋아요 표시가 되어있어야 함.
-			console.log(this);
-			if (this.value === '좋아요') {
-		  	this.value = '좋아요 해제';		
-		  	let reviewNo = this.parentNode.parentNode.parentNode.parentNode.id;
-		  	
-		     fetch('reviewLike.do', {
+	document.addEventListener('DOMContentLoaded', DOMLoadedCallBack);
+	
+	// 등록 팝업
+	let target = document.querySelectorAll('.btn_open');
+	let btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+	let targetID;
+	
+		// 팝업 열기
+	for(let i = 0; i < target.length; i++){
+	  target[i].addEventListener('click', function(){
+	    targetID = this.getAttribute('href');
+	    document.querySelector(targetID).style.display = 'block';
+	  });
+	}
+		// 팝업 닫기
+	for(let i = 0; i < target.length; i++){
+	  btnPopClose[i].addEventListener('click', function(){
+		  
+	    this.parentNode.parentNode.style.display = 'none';
+	    
+	    let starBtns = document.querySelectorAll('.starBtn');
+		for(let i = 0; i < 5; i++) {
+		    let starImg = starBtns[i].childNodes[0];
+			starImg.setAttribute('src', '${pageContext.servletContext.contextPath }/img/eptstar.svg.png');
+		}
+	    
+	    document.getElementById('rContent').value = '';
+	    
+	  });
+	}
+	
+	
+	// function
+	// DOMLoaded 콜백
+	function DOMLoadedCallBack() {
+		
+		let reviews = document.querySelectorAll('.review');
+		
+		for(let i = 0; i < reviews.length; i++) {
+			console.log(reviews[i].id);
+		    fetch('likeCheck.do', {
 		    	method: 'post',
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				  body: `job=like&id=wlql12@naver.com&reviewNo=${'${reviewNo}'}`
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				body: `id=wlqls12@naver.com&reviewNo=${'${reviews[i].id}'}`
 		    })
-		    	.then(result => result.json())
-/* 		    	.then(likeCount => {
-		    		this.parentNode.innerHTML = ${'${result.likeCount }'};
-		    	}) */
-		    	.catch(error => console.log(error)); 
-		    
-		    
-			// 한번 더 누르면 전체 좋아요수 -1 / 현재 유저의 리뷰 좋아요 삭제
-			} else if (this.value === '좋아요 해제') {
-				this.value = '좋아요';
-				let reviewNo = this.parentNode.parentNode.parentNode.parentNode.id;
+				.then(result => result.json())
+				.then(likeResult => {
+					
+					let likeBtn = document.getElementById(`likeBtn_${'${reviews[i].id}'}`);
+					let likeHeart = document.getElementById(`heart_${'${reviews[i].id}'}`);
+					
+						if (likeResult.likeCheck === 'true') {
+							likeBtn.setAttribute('name', 'like');
+							likeHeart.setAttribute('src', '${pageContext.servletContext.contextPath }/img/heart.svg.png');
+						} else {
+							likeBtn.setAttribute('name', 'unlike');
+							likeHeart.setAttribute('src', '${pageContext.servletContext.contextPath }/img/eptheart.svg.png');
+						}
+						 
+				})
+				.catch(error => console.log(error));
+			
+		}
+	
+		// 좋아요
+		let likeBtns = document.querySelectorAll('.likeBtn');
+	
+		for(let i = 0; i < likeBtns.length; i++){
+			likeBtns[i].addEventListener('click', likeCallBack);
+		}	
+		
+		// 평점
+		let starBtns = document.querySelectorAll('.starBtn');
+	
+		for(let i = 0; i < starBtns.length; i++){
+			starBtns[i].addEventListener('click', starCallBack);
+		}
+		
+	
+		
+	} //end of DOMLoadedCallBack()
+	
+
+	// 좋아요 버튼 콜백
+	function likeCallBack() {
+	
+		// 버튼을 누르면 해당 리뷰의 전체 좋아요 수 +1
+		// 현재 유저의 좋아요 정보 추가 -> 다시 들어왔을 때 좋아요가 미리 선택되어 있는 기능 구현하기 위함.
+	
+		let reviewNo = this.id.substr(8);
+		let likeBtn = document.getElementById(`likeBtn_${'${reviewNo}'}`);
+		let likeHeart = document.getElementById(`heart_${'${reviewNo}'}`);
+		let likeCount = document.getElementById(`likeCount_${'${reviewNo}'}`);
+			
+		if (this.name === 'unlike') {
+			
+			likeBtn.setAttribute('name', 'like');
+			likeHeart.setAttribute('src', '${pageContext.servletContext.contextPath }/img/heart.svg.png');
+			  
+	 		fetch('reviewLike.do', {
+			    method: 'post',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				body: `job=like&id=wlqls12@naver.com&reviewNo=${'${reviewNo}'}`
+			})
+			 	.then(like => {
+			 		likeCount.innerHTML = String(Number(likeCount.innerHTML)+1);
+			    }) 
+			    .catch(error => console.log(error));  
+	
+		// 한번 더 누르면 전체 좋아요수 -1 / 현재 유저의 좋아요 정보 삭제
+		} else if (this.name === 'like') {
+	
+			likeBtn.setAttribute('name', 'unlike');
+			likeHeart.setAttribute('src', '${pageContext.servletContext.contextPath }/img/eptheart.svg.png')
+			
+			let reviewNo = this.id.substr(8);
 				
-		    fetch('reviewLike.do', {
+	 	    fetch('reviewLike.do', {
 		    	method: 'post',
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				  body: `job=unlike&id=wlql12@naver.com&reviewNo=${'${reviewNo}'}`
-		    
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				body: `job=unlike&id=wlqls12@naver.com&reviewNo=${'${reviewNo}'}`
 		    })
-		    	.then(result => console.log(result))
-		    	.catch(error => console.log(error));
+		    	.then(like => {
+		    		likeCount.innerHTML = String(Number(likeCount.innerHTML)-1);
+		    	}) 
+		    	.catch(error => console.log(error)); 
+		}
+			
+	
+	} //end of likeCallBack()
+	
+	// 평점 콜백
+	function starCallBack() {
+		let starBtns = document.querySelectorAll('.starBtn');
+	
+			for(let i = 0; i < 5; i++) {
+				let starImg = starBtns[i].childNodes[0];
+				starImg.setAttribute('src', '${pageContext.servletContext.contextPath }/img/eptstar.svg.png');
+			}
+		
+			for(let i = 0; i < Number(this.name); i++) {
+				
+				let starImg = starBtns[i].childNodes[0];
+				starImg.setAttribute('src', '${pageContext.servletContext.contextPath }/img/star.svg.png');
 			}
 			
-});
-}
-
+			this.parentNode.childNodes[1].value = this.name;
+		
+	}
 
 </script>
 </html>

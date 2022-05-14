@@ -19,14 +19,45 @@ public class CfnService {
 	}
 	
 	// 리뷰 좋아요 수 +1
-	public int likeCountPlus(int reviewNo) {
-		return dao.updateLikePlus(reviewNo);
+	public void likeCountPlus(int reviewNo) {
+		dao.updateLikePlus(reviewNo);
 	}
 
 	// 리뷰 좋아요 수 -1
-	public int likeCountMinus(int reviewNo) {
-		return dao.updateLikeMinus(reviewNo);
+	public void likeCountMinus(int reviewNo) {
+		dao.updateLikeMinus(reviewNo);
+	}
+	
+	// 좋아요 정보 추가
+	public void likeInfoInsert(String user, int reviewNo) {
+		dao.insertLike(user, reviewNo);
+	}
+	
+	// 좋아요 정보 삭제
+	public void likeInfoDelete(String user, int reviewNo) {
+		dao.deleteLike(user, reviewNo);
+	}
+	
+	// 좋아요 정보 조회
+	public boolean likeInfoSelect(String user, int reviewNo) {
+		return dao.selectLike(user, reviewNo);
+	}
+	
+	// 수정할 리뷰 조회
+	public ReviewVO reviewSelect(int reviewNo) {
+		return dao.selectReview(reviewNo);
 		
 	}
+	
+	// 내 리뷰 리스트 조회
+	public List<ReviewVO> myReviewList(String user) {
+		return dao.myReviewSelect(user);
+	}
+	
+	// 내 리뷰 수정
+	public void reviewUpdate(ReviewVO vo) {
+		dao.updateReview(vo);
+	}
+
 
 }
