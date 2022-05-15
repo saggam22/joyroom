@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.review;
 
 import java.io.IOException;
 
@@ -11,6 +11,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import co.dev.service.CfnService;
 import co.dev.vo.ReviewVO;
+import co.dev.vo.UserVO;
+import co.dev.web.Controller;
 
 public class ReviewUpdateControl implements Controller {
 
@@ -26,6 +28,7 @@ public class ReviewUpdateControl implements Controller {
 		
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
 		
+		String userId = "wlqls12@naver.com";
 		String no = multi.getParameter("reviewNo");
 		String star = multi.getParameter("star");
 		String content = multi.getParameter("content");
@@ -33,10 +36,18 @@ public class ReviewUpdateControl implements Controller {
 				
 
 		if(content.isBlank()) {
-			request.setAttribute("error", "내용을 입력해 주세요.");
-			request.getRequestDispatcher("/myReviewList.do").forward(request, response);
+			request.setAttribute("error", "글을 입력해 주세요.");
+			request.getRequestDispatcher("/review.do").forward(request, response);
 			return;
 		}
+		
+		if(content.length() < 10) {
+			request.setAttribute("error", "10자 이상 입력해 주세요.");
+			request.getRequestDispatcher("/review.do").forward(request, response);
+			return;
+		}
+		
+		CfnService service = new CfnService();
 		
 		ReviewVO vo = new ReviewVO();
 		vo.setNo(Integer.valueOf(no));
@@ -47,8 +58,6 @@ public class ReviewUpdateControl implements Controller {
 			vo.setImg(img);
 		}
 
-		
-		CfnService service = new CfnService();
 		service.reviewUpdate(vo);
 		
 		request.setAttribute("success", "리뷰 수정이 완료되었습니다.");

@@ -11,6 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.web.review.LikeCheckControl;
+import co.dev.web.review.MyReviewListControl;
+import co.dev.web.review.ReviewControl;
+import co.dev.web.review.ReviewDeleteControl;
+import co.dev.web.review.ReviewInsertControl;
+import co.dev.web.review.ReviewLikeControl;
+import co.dev.web.review.ReviewSelectControl;
+import co.dev.web.review.ReviewUpdateControl;
+import co.dev.web.review.UserProfileControl;
+
 @WebServlet("/FrontController")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +44,8 @@ public class FrontController extends HttpServlet {
 		map.put("/myReviewList.do", new MyReviewListControl());	// 내 리뷰 조회
 		map.put("/reviewSelect.do", new ReviewSelectControl()); // 수정할 리뷰 조회
 		map.put("/reviewUpdate.do", new ReviewUpdateControl()); // 내 리뷰 수
-
+		map.put("/reviewDelete.do", new ReviewDeleteControl());	// 리뷰 삭제
+		map.put("/userProfile.do", new UserProfileControl());
 
 	}
 

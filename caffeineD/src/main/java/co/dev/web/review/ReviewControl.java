@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.review;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 
 import co.dev.service.CfnService;
 import co.dev.vo.ReviewVO;
+import co.dev.web.Controller;
 
 public class ReviewControl implements Controller {
 

@@ -1,29 +1,34 @@
-package co.dev.web;
+package co.dev.web.review;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import co.dev.service.CfnService;
 import co.dev.vo.ReviewVO;
+import co.dev.web.Controller;
 
-public class MyReviewListControl implements Controller {
+public class ReviewSelectControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setContentType("text/json;charset=utf-8");
+		
 		//String user = request.getParameter("id");
 		String user = "wlqls12@naver.com";
+		int reviewNo = Integer.valueOf(request.getParameter("reviewNo"));
 		
 		CfnService service = new CfnService();
-		List<ReviewVO> list = service.myReviewList(user);
+		ReviewVO vo = service.reviewSelect(reviewNo);
 		
-		request.setAttribute("myReviewList", list);
-		
-		request.getRequestDispatcher("view/myReview.jsp").forward(request, response);
+		Gson gson = new GsonBuilder().create();
+		response.getWriter().print(gson.toJson(vo));
 
 	}
 

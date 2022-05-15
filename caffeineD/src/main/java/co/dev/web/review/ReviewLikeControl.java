@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.review;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.dev.service.CfnService;
+import co.dev.web.Controller;
 
 public class ReviewLikeControl implements Controller {
 

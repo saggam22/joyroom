@@ -8,7 +8,8 @@ public class ReviewVO {
 	private int star;
 	private int like;
 	private String date;
-	private String user;
+	private String userId;
+	private String userNick;
 	private String img;
 
 	public int getCafeNo() {
@@ -59,12 +60,20 @@ public class ReviewVO {
 		this.date = date;
 	}
 
-	public String getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
 	}
 
 	public String getImg() {

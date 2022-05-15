@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.dev.dao.CfnDAO;
 import co.dev.vo.ReviewVO;
+import co.dev.vo.UserVO;
 
 public class CfnService {
 	CfnDAO dao = new CfnDAO();
@@ -57,6 +58,16 @@ public class CfnService {
 	// 내 리뷰 수정
 	public void reviewUpdate(ReviewVO vo) {
 		dao.updateReview(vo);
+	}
+
+	// 내 리뷰 삭제
+	public boolean reviewDelete(int reviewNo) {
+		return dao.deleteReview(reviewNo);
+	}
+
+	// 유저 조회
+	public UserVO userSelect(String userId) {
+		return dao.selectUser(userId);
 	}
 
 

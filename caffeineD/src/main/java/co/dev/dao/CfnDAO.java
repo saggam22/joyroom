@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.dev.vo.ReviewVO;
+import co.dev.vo.UserVO;
 
 public class CfnDAO extends DAO_mac {
 
@@ -33,7 +34,8 @@ public class CfnDAO extends DAO_mac {
 				vo.setImg(rs.getString("review_img"));
 				vo.setLike(rs.getInt("review_like"));
 				vo.setStar(rs.getInt("review_star"));
-				vo.setUser(rs.getString("review_user"));
+				vo.setUserId(rs.getString("review_userid"));
+				vo.setUserNick(rs.getString("review_usernick"));
 				
 				list.add(vo);
 			}
@@ -58,25 +60,27 @@ public class CfnDAO extends DAO_mac {
 
 		conn();
 		String sql = "INSERT INTO review "
-				+ "VALUES(?,review_seq.NEXTVAL,?,SYSDATE,0,?,?,?)";
-		String noImgSql = "INSERT INTO review(cafe_no, review_no, review_user, review_date, review_like, review_star, review_content) " 
-				+ "VALUES(?,review_seq.NEXTVAL,?,SYSDATE,0,?,?)";
+				+ "VALUES(?,review_seq.NEXTVAL,?,?,SYSDATE,0,?,?,?)";
+		String noImgSql = "INSERT INTO review(cafe_no, review_no, review_userid, review_usernick, review_date, review_like, review_star, review_content) " 
+				+ "VALUES(?,review_seq.NEXTVAL,?,?,SYSDATE,0,?,?)";
 		
 		try {
 			
 			if (vo.getImg()!=null) {
 				psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, vo.getCafeNo());
-				psmt.setString(2, vo.getUser());
-				psmt.setInt(3, vo.getStar());
-				psmt.setString(4, vo.getContent());
-				psmt.setString(5, vo.getImg());
+				psmt.setString(2, vo.getUserId());
+				psmt.setString(3, vo.getUserNick());
+				psmt.setInt(4, vo.getStar());
+				psmt.setString(5, vo.getContent());
+				psmt.setString(6, vo.getImg());
 			} else {
 				psmt = conn.prepareStatement(noImgSql);
 				psmt.setInt(1, vo.getCafeNo());
-				psmt.setString(2, vo.getUser());
-				psmt.setInt(3, vo.getStar());
-				psmt.setString(4, vo.getContent());
+				psmt.setString(2, vo.getUserId());
+				psmt.setString(3, vo.getUserNick());
+				psmt.setInt(4, vo.getStar());
+				psmt.setString(5, vo.getContent());
 			}
 			
 			int r = psmt.executeUpdate();
@@ -146,7 +150,7 @@ public class CfnDAO extends DAO_mac {
 	}
 	
 	// 좋아요 정보 추가
-	public void insertLike(String user, int reviewNo) {
+	public void insertLike(String userId, int reviewNo) {
 		
 		conn();
 		String sql = "INSERT INTO review_like "
@@ -156,7 +160,7 @@ public class CfnDAO extends DAO_mac {
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, reviewNo);
-			psmt.setString(2, user);
+			psmt.setString(2, userId);
 			psmt.setString(3, "like");
 			
 			int r = psmt.executeUpdate();
@@ -172,7 +176,7 @@ public class CfnDAO extends DAO_mac {
 	}
 	
 	// 좋아요 정보 삭제
-	public void deleteLike(String user, int reviewNo) {
+	public void deleteLike(String userId, int reviewNo) {
 		
 		conn();
 		String sql = "DELETE review_like "
@@ -182,7 +186,7 @@ public class CfnDAO extends DAO_mac {
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, reviewNo);
-			psmt.setString(2, user);
+			psmt.setString(2, userId);
 			
 			int r = psmt.executeUpdate();
 			if (r>0) {
@@ -197,7 +201,7 @@ public class CfnDAO extends DAO_mac {
 	}
 	
 	// 좋아요 여부 체크
-	public boolean selectLike(String user, int reviewNo) {
+	public boolean selectLike(String userId, int reviewNo) {
 		
 		conn();
 		String sql = "SELECT like_check FROM review_like "
@@ -207,7 +211,7 @@ public class CfnDAO extends DAO_mac {
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, reviewNo);
-			psmt.setString(2, user);
+			psmt.setString(2, userId);
 			
 			int r = psmt.executeUpdate();
 			if (r>0) {
@@ -247,7 +251,8 @@ public class CfnDAO extends DAO_mac {
 				vo.setImg(rs.getString("review_img"));
 				vo.setLike(rs.getInt("review_like"));
 				vo.setStar(rs.getInt("review_star"));
-				vo.setUser(rs.getString("review_user"));
+				vo.setUserId(rs.getString("review_userid"));
+				vo.setUserNick(rs.getString("review_usernick"));
 
 			}
 			
@@ -269,17 +274,17 @@ public class CfnDAO extends DAO_mac {
 	}
 
 	// 내 리뷰 조희
-	public List<ReviewVO> myReviewSelect(String user) {
+	public List<ReviewVO> myReviewSelect(String userId) {
 		
 		conn();
-		String sql = "SELECT * FROM review WHERE review_user = ?";
+		String sql = "SELECT * FROM review WHERE review_userid = ?";
 		
 		List<ReviewVO> list = new ArrayList<>();
 		
 		try {
 			
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, user);
+			psmt.setString(1, userId);
 			rs = psmt.executeQuery();
 		
 			while (rs.next()) {
@@ -293,7 +298,8 @@ public class CfnDAO extends DAO_mac {
 				vo.setImg(rs.getString("review_img"));
 				vo.setLike(rs.getInt("review_like"));
 				vo.setStar(rs.getInt("review_star"));
-				vo.setUser(rs.getString("review_user"));
+				vo.setUserId(rs.getString("review_userid"));
+				vo.setUserNick(rs.getString("review_usernick"));
 				
 				list.add(vo);
 			}
@@ -318,10 +324,10 @@ public class CfnDAO extends DAO_mac {
 		
 		conn();
 		String sql = "UPDATE review "
-				+ "SET review_star=?, review_content=?, review_img=? "
+				+ "SET review_star=?, review_content=?, review_img=?"
 				+ "WHERE review_no=?";
 		String imgSql = "UPDATE review "
-				+ "SET review_star=?, review_content=? "
+				+ "SET review_star=?, review_content=?"
 				+ "WHERE review_no=?";
 
 		
@@ -356,6 +362,69 @@ public class CfnDAO extends DAO_mac {
 			disconn();
 		}
 
+	}
+	
+	// 유저 조회
+	public UserVO selectUser(String userId) {
+		
+		conn();
+		String sql = "SELECT * FROM cfn_user "
+				+ "WHERE user_id=?";
+
+		UserVO vo = new UserVO();
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				vo.setGrade(rs.getString("user_grade"));
+				vo.setId(rs.getString("user_id"));
+				vo.setImg(rs.getString("user_img"));
+				vo.setNickname(rs.getString("user_nick"));
+				vo.setTel(rs.getString("user_tel"));
+		
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("유저 " + r + "건 조회");
+				return vo;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return null;
+	}
+
+	public boolean deleteReview(int reviewNo) {
+		
+		conn();
+		String sql = "DELETE review "
+				+ "WHERE review_no=?";
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, reviewNo);
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 " + r + "건 삭제");
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return false;
 	}
 	
 }
