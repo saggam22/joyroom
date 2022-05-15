@@ -30,7 +30,9 @@ public class FrontController extends HttpServlet {
 		
 		// review 등록
 		map.put("/reviewInsert.do", new ReviewInsertControl());
-
+		
+		//api호출
+		map.put("/getApiData.do", new ApiDataInsertControl());
 
 	}
 
