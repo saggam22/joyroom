@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.review;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,8 +12,9 @@ import com.google.gson.GsonBuilder;
 
 import co.dev.service.CfnService;
 import co.dev.vo.ReviewVO;
+import co.dev.web.Controller;
 
-public class CafeListControl implements Controller {
+public class ReviewControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,7 +22,6 @@ public class CafeListControl implements Controller {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-
 		//int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
 		int cafeNo = 1;
 		
@@ -29,14 +29,14 @@ public class CafeListControl implements Controller {
 		List<ReviewVO> reviewList = service.reviewList(cafeNo);
 			
 		if (reviewList != null) {
-			
+		
 			request.setAttribute("reviewList", reviewList);
-			request.getRequestDispatcher("view/cafeListOutput.jsp").forward(request, response);
+			request.getRequestDispatcher("view/review.jsp").forward(request, response);
 			return;
 			
 		} else {
 			
-			request.getRequestDispatcher("view/cafeListOutput.jsp").forward(request, response);
+			request.getRequestDispatcher("view/review.jsp").forward(request, response);
 			return;	
 			
 		}
