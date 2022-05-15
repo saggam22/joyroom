@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.web.review.BoardContentsControl;
+import co.dev.web.review.BoardInsertControl;
+import co.dev.web.review.BoardLoadControl;
+
 @WebServlet("/FrontController")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,14 +30,16 @@ public class FrontController extends HttpServlet {
 
 		map = new HashMap<String, Controller>();
 
-		map.put("/cafeList.do", new CafeListControl());
-		
+		map.put("/cafeList.do", new CafeListControl());	
+		map.put("/board.do", new BoardLoadControl());
+		map.put("/boardWrite.do", new BoardInsertControl());
+		map.put("/boardContents.do", new BoardContentsControl());
 		// review 등록
-		map.put("/reviewInsert.do", new ReviewInsertControl());
+		//map.put("/reviewInsert.do", new ReviewInsertControl());
 
 
 	}
-
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

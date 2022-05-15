@@ -11,7 +11,7 @@
 		<h2>CaffeineD</h2><br>
     <a href="notice.do">공지사항</a><br>
     <a href="cafeList.do">카페</a><br>
-    <a href="community.do">커뮤니티</a><br>
+    <a href="board.do">커뮤니티</a><br>
     <a href="myPage.do">마이페이지</a><br>
     <a href="login.do">로그인</a><br>
 </body>
