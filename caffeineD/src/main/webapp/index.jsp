@@ -16,5 +16,6 @@
     <a href="myPage.do">마이페이지</a><br>
     <a href="myReviewList.do">내 리뷰</a><br>
     <a href="login.do">로그인</a><br>
+    <a href="getApiData.do">api호출</a><br>
 </body>
 </html>

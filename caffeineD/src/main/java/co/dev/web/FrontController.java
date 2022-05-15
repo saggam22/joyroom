@@ -35,7 +35,7 @@ public class FrontController extends HttpServlet {
 
 
 		map = new HashMap<String, Controller>();
-
+    
 		// review
 		map.put("/review.do", new ReviewControl());		
 		map.put("/reviewInsert.do", new ReviewInsertControl()); // 등록
@@ -46,6 +46,7 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewUpdate.do", new ReviewUpdateControl()); // 내 리뷰 수
 		map.put("/reviewDelete.do", new ReviewDeleteControl());	// 리뷰 삭제
 		map.put("/userProfile.do", new UserProfileControl());
+    map.put("/getApiData.do", new ApiDataInsertControl()); //api데이터 저장
 
 	}
 
