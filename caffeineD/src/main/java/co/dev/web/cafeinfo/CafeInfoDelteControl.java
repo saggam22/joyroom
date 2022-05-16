@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.dev.web.Controller;
 
-public class cafeInfoInsertControl implements Controller {
+public class CafeInfoDelteControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

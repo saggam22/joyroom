@@ -108,10 +108,10 @@ NOCACHE
 NOCYCLE;
 
 -- 카페-회원 매핑테이블(북마크 기능)
-CREATE TABLE review
+CREATE TABLE bookmark
 (
     cafe_no              NUMBER,
-    user_id          VARCHAR2(30)
+    user_id          VARCHAR2(30),
    
    FOREIGN KEY(cafe_no) REFERENCES cafe(cafe_no),
    FOREIGN KEY(user_id) REFERENCES cfn_user(user_id)

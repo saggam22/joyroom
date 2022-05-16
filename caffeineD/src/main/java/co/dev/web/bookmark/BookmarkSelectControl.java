@@ -1,4 +1,4 @@
-package co.dev.web.cafeinfo;
+package co.dev.web.bookmark;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.dev.web.Controller;
 
-public class cafeInfoDelteControl implements Controller {
+public class BookmarkSelectControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

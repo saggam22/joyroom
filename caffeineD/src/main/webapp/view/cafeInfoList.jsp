@@ -5,22 +5,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>도서 리스트.</title>
+    <title>리스트.</title>
 </head>
 
 <body>
 		<c:choose>
-		<c:when test="${empty list }"><h4>도서정보가 없습니다.</h4></c:when>
+		<c:when test="${empty list }"><h4></h4></c:when>
 		<c:otherwise>
     <table border="1">
-        <caption>도서목록</caption>
+        <caption></caption>
         <thead>
             <tr>
-                <th>도서코드</th>
-                <th>도서명</th>
-                <th>도서저자</th>
-                <th>도서출판사</th>
-                <th>도서가격</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
