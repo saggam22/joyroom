@@ -5,6 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>카페정보</title>
+<style>
+#anchor {
+	text-align: center;
+}
+
+#anchor li {
+	display: inline-block;
+	margin: 0 20px;
+}
+
+#anchor li a {
+	text-decoration: none;
+	font-weight: bold;
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 	<div class=container>
@@ -54,10 +70,40 @@
 				}
 				loadData.push(cafeObj);
 			});
+			makeBody(loadData);
 		})
 		.catch(error => console.log(error));
 	}
-
+	
+	function makeBody(ary) {
+		let body = document.getElementById('tbody');
+		let count = 1;
+		//이미 생성된 조회정보가 있으면 삭제
+		while (body.hasChildNodes()) {
+    	body.removeChild(body.firstChild);
+		}
+		ary.forEach((cafeinfo) => {
+			let tr = document.createElement('tr');
+			body.appendChild(tr);
+			let numTd = document.createElement('td');
+			numTd.innerHTML = count++;
+			tr.appendChild(numTd);
+			fields.forEach((elem) => {
+			let td = document.createElement('td');
+			//name 필드일 경우에는 링크
+			if (elem == 'name') {
+				let aTag = document.createElement('a');
+				aTag.setAttribute('href', `cafeSebuInfo.jsp?juso=\${cafeinfo.doro}&name=\${cafeinfo.name}&tel=\${cafeinfo.tel}&menu=\${cafeinfo.menu}&open=\${cafeinfo.open}`);
+				aTag.setAttribute('target', '_blank');
+				aTag.innerHTML = cafeinfo[elem];
+				td.appendChild(aTag);		
+			} else {
+				td.innerHTML = cafeinfo[elem];
+			}
+			tr.appendChild(td);	
+			});
+		});
+	}
 
 	</script>
 </body>
