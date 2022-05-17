@@ -21,6 +21,7 @@
 					<tr>
 						<th>제목</th>
 						<th>작성자</th>
+						<th>작성날짜</th>
 						<th>조회수</th>
 					</tr>
 				</thead>
@@ -28,12 +29,14 @@
 					<tr>
 						<td>${contents.title}</td>
 						<td>${contents.user}</td>
+						<td>${contents.date }</td>
 						<td>${contents.view}</td>
 					</tr>
 				</tbody>
 			</table>
-			내용<div style="height: 100px; border: 1px;">${contents.content}</div>			
-
+			<br>
+							
+				
 		</c:otherwise>
 	</c:choose>
 
@@ -59,17 +62,16 @@
 						</c:forEach>
 					</tbody>
 				</table>
-			</form>
+			</form>			
 			<div>
 				<form action="boardContents.do?no=${contents.no}" method="post">
 					<textarea style="margin-top:10px;" name="comment" placeholder="바르고 고운말을 씁시다."  rows="3" cols="38"  required></textarea><br>
-					<div style="margin-left:130px; margin-top:5px;" >
+					<div style="margin-left:130px; margin-top:5px;">
 					<input type="submit" value="댓글등록">	<a href="board.do"><button type="button">돌아가기</button></a>
 					</div>					
 				</form>
 			</div>
 		</c:otherwise>
 	</c:choose>
-
 </body>
 </html>

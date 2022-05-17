@@ -51,7 +51,7 @@
 
     <a href="review.do">카페리뷰</a><br>
 
-    <a href="myPage.do">마이페이지</a><br>
+    <a href="myPage.jsp">마이페이지</a><br>
 
     <a href="myReview.do">내 리뷰</a><br>
     

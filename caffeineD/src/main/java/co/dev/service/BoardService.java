@@ -14,8 +14,7 @@ public class BoardService {
 		return dao.listBoard();
 	}
 	
-	public BoardVO boardLoadOne(int num) {
-		// 게시판 리스트 조회
+	public BoardVO boardLoadOne(int num) {		
 		return dao.oneBoard(num);
 	}
 	
