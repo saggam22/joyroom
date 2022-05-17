@@ -10,7 +10,6 @@ public class ReviewVO {
 	private String date;
 	private String userId;
 	private String userNick;
-	private String userImg;
 	private String img;
 
 	public int getCafeNo() {
@@ -75,14 +74,6 @@ public class ReviewVO {
 
 	public void setUserNick(String userNick) {
 		this.userNick = userNick;
-	}
-
-	public String getUserImg() {
-		return userImg;
-	}
-
-	public void setUserImg(String userImg) {
-		this.userImg = userImg;
 	}
 
 	public String getImg() {
