@@ -29,7 +29,10 @@
 <div id="info">
 	<h4>information</h4>
 	<ul id="ulTag"></ul>
-	<input type="submit" value="북마크">
+	<form action="${pageContext.servletContext.contextPath }/bookmarkInsert.do" method="post">
+    <input type="hidden" name="cafeNo" value=""><br><!-- 카페 정보 받아오기 -->
+		<input type="submit" value="북마크">
+  </form>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4583766540818c898f0a4d850e5046e&libraries=services"></script>
 <script>
