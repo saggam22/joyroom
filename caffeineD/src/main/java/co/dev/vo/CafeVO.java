@@ -7,6 +7,7 @@ public class CafeVO {
 	private String address;
 	private String tel;
 	private String img;
+	private String region;
 
 	public int getNo() {
 		return no;
@@ -46,6 +47,14 @@ public class CafeVO {
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 }
