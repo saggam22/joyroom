@@ -40,6 +40,22 @@
 	color: #f5d36c;
 }
 
+
+.userProf {
+	padding:0;
+	display: inline-block;
+	width: 30px;
+    height: 30px; 
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.userProf img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 button {
 	background: rgba(0, 0, 0, 0);
 	border: none;
@@ -62,17 +78,22 @@ span {
 			<script>
 				alert("${error }")
 			</script>
+			<% request.getSession().removeAttribute("error"); %>
 		</c:when>
 		<c:otherwise>
 			<c:if test="${!empty success }">
 				<script>
 					alert("${success }")
 				</script>
+				<% request.getSession().removeAttribute("success"); %>
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-
-	<a href="#reviewInsert" class="btn_open">등록</a>
+	
+	<c:choose>	
+		<c:when test="${empty user }"></c:when>
+		<c:otherwise><a href="#reviewInsert" class="btn_open">등록</a></c:otherwise>
+	</c:choose>
 
 	<c:choose>
 		<c:when test="${empty reviewList }">리뷰가 없습니다.</c:when>
@@ -87,7 +108,7 @@ span {
 							</c:if>
 						</div>
 						<div>
-							<span class="userProf" name="${review.userId }"><img src="" width="30px"></span>${review.userNick }</div>
+							<span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/${review.userImg }"></span>${review.userNick }</div>
 						<div>
 							<span class="star"><c:choose>
 									<c:when test="${review.star eq '5' }">★★★★★</c:when>
@@ -100,8 +121,8 @@ span {
 						<div>
 							<span id="likeCount_${review.no }">${review.like }</span>
 							<button id="likeBtn_${review.no }" class="likeBtn" type="button"
-								name="">
-								<img id="heart_${review.no }" src="" width="15px">
+								name="nonUser">
+								<img id="heart_${review.no }" src="${pageContext.servletContext.contextPath }/img/eptheart.svg.png" width="15px">
 							</button>
 						</div>
 						<div>
@@ -124,7 +145,6 @@ span {
 				<form
 					action="${pageContext.servletContext.contextPath }/reviewInsert.do"
 					method="post" enctype="multipart/form-data">
-					<input type="hidden" name="user" value="wlqls12@naver.com">
 					<input type="hidden" name="cafeNo" value="1">
 					<div id="imgSection">
 						<img id="reviewImg" src="" width="300px">
