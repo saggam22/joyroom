@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -19,6 +20,9 @@ public class ReviewInsertControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		
 		String saveDir = "upload";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		int maxSize = 1024 * 1024 * 10;
@@ -28,7 +32,6 @@ public class ReviewInsertControl implements Controller {
 		
 		String cafeNo = multi.getParameter("cafeNo");
 		String star = multi.getParameter("star");
-		String userId = multi.getParameter("user");
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("img");
 				
@@ -46,19 +49,26 @@ public class ReviewInsertControl implements Controller {
 		}
 		
 		if(content.length() < 10) {
-			request.setAttribute("error", "10자 이상 입력해 주세요.");
+			request.getSession().setAttribute("error", "10자 이상 입력해 주세요.");
 			request.getRequestDispatcher("/review.do").forward(request, response);
 			return;
 		}
 				
+		
+		HttpSession session = request.getSession();
+		UserVO uvo = (UserVO) session.getAttribute("user");
+		String userId = uvo.getId();
+		String userNick = uvo.getNickname();
+		String userImg = uvo.getImg();
 
+		
 		CfnService service = new CfnService();
-		UserVO uvo = service.userSelect(userId);
 		
 		ReviewVO rvo = new ReviewVO();
 		rvo.setCafeNo(Integer.valueOf(cafeNo));
 		rvo.setUserId(userId);
-		rvo.setUserNick(uvo.getNickname());
+		rvo.setUserNick(userNick);
+		rvo.setUserImg(userImg);
 		rvo.setStar(Integer.valueOf(star));
 		rvo.setContent(content);
 		
@@ -68,8 +78,10 @@ public class ReviewInsertControl implements Controller {
 		
 		service.reviewInsert(rvo);
 		
-		request.setAttribute("success", "리뷰 등록이 완료되었습니다.");
-		request.getRequestDispatcher("/review.do").forward(request, response);
+		request.getSession().setAttribute("success", "리뷰 등록이 완료되었습니다.");
+		response.sendRedirect("review.do");
+		
+//		request.getRequestDispatcher("/review.do").forward(request, response);
 
 	}
 
