@@ -435,7 +435,7 @@ public class CfnDAO extends DAO_mac {
 		
 		conn();
 		String sql = "SELECT * FROM cfn_user "
-				+ "WHERE user_id=? AND user_pwd=?";
+				+ "WHERE user_id LIKE ? AND user_pwd LIKE ?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);

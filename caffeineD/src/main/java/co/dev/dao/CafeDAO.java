@@ -114,16 +114,15 @@ public class CafeDAO extends DAO {
 	public void insertCafe(CafeVO vo) {
 
 		conn();
-		String sql = "INSERT INTO cafe(cafe_no, cafe_name, cafe_address, cafe_tel, cafe_img, cafe_region) "
-				+ "VALUES(seq_cafe_no.NEXTVAL,?,?,?,?,?)";
+		String sql = "INSERT INTO cafe(cafe_no, cafe_name, cafe_address, cafe_tel, cafe_region) "
+				+ "VALUES(seq_cafe_no.NEXTVAL,?,?,?,?)";
 
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getName());
 			psmt.setString(2, vo.getAddress());
 			psmt.setString(3, vo.getTel());
-			psmt.setString(4, vo.getImg());
-			psmt.setString(5, vo.getImg());
+			psmt.setString(4, vo.getRegion());
 
 			int r = psmt.executeUpdate();
 			if (r > 0) {
