@@ -18,6 +18,9 @@ import co.dev.web.review.ReviewInsertControl;
 import co.dev.web.review.ReviewLikeControl;
 import co.dev.web.review.ReviewSelectControl;
 import co.dev.web.review.ReviewUpdateControl;
+import co.dev.web.user.LoginControl;
+import co.dev.web.user.LogoutControl;
+import co.dev.web.user.UserCheckControl;
 
 @WebServlet("/FrontController")
 public class FrontController extends HttpServlet {
@@ -37,6 +40,7 @@ public class FrontController extends HttpServlet {
 		// login
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
+		map.put("/userIdCheck.do", new UserCheckControl());
 
 		// review
 		map.put("/review.do", new ReviewListControl("review"));			// 리뷰 리스트

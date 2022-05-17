@@ -16,12 +16,10 @@ for (let i = 0; i < starBtns.length; i++) {
 	starBtns[i].addEventListener('click', starCallBack);
 }
 
-
-
 // 사진 미리보기
 const reader = new FileReader();
 reader.onload = (readerEvent) => {
-	document.querySelector('#reviewImg').setAttribute("src", readerEvent.target.result);
+	document.querySelector('#imgSection').setAttribute('src', readerEvent.target.result);
 };
 
 document.querySelector('#uploadImg').addEventListener('change', (changeEvent) => {
