@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.web.review.BoardContentsControl;
+import co.dev.web.review.BoardInsertControl;
+import co.dev.web.review.BoardLoadControl;
 import co.dev.web.bookmark.BookmarkDelteControl;
 import co.dev.web.bookmark.BookmarkInsertControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
@@ -42,6 +45,12 @@ public class FrontController extends HttpServlet {
 
 
 		map = new HashMap<String, Controller>();
+
+    // board
+		map.put("/cafeList.do", new CafeListControl());	
+		map.put("/board.do", new BoardLoadControl());
+		map.put("/boardWrite.do", new BoardInsertControl());
+		map.put("/boardContents.do", new BoardContentsControl());
 
 		// login
 		map.put("/login.do", new LoginControl());
@@ -80,8 +89,9 @@ public class FrontController extends HttpServlet {
 		map.put("/bookmarkInsert.do", new BookmarkInsertControl()); //북마크 추가
 		map.put("/bookmarkDelete.do", new BookmarkDelteControl()); //북마크 삭제
 		map.put("/bookmarkSelect.do", new BookmarkSelectControl()); //북마크 조회 수정
-	}
 
+	}
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
