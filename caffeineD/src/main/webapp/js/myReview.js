@@ -1,35 +1,4 @@
-//document.addEventListener('DOMContentLoaded', DOMLoadedCallBack);
-likeCheck();
-
-// 좋아요 버튼
-let likeBtns = document.querySelectorAll('.likeBtn');
-
-for (let i = 0; i < likeBtns.length; i++) {
-	likeBtns[i].addEventListener('click', likeCallBack);
-}
-
-// 삭제 팝업
-let delBtns = document.querySelectorAll('.delBtn');
-for (let i = 0; i < delBtns.length; i++) {
-	delBtns[i].addEventListener('click', function() {
-		console.log('click')
-		let result = confirm('정말로 삭제하시겠습니까?');
-		if (result) {
-			console.log("yes")
-			fetch('reviewDelete.do', {
-				method: 'post',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: `job=like&reviewNo=${this.name.substr(7)}`
-			})
-				.then(result => result.json())
-				.then(result => {
-					alert(`${result.message}`);
-					location.reload();
-				})
-				.catch(error => console.log(error));
-		}
-	});
-}
+document.addEventListener('DOMContentLoaded', DOMLoadedCallBack);
 
 // 평점
 let starBtns = document.querySelectorAll('.starBtn');
@@ -65,7 +34,7 @@ for (let i = 0; i < target.length; i++) {
 
 
 
-function likeCheck() {
+function DOMLoadedCallBack() {
 
 	// 좋아요 체크 조회
 	let reviews = document.querySelectorAll('.review');
@@ -74,7 +43,7 @@ function likeCheck() {
 		fetch('likeCheck.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `reviewNo=${reviews[i].id}`
+			body: `id=wlqls12@naver.com&reviewNo=${reviews[i].id}`
 		})
 			.then(result => result.json())
 			.then(likeResult => {
@@ -95,8 +64,39 @@ function likeCheck() {
 
 	}
 
+	// 좋아요 버튼
+	let likeBtns = document.querySelectorAll('.likeBtn');
 
-} //end of likeCheck()
+	for (let i = 0; i < likeBtns.length; i++) {
+		likeBtns[i].addEventListener('click', likeCallBack);
+	}
+	
+	// 삭제 팝업
+	let delBtns = document.querySelectorAll('.delBtn');
+	for (let i = 0; i < delBtns.length; i++) {
+		delBtns[i].addEventListener('click', function() {
+			console.log('click')
+			let result = confirm('정말로 삭제하시겠습니까?');
+			if(result) {
+				console.log("yes")
+				fetch('reviewDelete.do', {
+					method: 'post',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					body: `job=like&id=wlqls12@naver.com&reviewNo=${this.name.substr(7)}`
+				})
+					.then(result => result.json())
+					.then(result => {
+						alert(`${result.message}`);
+						location.reload();
+					})
+					.catch(error => console.log(error));
+			}
+		});
+	}
+
+
+
+} //end of DOMLoadedCallBack()
 
 
 //좋아요 버튼 콜백
@@ -117,9 +117,9 @@ function likeCallBack() {
 		fetch('reviewLike.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `job=like&reviewNo=${reviewNo}`
+			body: `job=like&id=wlqls12@naver.com&reviewNo=${reviewNo}`
 		})
-			.then(() => {
+			.then(like => {
 				likeCount.innerHTML = String(Number(likeCount.innerHTML) + 1);
 			})
 			.catch(error => console.log(error));
@@ -136,9 +136,9 @@ function likeCallBack() {
 		fetch('reviewLike.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `job=unlike&reviewNo=${reviewNo}`
+			body: `job=unlike&id=wlqls12@naver.com&reviewNo=${reviewNo}`
 		})
-			.then(() => {
+			.then(like => {
 				likeCount.innerHTML = String(Number(likeCount.innerHTML) - 1);
 			})
 			.catch(error => console.log(error));
@@ -152,13 +152,13 @@ function starCallBack() {
 	let starBtns = document.querySelectorAll('.starBtn');
 
 	for (let i = 0; i < 5; i++) {
-		let starImg = starBtns[i].childNodes[1];
+		let starImg = starBtns[i].childNodes[0];
 		starImg.setAttribute('src', getPathRootJump() + '/img/eptstar.svg.png');
 	}
 
 	for (let i = 0; i < Number(this.name); i++) {
 
-		let starImg = starBtns[i].childNodes[1];
+		let starImg = starBtns[i].childNodes[0];
 		starImg.setAttribute('src', getPathRootJump() + '/img/star.svg.png');
 	}
 
@@ -173,43 +173,43 @@ function openPopCallBack() {
 	targetID = this.getAttribute('href');
 	let popDiv = document.querySelector(targetID);
 	popDiv.style.display = 'block';
-
+	
 	fetch('reviewSelect.do', {
-		method: 'post',
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: `reviewNo=${this.parentNode.id}`
-	})
-		.then(result => result.json())
-		.then(review => {
-
-			// 이미지	불러오기
-			let imgSection = document.getElementById('imgSection');
-			let img = document.createElement('img');
-			img.setAttribute('id', 'reviewImg');
-			img.setAttribute('width', '300px');
-
-			if (review.img != null) {
-				img.setAttribute('src', getPathRootJump() + `/upload/${review.img}`);
-			}
-
-			imgSection.appendChild(img);
-
-			// 평점 불러오기
-			let starBtns = document.querySelectorAll('.starBtn');
-			for (let i = 0; i < Number(review.star); i++) {
-				let starImg = starBtns[i].childNodes[1];
-				starImg.setAttribute('src', getPathRootJump() + '/img/star.svg.png');
-			}
-			document.querySelector('#updateStar .starVal').value = review.star;
-
-			// 리뷰 내용, 리뷰 넘버 불러오기
-			let content = review.content;
-
-			document.querySelector('#reviewUpdate textarea').value = content;
-			document.querySelector('#reviewNo').value = review.no;
-
+			method: 'post',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: `id=wlqls12@naver.com&reviewNo=${this.parentNode.id}`
 		})
-		.catch(error => console.log(error));
+			.then(result => result.json())
+			.then(review => {
+
+				// 이미지	불러오기
+				let imgSection = document.getElementById('imgSection');
+				let img = document.createElement('img');
+				img.setAttribute('id', 'reviewImg');
+				img.setAttribute('width', '300px');
+
+				if (review.img != null) {
+					img.setAttribute('src', getPathRootJump() + `/upload/${review.img}`);
+				}
+
+				imgSection.appendChild(img);
+
+				// 평점 불러오기
+				let starBtns = document.querySelectorAll('.starBtn');
+				for (let i = 0; i < Number(review.star); i++) {
+					let starImg = starBtns[i].childNodes[0];
+					starImg.setAttribute('src', getPathRootJump() + '/img/star.svg.png');
+				}
+				document.querySelector('#updateStar .starVal').value = review.star;
+
+				// 리뷰 내용, 리뷰 넘버 불러오기
+				let content = review.content;
+
+				document.querySelector('#reviewUpdate textarea').value = content;
+				document.querySelector('#reviewNo').value = review.no;
+
+			})
+			.catch(error => console.log(error));
 
 }
 
@@ -220,12 +220,12 @@ function closePopCallBack() {
 
 	let starBtns = document.querySelectorAll('.starBtn');
 	for (let i = 0; i < 5; i++) {
-		let starImg = starBtns[i].childNodes[1];
+		let starImg = starBtns[i].childNodes[0];
 		starImg.setAttribute('src', getPathRootJump() + '/img/eptstar.svg.png');
 	}
 
 	document.querySelector('#reviewUpdate textarea').value = '';
-
+	
 	let reviewImg = document.querySelector('#reviewImg');
 	if (reviewImg.src != null) {
 		reviewImg.src = '';

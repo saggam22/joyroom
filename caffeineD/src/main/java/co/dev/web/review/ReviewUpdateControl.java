@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -29,6 +28,7 @@ public class ReviewUpdateControl implements Controller {
 		
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
 		
+		String userId = "wlqls12@naver.com";
 		String no = multi.getParameter("reviewNo");
 		String star = multi.getParameter("star");
 		String content = multi.getParameter("content");
@@ -60,10 +60,9 @@ public class ReviewUpdateControl implements Controller {
 
 		service.reviewUpdate(vo);
 		
-		request.getSession().setAttribute("success", "리뷰 수정이 완료되었습니다.");
-		response.sendRedirect("myReview.do");
+		request.setAttribute("success", "리뷰 수정이 완료되었습니다.");
 		
-//		request.getRequestDispatcher("/myReview.do").forward(request, response);
+		request.getRequestDispatcher("/myReviewList.do").forward(request, response);
 		
 
 	}

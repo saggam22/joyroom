@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.dev.web.review.LikeCheckControl;
-import co.dev.web.review.ReviewListControl;
+import co.dev.web.review.MyReviewListControl;
+import co.dev.web.review.ReviewControl;
 import co.dev.web.review.ReviewDeleteControl;
 import co.dev.web.review.ReviewInsertControl;
 import co.dev.web.review.ReviewLikeControl;
 import co.dev.web.review.ReviewSelectControl;
 import co.dev.web.review.ReviewUpdateControl;
+import co.dev.web.review.UserProfileControl;
 
 @WebServlet("/FrontController")
 public class FrontController extends HttpServlet {
@@ -33,21 +35,17 @@ public class FrontController extends HttpServlet {
 
 
 		map = new HashMap<String, Controller>();
-
-		// login
-		map.put("/login.do", new LoginControl());
-		map.put("/logout.do", new LogoutControl());
-
+    
 		// review
-		map.put("/review.do", new ReviewListControl("review"));			// 리뷰 리스트
-		map.put("/myReview.do", new ReviewListControl("myReview"));		// 내 리뷰 리스트
-		map.put("/reviewSelect.do", new ReviewSelectControl()); 		// 수정할 리뷰 조회
-		map.put("/reviewInsert.do", new ReviewInsertControl()); 		// 리뷰 등록
-		map.put("/reviewUpdate.do", new ReviewUpdateControl()); 		// 리뷰 수정
-		map.put("/reviewDelete.do", new ReviewDeleteControl());			// 리뷰 삭제
-		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
-		map.put("/likeCheck.do", new LikeCheckControl());				// 좋아요 조회
-
+		map.put("/review.do", new ReviewControl());		
+		map.put("/reviewInsert.do", new ReviewInsertControl()); // 등록
+		map.put("/reviewLike.do", new ReviewLikeControl());		// 리뷰 좋아요
+		map.put("/likeCheck.do", new LikeCheckControl());		// 리뷰 좋아요 여부 체크
+		map.put("/myReviewList.do", new MyReviewListControl());	// 내 리뷰 조회
+		map.put("/reviewSelect.do", new ReviewSelectControl()); // 수정할 리뷰 조회
+		map.put("/reviewUpdate.do", new ReviewUpdateControl()); // 내 리뷰 수
+		map.put("/reviewDelete.do", new ReviewDeleteControl());	// 리뷰 삭제
+		map.put("/userProfile.do", new UserProfileControl());
     map.put("/getApiData.do", new ApiDataInsertControl()); //api데이터 저장
 
 	}

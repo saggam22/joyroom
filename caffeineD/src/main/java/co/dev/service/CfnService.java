@@ -70,10 +70,5 @@ public class CfnService {
 		return dao.selectUser(userId);
 	}
 
-	// 로그인 유저 조회
-	public boolean userLogin(String userId, String userPwd) {
-		return dao.userForLogin(userId, userPwd);
-	}
-
 
 }

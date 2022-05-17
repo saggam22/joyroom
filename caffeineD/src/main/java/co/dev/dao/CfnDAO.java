@@ -36,7 +36,6 @@ public class CfnDAO extends DAO_mac {
 				vo.setStar(rs.getInt("review_star"));
 				vo.setUserId(rs.getString("review_userid"));
 				vo.setUserNick(rs.getString("review_usernick"));
-				vo.setUserImg(rs.getString("review_userimg"));
 				
 				list.add(vo);
 			}
@@ -55,105 +54,15 @@ public class CfnDAO extends DAO_mac {
 		}
 		return null;
 	}
-	
-	// 내 리뷰 리스트
-	public List<ReviewVO> myReviewSelect(String userId) {
-			
-		conn();
-		String sql = "SELECT * FROM review WHERE review_userid = ?";
-		
-		List<ReviewVO> list = new ArrayList<>();
-			
-		try {
-				
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, userId);
-			rs = psmt.executeQuery();
-			
-			while (rs.next()) {
-					
-				ReviewVO vo = new ReviewVO();
-					
-				vo.setCafeNo(rs.getInt("cafe_no"));
-				vo.setNo(rs.getInt("review_no"));
-				vo.setContent(rs.getString("review_content"));
-				vo.setDate(rs.getString("review_date").substring(0, 10));
-				vo.setImg(rs.getString("review_img"));
-				vo.setLike(rs.getInt("review_like"));
-				vo.setStar(rs.getInt("review_star"));
-				vo.setUserId(rs.getString("review_userid"));
-				vo.setUserNick(rs.getString("review_usernick"));
-				vo.setUserImg(rs.getString("review_userimg"));
-					
-				list.add(vo);
-			}
-				
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("리뷰 " + r + "건 조회");
-			}
-				
-			return list;
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-		return null;
-	}
-	
-	// 수정할 리뷰 1건 조회
-	public ReviewVO selectReview(int reviewNo) {
-		
-		conn();
-		String sql = "SELECT * FROM review WHERE review_no = ?";
-			
-		ReviewVO vo = new ReviewVO();
-			
-		try {
-				
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, reviewNo);
-			rs = psmt.executeQuery();
-			
-			while (rs.next()) {
-				vo.setCafeNo(rs.getInt("cafe_no"));
-				vo.setNo(rs.getInt("review_no"));
-				vo.setContent(rs.getString("review_content"));
-				vo.setDate(rs.getString("review_date").substring(0, 10));
-				vo.setImg(rs.getString("review_img"));
-				vo.setLike(rs.getInt("review_like"));
-				vo.setStar(rs.getInt("review_star"));
-				vo.setUserId(rs.getString("review_userid"));
-				vo.setUserNick(rs.getString("review_usernick"));
-
-			}
-				
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("리뷰 " + r + "건 조회");
-			}
-				
-			return vo;
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-		return null;
-			
-	}	
 	
 	// 리뷰 등록
 	public void insertReview(ReviewVO vo) {
 
 		conn();
 		String sql = "INSERT INTO review "
-				+ "VALUES(?,review_seq.NEXTVAL,?,?,?,SYSDATE,0,?,?,?)";
-		String noImgSql = "INSERT INTO review(cafe_no, review_no, review_userid, review_usernick, review_userimg, review_date, review_like, review_star, review_content) " 
-				+ "VALUES(?,review_seq.NEXTVAL,?,?,?,SYSDATE,0,?,?)";
+				+ "VALUES(?,review_seq.NEXTVAL,?,?,SYSDATE,0,?,?,?)";
+		String noImgSql = "INSERT INTO review(cafe_no, review_no, review_userid, review_usernick, review_date, review_like, review_star, review_content) " 
+				+ "VALUES(?,review_seq.NEXTVAL,?,?,SYSDATE,0,?,?)";
 		
 		try {
 			
@@ -162,18 +71,16 @@ public class CfnDAO extends DAO_mac {
 				psmt.setInt(1, vo.getCafeNo());
 				psmt.setString(2, vo.getUserId());
 				psmt.setString(3, vo.getUserNick());
-				psmt.setString(4, vo.getUserImg());
-				psmt.setInt(5, vo.getStar());
-				psmt.setString(6, vo.getContent());
-				psmt.setString(7, vo.getImg());
+				psmt.setInt(4, vo.getStar());
+				psmt.setString(5, vo.getContent());
+				psmt.setString(6, vo.getImg());
 			} else {
 				psmt = conn.prepareStatement(noImgSql);
 				psmt.setInt(1, vo.getCafeNo());
 				psmt.setString(2, vo.getUserId());
 				psmt.setString(3, vo.getUserNick());
-				psmt.setString(4, vo.getUserImg());
-				psmt.setInt(5, vo.getStar());
-				psmt.setString(6, vo.getContent());
+				psmt.setInt(4, vo.getStar());
+				psmt.setString(5, vo.getContent());
 			}
 			
 			int r = psmt.executeUpdate();
@@ -187,77 +94,6 @@ public class CfnDAO extends DAO_mac {
 			disconn();
 		}
 		
-	}
-	
-	
-	// 리뷰 수정
-	public void updateReview(ReviewVO vo) {
-			
-		conn();
-		String sql = "UPDATE review "
-				+ "SET review_star=?, review_content=?, review_img=?"
-				+ "WHERE review_no=?";
-		String imgSql = "UPDATE review "
-				+ "SET review_star=?, review_content=?"
-				+ "WHERE review_no=?";
-			
-		try {
-				
-			if(vo.getImg() != null) {
-					
-				psmt = conn.prepareStatement(sql);
-				psmt.setInt(1, vo.getStar());
-				psmt.setString(2, vo.getContent());
-				psmt.setString(3, vo.getImg());
-				psmt.setInt(4, vo.getNo());
-
-			} else {
-					
-				psmt = conn.prepareStatement(imgSql);
-				psmt.setInt(1, vo.getStar());
-				psmt.setString(2, vo.getContent());
-				psmt.setInt(3, vo.getNo());
-					
-			}
-				
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("리뷰 " + r + "건 수정");
-			}
-				
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-
-	}
-	
-	// 리뷰 삭제
-	public boolean deleteReview(int reviewNo) {
-		
-		conn();
-		String sql = "DELETE review "
-				+ "WHERE review_no=?";
-		
-		try {
-			
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, reviewNo);
-			
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("리뷰 " + r + "건 삭제");
-				return true;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-		return false;
 	}
 	
 	// 리뷰 좋아요 수 +1
@@ -393,6 +229,141 @@ public class CfnDAO extends DAO_mac {
 		return false;
 	}
 	
+	// 수정할 리뷰 1건 조회
+	public ReviewVO selectReview(int reviewNo) {
+		
+		conn();
+		String sql = "SELECT * FROM review WHERE review_no = ?";
+		
+		ReviewVO vo = new ReviewVO();
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, reviewNo);
+			rs = psmt.executeQuery();
+		
+			while (rs.next()) {
+				vo.setCafeNo(rs.getInt("cafe_no"));
+				vo.setNo(rs.getInt("review_no"));
+				vo.setContent(rs.getString("review_content"));
+				vo.setDate(rs.getString("review_date").substring(0, 10));
+				vo.setImg(rs.getString("review_img"));
+				vo.setLike(rs.getInt("review_like"));
+				vo.setStar(rs.getInt("review_star"));
+				vo.setUserId(rs.getString("review_userid"));
+				vo.setUserNick(rs.getString("review_usernick"));
+
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 " + r + "건 조회");
+			}
+			
+			return vo;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return null;
+		
+		
+	}
+
+	// 내 리뷰 조희
+	public List<ReviewVO> myReviewSelect(String userId) {
+		
+		conn();
+		String sql = "SELECT * FROM review WHERE review_userid = ?";
+		
+		List<ReviewVO> list = new ArrayList<>();
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+			rs = psmt.executeQuery();
+		
+			while (rs.next()) {
+				
+				ReviewVO vo = new ReviewVO();
+				
+				vo.setCafeNo(rs.getInt("cafe_no"));
+				vo.setNo(rs.getInt("review_no"));
+				vo.setContent(rs.getString("review_content"));
+				vo.setDate(rs.getString("review_date").substring(0, 10));
+				vo.setImg(rs.getString("review_img"));
+				vo.setLike(rs.getInt("review_like"));
+				vo.setStar(rs.getInt("review_star"));
+				vo.setUserId(rs.getString("review_userid"));
+				vo.setUserNick(rs.getString("review_usernick"));
+				
+				list.add(vo);
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 " + r + "건 조회");
+			}
+			
+			return list;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return null;
+	}
+
+	// 리뷰 수정
+	public void updateReview(ReviewVO vo) {
+		
+		conn();
+		String sql = "UPDATE review "
+				+ "SET review_star=?, review_content=?, review_img=?"
+				+ "WHERE review_no=?";
+		String imgSql = "UPDATE review "
+				+ "SET review_star=?, review_content=?"
+				+ "WHERE review_no=?";
+
+		
+		try {
+			
+			if(vo.getImg() != null) {
+				
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, vo.getStar());
+				psmt.setString(2, vo.getContent());
+				psmt.setString(3, vo.getImg());
+				psmt.setInt(4, vo.getNo());
+
+			} else {
+				
+				psmt = conn.prepareStatement(imgSql);
+				psmt.setInt(1, vo.getStar());
+				psmt.setString(2, vo.getContent());
+				psmt.setInt(3, vo.getNo());
+				
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 " + r + "건 수정");
+			}
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+
+	}
+	
 	// 유저 조회
 	public UserVO selectUser(String userId) {
 		
@@ -408,6 +379,7 @@ public class CfnDAO extends DAO_mac {
 			rs = psmt.executeQuery();
 			
 			if (rs.next()) {
+				vo.setGrade(rs.getString("user_grade"));
 				vo.setId(rs.getString("user_id"));
 				vo.setImg(rs.getString("user_img"));
 				vo.setNickname(rs.getString("user_nick"));
@@ -429,34 +401,30 @@ public class CfnDAO extends DAO_mac {
 
 		return null;
 	}
-	
-	// 로그인 정보 조회
-	public boolean userForLogin(String userId, String userPwd) {
+
+	public boolean deleteReview(int reviewNo) {
 		
 		conn();
-		String sql = "SELECT * FROM cfn_user "
-				+ "WHERE user_id=? AND user_pwd=?";
+		String sql = "DELETE review "
+				+ "WHERE review_no=?";
 		
 		try {
+			
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, userId);
-			psmt.setString(2, userPwd);
-
+			psmt.setInt(1, reviewNo);
+			
 			int r = psmt.executeUpdate();
 			if (r>0) {
-				System.out.println("로그인 유저 " + r + "건 조회");
+				System.out.println("리뷰 " + r + "건 삭제");
 				return true;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}  finally {
+		} finally {
 			disconn();
 		}
-
 		return false;
 	}
-	
-	
 	
 }

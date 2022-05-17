@@ -39,21 +39,6 @@
 	color: #f5d36c;
 }
 
-.userProf {
-	padding:0;
-	display: inline-block;
-	width: 30px;
-    height: 30px; 
-    border-radius: 70%;
-    overflow: hidden;
-}
-
-.userProf img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 button {
 	background: rgba(0, 0, 0, 0);
 	border: none;
@@ -78,14 +63,12 @@ span {
 			<script>
 				alert("${error }")
 			</script>
-			<% request.getSession().removeAttribute("error"); %>
 		</c:when>
 		<c:otherwise>
 			<c:if test="${!empty success }">
 				<script>
 					alert("${success }")
 				</script>
-				<% request.getSession().removeAttribute("success"); %>
 			</c:if>
 		</c:otherwise>
 	</c:choose>
@@ -103,7 +86,7 @@ span {
 							</c:if>
 						</div>
 						<div>
-							<span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/${review.userImg }"></span>${review.userNick }</div>
+							<span class="userProf"><img src="" width="30px"></span>${review.userNick }</div>
 						<div>
 							<span>${review.date }</span> <span class="star"><c:choose>
 									<c:when test="${review.star eq '5' }">★★★★★</c:when>
@@ -138,6 +121,7 @@ span {
 				<form
 					action="${pageContext.servletContext.contextPath }/reviewUpdate.do"
 					method="post" enctype="multipart/form-data">
+					<input type="hidden" name="user" value="wlqls12@naver.com">
 					<input id="reviewNo" type="hidden" name="reviewNo" value="">
 					<div id="imgSection"></div>
 					<div>
