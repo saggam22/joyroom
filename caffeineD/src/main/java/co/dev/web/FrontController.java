@@ -33,7 +33,7 @@ public class FrontController extends HttpServlet {
 
 
 		map = new HashMap<String, Controller>();
-		
+
 		// login
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
@@ -47,6 +47,8 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewDelete.do", new ReviewDeleteControl());			// 리뷰 삭제
 		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
 		map.put("/likeCheck.do", new LikeCheckControl());				// 좋아요 조회
+
+    map.put("/getApiData.do", new ApiDataInsertControl()); //api데이터 저장
 
 	}
 
