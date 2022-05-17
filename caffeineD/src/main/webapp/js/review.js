@@ -1,7 +1,6 @@
 
 //document.addEventListener('DOMContentLoaded', DOMLoadedCallBack);
-//likeCheck();
-userProfile();
+likeCheck();
 
 // 좋아요
 let likeBtns = document.querySelectorAll('.likeBtn');
@@ -75,7 +74,7 @@ function likeCheck() {
 		fetch('likeCheck.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `id=wlqls12@naver.com&reviewNo=${reviews[i].id}`
+			body: `reviewNo=${reviews[i].id}`
 		})
 			.then(result => result.json())
 			.then(likeResult => {
@@ -98,28 +97,6 @@ function likeCheck() {
 
 } //end of DOMLoadedCallBack()
 
-function userProfile() {
-	
-	let users = document.querySelectorAll('.userProf');
-
-	for (let i = 0; i < users.length; i++) {
-
-		fetch('userProfile.do', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `id=${users[i].getAttribute("name")}`
-		})
-			.then(result => result.json())
-			.then(imgResult => {
-				console.log(imgResult.profImg);
-
-			})
-			.catch(error => console.log(error));
-	}
-	
-}
-
-
 // 좋아요 버튼 콜백
 function likeCallBack() {
 
@@ -139,9 +116,9 @@ function likeCallBack() {
 		fetch('reviewLike.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `job=like&id=wlqls12@naver.com&reviewNo=${reviewNo}`
+			body: `job=like&reviewNo=${reviewNo}`
 		})
-			.then(like => {
+			.then(() => {
 				likeCount.innerHTML = String(Number(likeCount.innerHTML) + 1);
 			})
 			.catch(error => console.log(error));
@@ -157,12 +134,14 @@ function likeCallBack() {
 		fetch('reviewLike.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `job=unlike&id=wlqls12@naver.com&reviewNo=${reviewNo}`
+			body: `job=unlike&reviewNo=${reviewNo}`
 		})
-			.then(like => {
+			.then(() => {
 				likeCount.innerHTML = String(Number(likeCount.innerHTML) - 1);
 			})
 			.catch(error => console.log(error));
+	} else if (this.name === 'nonUser') {
+		alert('회원가입이 필요합니다.')
 	}
 
 

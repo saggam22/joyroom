@@ -5,8 +5,10 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.dev.service.CfnService;
+import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
 public class LikeCheckControl implements Controller {
@@ -17,12 +19,18 @@ public class LikeCheckControl implements Controller {
 		
 		response.setContentType("text/json;charset=utf-8");
 		
-		//String id = request.getParameter("id");
-		String user = "wlqls12@naver.com";
+		HttpSession session = request.getSession();
+		UserVO vo = (UserVO) session.getAttribute("user");
+		
+		if(vo == null) {
+			return;
+		}
+		
+		String userId = vo.getId();
 		int reviewNo = Integer.valueOf(request.getParameter("reviewNo"));
 				
 		CfnService service = new CfnService();
-		boolean likeCheck = service.likeInfoSelect(user, reviewNo);
+		boolean likeCheck = service.likeInfoSelect(userId, reviewNo);
 		
 		if (likeCheck) {
 			response.getWriter().print("{\"likeCheck\" : \"true\"}");
