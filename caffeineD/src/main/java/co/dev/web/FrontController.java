@@ -46,7 +46,7 @@ public class FrontController extends HttpServlet {
 		// login
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
-    map.put("/userInsert.do", new UserInsertControl()); //유저 회원가입
+		map.put("/userInsert.do", new UserInsertControl()); //유저 회원가입
 
 		// review	
 		map.put("/reviewInsert.do", new ReviewInsertControl()); // 등록
@@ -64,9 +64,7 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
 		map.put("/likeCheck.do", new LikeCheckControl());	
 		
-    // cafe
-		map.put("/getApiData.do", new ApiDataInsertControl()); //api데이터 저장
-		
+    // cafe	
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회
 		map.put("/cafeInfoInsert.do", new CafeInfoInsertControl()); //카페 정보 추가
 		map.put("/cafeInfoDelete.do", new CafeInfoDelteControl()); //카페 정보 삭제

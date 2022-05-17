@@ -4,10 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.dev.service.CafeService;
 import co.dev.vo.CafeVO;
-import co.dev.vo.UserVO;
 
-public class CafeDAO extends DAO {
+public class CafeDAO extends DAO implements CafeService {
 
 	// 카페 리스트 전체 조회
 	public List<CafeVO> cafeList() {
@@ -31,8 +31,6 @@ public class CafeDAO extends DAO {
 				vo.setImg(rs.getString("cafe_img"));
 				vo.setRegion(rs.getString("cafe_region"));
 				list.add(vo);
-
-				return list;
 			}
 
 		} catch (SQLException e) {
@@ -40,7 +38,7 @@ public class CafeDAO extends DAO {
 		} finally {
 			disconn();
 		}
-		return null;
+		return list;
 	}
 
 	// 지역별 카페 리스트 조회
@@ -53,6 +51,7 @@ public class CafeDAO extends DAO {
 
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, region);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 
@@ -66,7 +65,6 @@ public class CafeDAO extends DAO {
 				vo.setRegion(rs.getString("cafe_region"));
 				list.add(vo);
 
-				return list;
 			}
 
 		} catch (SQLException e) {
@@ -74,7 +72,7 @@ public class CafeDAO extends DAO {
 		} finally {
 			disconn();
 		}
-		return null;
+		return list;
 	}
 
 	// 카페 1건 조회
@@ -82,15 +80,17 @@ public class CafeDAO extends DAO {
 
 		conn();
 		String sql = "SELECT * FROM cafe WHERE cafe_no=?";
-
+		CafeVO vo = null;
+		
 		try {
 
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, cafeNo);
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
 
-			while (rs.next()) {
-
-				CafeVO vo = new CafeVO();
+				vo = new CafeVO();
 
 				vo.setNo(rs.getInt("cafe_no"));
 				vo.setName(rs.getString("cafe_name"));
@@ -99,7 +99,6 @@ public class CafeDAO extends DAO {
 				vo.setImg(rs.getString("cafe_img"));
 				vo.setRegion(rs.getString("cafe_region"));
 				
-				return vo;
 			}
 			
 		} catch (SQLException e) {
@@ -107,7 +106,7 @@ public class CafeDAO extends DAO {
 		} finally {
 			disconn();
 		}
-		return null;
+		return vo;
 	}
 
 	// 카페 등록

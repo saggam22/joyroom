@@ -1,4 +1,4 @@
-package co.dev.web.cafeinfo;
+package co.dev.api;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -16,7 +16,7 @@ import co.dev.vo.CafeVO;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class addAPIData {
+public class apiDataSusung {
 	public static void main(String[] args) throws IOException {
 
 		StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15038007/v1/uddi:9e4ee99e-33f1-47c0-95c5-fcbdc7d5a83d"); /* URL */
