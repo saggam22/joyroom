@@ -43,7 +43,8 @@
 	
 	let fields = ['name'];
 	
-	function load1() {
+	function load(path => {
+		
 		let loadData = [];
 		fetch(`${pageContext.servletContext.contextPath }/cafeList.do`, {
 			 method: 'post',
@@ -60,7 +61,7 @@
 		 			makeBody(loadData);
 		 		})
 		 		.catch(error => console.log(error));
-		}
+	})
 	load1();
 	function load2() {
 		let loadData = [];
