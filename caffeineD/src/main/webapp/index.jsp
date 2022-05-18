@@ -46,11 +46,14 @@
 	
     <a href="notice.do">공지사항</a><br>
     <a href="cafeList.do">카페</a><br>
+
+    <a href="board.do">커뮤니티</a><br>
+
     <a href="review.do">카페리뷰</a><br>
-    <a href="community.do">커뮤니티</a><br>
+
     <a href="myPage.do">마이페이지</a><br>
+
     <a href="myReview.do">내 리뷰</a><br>
-    <a href="view/userInsert.jsp">회원가입</a><br>
     
 	<c:choose>
    		<c:when test="${empty user }"></c:when>
@@ -61,6 +64,7 @@
    		<c:otherwise><a href="logout.do">로그아웃</a></c:otherwise>
     </c:choose>
     
+    <a href="getApiData.do">api호출</a><br>
 
 </body>
 </html>

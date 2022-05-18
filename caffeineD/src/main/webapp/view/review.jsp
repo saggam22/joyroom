@@ -40,20 +40,19 @@
 	color: #f5d36c;
 }
 
-
 .userProf {
-	padding:0;
+	padding: 0;
 	display: inline-block;
 	width: 30px;
-    height: 30px; 
-    border-radius: 70%;
-    overflow: hidden;
+	height: 30px;
+	border-radius: 70%;
+	overflow: hidden;
 }
 
 .userProf img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 button {
@@ -71,6 +70,18 @@ button {
 span {
 	padding-left: 5px;
 }
+
+    #imgSection {
+      width: 400px;
+      min-height: 30px;
+      padding: 10px;
+    }
+
+    #imgSection:empty:before {
+      content: attr(data-placeholder);
+      color: #999;
+      font-size: .9em;
+    }
 </style>
 <body>
 	<c:choose>
@@ -78,21 +89,27 @@ span {
 			<script>
 				alert("${error }")
 			</script>
-			<% request.getSession().removeAttribute("error"); %>
+			<%
+			request.getSession().removeAttribute("error");
+			%>
 		</c:when>
 		<c:otherwise>
 			<c:if test="${!empty success }">
 				<script>
 					alert("${success }")
 				</script>
-				<% request.getSession().removeAttribute("success"); %>
+				<%
+				request.getSession().removeAttribute("success");
+				%>
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-	
-	<c:choose>	
+
+	<c:choose>
 		<c:when test="${empty user }"></c:when>
-		<c:otherwise><a href="#reviewInsert" class="btn_open">등록</a></c:otherwise>
+		<c:otherwise>
+			<a href="#reviewInsert" class="btn_open">등록</a>
+		</c:otherwise>
 	</c:choose>
 
 	<c:choose>
@@ -108,7 +125,8 @@ span {
 							</c:if>
 						</div>
 						<div>
-							<span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/${review.userImg }"></span>${review.userNick }</div>
+							<span class="userProf"><img
+								src="${pageContext.servletContext.contextPath }/img/${review.userImg }"></span>${review.userNick }</div>
 						<div>
 							<span class="star"><c:choose>
 									<c:when test="${review.star eq '5' }">★★★★★</c:when>
@@ -122,7 +140,9 @@ span {
 							<span id="likeCount_${review.no }">${review.like }</span>
 							<button id="likeBtn_${review.no }" class="likeBtn" type="button"
 								name="nonUser">
-								<img id="heart_${review.no }" src="${pageContext.servletContext.contextPath }/img/eptheart.svg.png" width="15px">
+								<img id="heart_${review.no }"
+									src="${pageContext.servletContext.contextPath }/img/eptheart.svg.png"
+									width="15px">
 							</button>
 						</div>
 						<div>
@@ -146,16 +166,16 @@ span {
 					action="${pageContext.servletContext.contextPath }/reviewInsert.do"
 					method="post" enctype="multipart/form-data">
 					<input type="hidden" name="cafeNo" value="1">
-					<div id="imgSection">
-						<img id="reviewImg" src="" width="300px">
-					</div>
-					<div>
-						<input type="hidden" id="filePath" disabled="disabled"
-							value="리뷰 사진"> <label for="uploadImg"
-							style="border: none; font-size: 10pt;">사진 첨부하기</label> <input
-							id="uploadImg" type="file" name="img"
+					<div><img id="imgSection" src="" width="200px"></div>
+		 				<input type="hidden" id="filePath" disabled="disabled"> 
+						<label for="uploadImg" style="border: none; font-size: 10pt;">사진 올리기</label> 
+						<input id="uploadImg" type="file"
 							accept="image/jpg, image/png, image/jpeg"
 							style="position: absolute; clip: rect(0, 0, 0, 0);">
+						<!--<input type='file' id='reviewImg' multiple='multiple />' -->
+
+					<div>
+						
 					</div>
 					<div id="insertStar">
 						<input class="starVal" type="hidden" name="star" value="">
