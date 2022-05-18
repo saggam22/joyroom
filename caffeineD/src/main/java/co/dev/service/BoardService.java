@@ -8,7 +8,11 @@ import co.dev.vo.BoardVO;
 public class BoardService {
 
 	boardDAO dao = new boardDAO();
-
+	
+	public void boardDelete(String user) {
+		dao.deleteMember(user);
+	}
+	
 	public List<BoardVO> boardLoad() {
 		// 게시판 리스트 조회
 		return dao.listBoard();
