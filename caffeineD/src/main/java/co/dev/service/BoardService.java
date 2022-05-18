@@ -27,8 +27,7 @@ public class BoardService {
 	}
 
 	public void boardInsert(BoardVO board) {
-		int lastIx = dao.findIndex();
-		dao.insertBoard(board, lastIx);
+		dao.insertBoard(board);
 	}
 	
 }

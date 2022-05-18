@@ -10,9 +10,9 @@ import co.dev.vo.BoardVO;
 import java.time.LocalDateTime;
 
 public class boardDAO extends DAO {
-	
+
 	// 게시글 삭제
-		public void deleteMember(String user) {
+	public void deleteMember(String user) {
 		conn();
 		String sql = "delete from board where board_user=?";
 		try {
@@ -25,7 +25,7 @@ public class boardDAO extends DAO {
 			disconn();
 		}
 	}
-	
+
 	// 게시판 조회
 	public List<BoardVO> listBoard() {
 		conn();
@@ -98,34 +98,27 @@ public class boardDAO extends DAO {
 	}
 
 	// 글쓰기
-	public void insertBoard(BoardVO board, int lastIx) {
+	public void insertBoard(BoardVO board) {
 		conn();
+		String sql = "insert into board values(seq_board.nextval,?, ?, ?, sysdate,\r\n"
+				+ "?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, board.getTitle());
+			psmt.setString(2, board.getUser()); // board.getUser()
+			psmt.setString(3, board.getContent());
+			psmt.setString(4, "111"); // board.getImg()
+			psmt.setInt(5, 0);
 
-		String sql = "insert into board (board_no, board_title, board_user, board_content, board_date, board_img, board_view) values(?,?,?,?,sysdate,'111',0)";
-
-		if (lastIx != 1)  // 커뮤니티 첫번째글이 아니면 마지막놈뒤에 새로운글 생김
-			lastIx++;
-
-			try {
-				psmt = conn.prepareStatement(sql);
-				psmt.setInt(1, lastIx);
-				psmt.setString(2, board.getTitle());
-				psmt.setString(3, "비회원"); // board.getUser()
-				psmt.setString(4, board.getContent());
-				// psmt.setString(5, "sysdata"); // date.toString()
-				// psmt.setString(6, "111"); // board.getImg()
-				// psmt.setInt(7, 0);
-
-				int r = psmt.executeUpdate();
-				System.out.println(r + "건 입력됨.");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				disconn();
-			}
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력됨.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
 		}
-	
-	
+	}
+
 	// 게시글 마지막번호 찾기
 	public int findIndex() {
 		conn();
@@ -147,7 +140,6 @@ public class boardDAO extends DAO {
 
 		return lastIx;
 	}
-	
 
 	// 게시글 번호 부여 메소드
 //	public int getNext() {
