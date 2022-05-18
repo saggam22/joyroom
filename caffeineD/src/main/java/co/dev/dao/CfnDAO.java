@@ -409,6 +409,7 @@ public class CfnDAO extends DAO_mac {
 			
 			if (rs.next()) {
 				vo.setId(rs.getString("user_id"));
+				vo.setPwd(rs.getString("user_pwd"));
 				vo.setImg(rs.getString("user_img"));
 				vo.setNickname(rs.getString("user_nick"));
 				vo.setTel(rs.getString("user_tel"));
