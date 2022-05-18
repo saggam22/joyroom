@@ -76,9 +76,9 @@ CREATE TABLE cfn_recomment
 CREATE TABLE cafe
 (
     cafe_no         NUMBER,
-    cafe_name      VARCHAR2(30),
+    cafe_name      VARCHAR2(20),
     cafe_address      VARCHAR2(100),
-    cafe_tel         VARCHAR2(15),
+    cafe_tel         VARCHAR2(11),
     cafe_img          CLOB,
     cafe_region         VARCHAR2(10),
    
