@@ -41,59 +41,27 @@ a {
 	</div>
 	<div class="cafelist" id="list">
 		<hr>
+		<div id="bigBox">
+			<c:forEach var="cafeinfo" items="${list }">
+				<a href="view/cafe/cafeInfo.jsp?address=${cafeinfo.address}&name=${cafeinfo.name}&tel=${cafeinfo.tel}&no=${cafeinfo.no}">
+					<img src="${pageContext.servletContext.contextPath }/img/${cafeinfo.img }">${cafeinfo.name }
+				</a>
+			</c:forEach>
+		</div>
 	</div>
-	<div class="" id=pagination style="text-align:center">
+	<div class="pager">
+	  <ul class="pagination">
+	    <c:if test="${page.prev }">
+      	<li><a href="${pageContext.servletContext.contextPath }/cafeList.do?pageNum=${page.startPage - 1 }&amount=${page.amount}">이전</a></li>
+			</c:if>
+			<c:forEach var="num" begin="${page.startPage }" end="${page.endPage }">
+	      <li class="${page.pageNum eq num ? 'active' : '' }">
+	        <a href="${pageContext.servletContext.contextPath }/cafeList.do?pageNum=${num }&amount=${page.amount}">${num }</a></li>
+      </c:forEach>
+      <c:if test="${page.next }">
+        <li><a href="${pageContext.servletContext.contextPath }/cafeList.do?pageNum=${page.endPage + 1 }&amount=${page.amount}">다음</a></li>
+      </c:if>
+    </ul>
 	</div>
-	<script>
-	
-	function load(path) {
-		let loadData = [];
-		fetch(`${pageContext.servletContext.contextPath }/cafeList.do`, {
-			 method: 'post',
-		      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-		      body: 'job='+path
-				 })
-		 		.then(result => result.json())
-		 		.then(json => {
-		 			console.log(json);
-		 			json.forEach (cafe => {
-		 				let obj ={no:cafe.no, name:cafe.name, address:cafe.address, tel:cafe.tel, img:cafe.img};
-		 				loadData.push(obj);
-		 			});
-		 			makeDiv(loadData);
-		 		})
-		 		.catch(error => console.log(error));
-		}
-	
-	load('all');
-	
-	 function makeDiv(ary) {
-			let div = document.getElementById('list');
-			//이미 생성된 조회정보가 있으면 삭제
-			while (div.hasChildNodes()) {
-	    	div.removeChild(div.firstChild);
-			}
-				let div1 = document.createElement('div');
-				div1.className = "bigBox";
-			ary.forEach((cafeinfo) => {
-				let aTag = document.createElement('a');
-				aTag.setAttribute('href', `cafeInfo.jsp?address=\${cafeinfo.address}&name=\${cafeinfo.name}&tel=\${cafeinfo.tel}&no=\${cafeinfo.no}`);
-				div1.appendChild(aTag)
-				let div2 = document.createElement('div');
-				div2.className = "sallBox";
-				aTag.appendChild(div2)
-				
-				let imgTag = document.createElement('img');
-				imgTag.setAttribute('src', `${pageContext.servletContext.contextPath }/img/\${cafeinfo.img }`);
-				let hTag = document.createElement('h4');
-				hTag.innerHTML = cafeinfo.name;
-				div2.appendChild(imgTag);
-				div2.appendChild(hTag);
-			});
-			div.appendChild(div1);
-		}
-	 
-	</script>
 </body>
-
 </html> 

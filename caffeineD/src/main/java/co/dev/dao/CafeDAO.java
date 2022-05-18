@@ -6,27 +6,49 @@ import java.util.List;
 
 import co.dev.service.CafeService;
 import co.dev.vo.CafeVO;
-import co.dev.vo.UserVO;
 
 public class CafeDAO extends DAO implements CafeService {
 
 	
 	// 카페 페이지 갯수
-	
-	
-	// 카페 리스트 전체 조회
-	public List<CafeVO> cafeList() {
+	public int cafeCount() {
 
 		conn();
-		String sql = "SELECT * FROM cafe ORDER BY cafe_no";
-
-		List<CafeVO> list = new ArrayList<>();
-
+		String sql = "SELECT COUNT(*) as total FROM cafe";
+		int count = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 
+				count = rs.getInt("total");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return count;
+	}
+	
+	// 카페 리스트 전체 조회
+	public List<CafeVO> cafeList(int pageNum, int amount) {
+
+		conn();
+		String sql = "select * from (select rownum rn,  a.* from (select * from cafe order by cafe_no ) a ) where rn > ? and rn <= ?";
+
+		List<CafeVO> list = null;
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, ((pageNum-1)*amount));
+			psmt.setInt(2, (pageNum*amount));
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				list = new ArrayList<>();
 				CafeVO vo = new CafeVO();
 
 				vo.setNo(rs.getInt("cafe_no"));
@@ -35,6 +57,7 @@ public class CafeDAO extends DAO implements CafeService {
 				vo.setTel(rs.getString("cafe_tel"));
 				vo.setImg(rs.getString("cafe_img"));
 				vo.setRegion(rs.getString("cafe_region"));
+				
 				list.add(vo);
 
 			}

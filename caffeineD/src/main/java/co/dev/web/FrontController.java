@@ -17,7 +17,6 @@ import co.dev.web.review.BoardLoadControl;
 import co.dev.web.bookmark.BookmarkCheckControl;
 import co.dev.web.bookmark.BookmarkControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
-import co.dev.web.cafeinfo.ApiDataInsertControl;
 import co.dev.web.cafeinfo.CafeInfoDelteControl;
 import co.dev.web.cafeinfo.CafeInfoInsertControl;
 import co.dev.web.cafeinfo.CafeInfoSelectControl;
@@ -78,8 +77,8 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
 		map.put("/likeCheck.do", new LikeCheckControl());	
 		
-		 // cafe	
-		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회
+		 // cafe
+		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회(페이징)
 		map.put("/cafeInfoInsert.do", new CafeInfoInsertControl()); //카페 정보 추가
 		map.put("/cafeInfoDelete.do", new CafeInfoDelteControl()); //카페 정보 삭제
 		map.put("/cafeInfoUpdate.do", new CafeInfoUpdateControl()); //카페 정보 수정

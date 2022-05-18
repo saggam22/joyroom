@@ -18,7 +18,7 @@ import co.dev.vo.CafeVO;
 public class apiDataSusung {
 	public static void main(String[] args) throws IOException {
 
-		StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15092718/v1/uddi:e151f387-d46c-4d3b-99de-9d4255fea609"); /* URL */
+		StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15038007/v1/uddi:9e4ee99e-33f1-47c0-95c5-fcbdc7d5a83d"); /* URL */
 		urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8")+ "=2FmiSQ4c4HNQcQ6eMrBVg4pRxsodEnXzbwQGOLOcb7Il%2BtTSwFCJMHGMuRvjlEiQeab4vnMkJJQbHT2qcqiStQ%3D%3D"); /*Service Key*/
 		urlBuilder.append("&" + URLEncoder.encode("page", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 페이지번호 */
 		urlBuilder.append("&" + URLEncoder.encode("perPage", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /* 한 페이지 결과 수 */
