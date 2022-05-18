@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import co.dev.web.review.BoardContentsControl;
 import co.dev.web.review.BoardInsertControl;
 import co.dev.web.review.BoardLoadControl;
-import co.dev.web.bookmark.BookmarkDelteControl;
-import co.dev.web.bookmark.BookmarkInsertControl;
+import co.dev.web.bookmark.BookmarkCheckControl;
+import co.dev.web.bookmark.BookmarkControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
 import co.dev.web.cafeinfo.ApiDataInsertControl;
 import co.dev.web.cafeinfo.CafeInfoDelteControl;
@@ -49,7 +49,7 @@ public class FrontController extends HttpServlet {
 
 		map = new HashMap<String, Controller>();
 
-    // board
+		// board
 		map.put("/cafeList.do", new CafeListControl());	
 		map.put("/board.do", new BoardLoadControl());
 		map.put("/boardWrite.do", new BoardInsertControl());
@@ -59,7 +59,7 @@ public class FrontController extends HttpServlet {
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
 		map.put("/userIdCheck.do", new UserCheckControl());
-    map.put("/userInsert.do", new UserInsertControl()); //유저 회원가입
+		map.put("/userInsert.do", new UserInsertControl()); //유저 회원가입
 
 
 		// review
@@ -78,19 +78,18 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
 		map.put("/likeCheck.do", new LikeCheckControl());	
 		
-    // cafe
-		map.put("/getApiData.do", new ApiDataInsertControl()); //api데이터 저장
-		
+		 // cafe	
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회
 		map.put("/cafeInfoInsert.do", new CafeInfoInsertControl()); //카페 정보 추가
 		map.put("/cafeInfoDelete.do", new CafeInfoDelteControl()); //카페 정보 삭제
 		map.put("/cafeInfoUpdate.do", new CafeInfoUpdateControl()); //카페 정보 수정
 		map.put("/cafeInfoSelect.do", new CafeInfoSelectControl()); //카페 정보 세부 조회
 		
-    // bookmark
-		map.put("/bookmarkInsert.do", new BookmarkInsertControl()); //북마크 추가
-		map.put("/bookmarkDelete.do", new BookmarkDelteControl()); //북마크 삭제
-		map.put("/bookmarkSelect.do", new BookmarkSelectControl()); //북마크 조회 수정
+		// bookmark
+		map.put("/bookmark.do", new BookmarkControl()); //북마크 +-
+		map.put("/bookmarkCheck.do", new BookmarkCheckControl()); //북마크 체크
+		map.put("/bookmarkSelect.do", new BookmarkSelectControl()); //내 북마크 조회
+
 
 	}
 	

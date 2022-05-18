@@ -4,10 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.dev.service.UserService;
 import co.dev.vo.CafeVO;
 import co.dev.vo.UserVO;
 
-public class UserDAO extends DAO {
+public class UserDAO extends DAO implements UserService {
 
 	public void userInsert(UserVO vo) {
 
@@ -31,6 +32,34 @@ public class UserDAO extends DAO {
 		} finally {
 			disconn();
 		}
+	}
+	
+	public boolean checkBookmark(int cafeNo, String userId) {
+		
+		conn();
+		String sql = "SELECT * FROM bookmark "
+				+ "WHERE cafe_no=? AND user_id=?";
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, cafeNo);
+			psmt.setString(2, userId);
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("북마크 " + r + "건 조회");
+				return true;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		
+		return false;
 	}
 
 	// 북마크 추가
