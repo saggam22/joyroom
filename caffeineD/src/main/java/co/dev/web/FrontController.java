@@ -63,15 +63,12 @@ public class FrontController extends HttpServlet {
 
 
 		// review
-		map.put("/review.do", new ReviewControl());		
 		map.put("/reviewInsert.do", new ReviewInsertControl()); // 등록
 		map.put("/reviewLike.do", new ReviewLikeControl());		// 리뷰 좋아요
 		map.put("/likeCheck.do", new LikeCheckControl());		// 리뷰 좋아요 여부 체크
-		map.put("/myReviewList.do", new MyReviewListControl());	// 내 리뷰 조회
 		map.put("/reviewSelect.do", new ReviewSelectControl()); // 수정할 리뷰 조회
 		map.put("/reviewUpdate.do", new ReviewUpdateControl()); // 내 리뷰 수
 		map.put("/reviewDelete.do", new ReviewDeleteControl());	// 리뷰 삭제
-		map.put("/userProfile.do", new UserProfileControl());
 		map.put("/review.do", new ReviewListControl("review"));			// 리뷰 리스트
 		map.put("/myReview.do", new ReviewListControl("myReview"));		// 내 리뷰 리스트
 		map.put("/reviewSelect.do", new ReviewSelectControl()); 		// 수정할 리뷰 조회
