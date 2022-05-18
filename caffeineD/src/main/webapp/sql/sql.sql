@@ -1,12 +1,15 @@
--- 유저 정보
+drop table review_like;
+drop table review;
+drop table cfn_user;
+
+-- 유저
 CREATE TABLE cfn_user
 (
-    user_id          VARCHAR2(30),
-   user_pwd           VARCHAR2(30),
-    user_nick           VARCHAR2(20),
-    user_tel         VARCHAR2(11),
-    user_img          CLOB,
-   user_grade      VARCHAR2(10),
+    user_id      VARCHAR2(30),
+    user_pwd     VARCHAR2(30),
+    user_nick    VARCHAR2(20) UNIQUE,
+    user_tel     VARCHAR2(11),
+    user_img     CLOB DAFAULT 'basic.png',
    
     PRIMARY KEY(user_id)
    
@@ -85,18 +88,22 @@ CREATE TABLE cafe
     PRIMARY KEY(cafe_no)
 );
 
--- 카페 리뷰
+-- 리뷰
 CREATE TABLE review
 (
-    cafe_no              NUMBER,
-    review_user          VARCHAR2(20),
-    review_date          DATE,
-    review_like          NUMBER,
-   review_star          NUMBER,
+    cafe_no             NUMBER,
+    review_no           NUMBER,
+    review_userid       VARCHAR2(20),
+    review_usernick     VARCHAR2(20),
+    review_userimg      CLOB,
+    review_date         DATE,
+    review_like         NUMBER,
+    review_star         NUMBER,
     review_content      CLOB,
     review_img          CLOB,
    
-    FOREIGN KEY(cafe_no) REFERENCES cafe(cafe_no)
+   PRIMARY KEY(review_no),
+   FOREIGN KEY(cafe_no) REFERENCES cafe(cafe_no) ON DELETE CASCADE
    
 );
 
@@ -106,6 +113,19 @@ INCREMENT BY 1
 start with 100
 NOCACHE
 NOCYCLE;
+
+-- 리뷰 시퀀스
+CREATE SEQUENCE review_seq INCREMENT BY 1 NOCYCLE NOCACHE;
+
+-- 리뷰 좋아요
+CREATE TABLE review_like
+(
+    review_no      NUMBER,
+    like_user      VARCHAR2(20),
+    like_check     VARCHAR2(10),
+	
+    FOREIGN KEY(review_no) REFERENCES review(review_no) ON DELETE CASCADE
+);
 
 -- 카페-회원 매핑테이블(북마크 기능)
 CREATE TABLE bookmark

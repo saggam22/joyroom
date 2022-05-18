@@ -430,6 +430,73 @@ public class CfnDAO extends DAO_mac {
 		return null;
 	}
 	
+	// 유저 아이디 조회
+	public String selectUserId(int userTel) {
+		
+		conn();
+		String sql = "SELECT user_id FROM cfn_user "
+				+ "WHERE user_tel=?";
+
+		String findId = "";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, userTel);
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				findId = rs.getString("user_id");
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("유저 " + r + "건 조회");
+				return findId;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return null;
+	}
+	
+	// 유저 비밀번호 조회
+	public String selectUserPwd(String userId, int userTel) {
+		
+		conn();
+		String sql = "SELECT user_pwd FROM cfn_user "
+				+ "WHERE user_id=? AND user_tel=?";
+
+		String findPwd = "";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+			psmt.setInt(2, userTel);
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				findPwd = rs.getString("user_pwd");
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("유저 " + r + "건 조회");
+				return findPwd;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return null;
+	}
+	
 	// 로그인 정보 조회
 	public boolean userForLogin(String userId, String userPwd) {
 		

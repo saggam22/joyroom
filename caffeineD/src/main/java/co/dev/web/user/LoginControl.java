@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.user;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import co.dev.service.CfnService;
 import co.dev.vo.UserVO;
+import co.dev.web.Controller;
 
 public class LoginControl implements Controller {
 
@@ -27,7 +28,6 @@ public class LoginControl implements Controller {
 		if(whoRU) {
 			UserVO vo = service.userSelect(userId);
 			session.setAttribute("user", vo);
-			session.setAttribute("success", "로그인 성공!");
 			
 			path = "index.jsp";
 			

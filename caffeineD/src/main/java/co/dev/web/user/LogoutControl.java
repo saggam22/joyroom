@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.user;
 
 import java.io.IOException;
 
@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import co.dev.web.Controller;
 
 public class LogoutControl implements Controller {
 
