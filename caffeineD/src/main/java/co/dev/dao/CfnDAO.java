@@ -13,7 +13,7 @@ public class CfnDAO extends DAO_mac {
 	public List<ReviewVO> selectReviews(int cafeNo) {
 		
 		conn();
-		String sql = "SELECT * FROM review WHERE cafe_no = ?";
+		String sql = "SELECT * FROM review WHERE cafe_no = ? ORDER BY review_like desc";
 		
 		List<ReviewVO> list = new ArrayList<>();
 		

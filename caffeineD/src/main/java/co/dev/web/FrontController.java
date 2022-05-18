@@ -63,12 +63,6 @@ public class FrontController extends HttpServlet {
 
 
 		// review
-		map.put("/reviewInsert.do", new ReviewInsertControl()); // 등록
-		map.put("/reviewLike.do", new ReviewLikeControl());		// 리뷰 좋아요
-		map.put("/likeCheck.do", new LikeCheckControl());		// 리뷰 좋아요 여부 체크
-		map.put("/reviewSelect.do", new ReviewSelectControl()); // 수정할 리뷰 조회
-		map.put("/reviewUpdate.do", new ReviewUpdateControl()); // 내 리뷰 수
-		map.put("/reviewDelete.do", new ReviewDeleteControl());	// 리뷰 삭제
 		map.put("/review.do", new ReviewListControl("review"));			// 리뷰 리스트
 		map.put("/myReview.do", new ReviewListControl("myReview"));		// 내 리뷰 리스트
 		map.put("/reviewSelect.do", new ReviewSelectControl()); 		// 수정할 리뷰 조회
@@ -102,7 +96,7 @@ public class FrontController extends HttpServlet {
 		String url = request.getRequestURI(); 					
 		String context = request.getContextPath();				
 		String path = url.substring(context.length());
-		System.out.println(path);							
+		//System.out.println(path);							
 
 		Controller controller = map.get(path);
 		controller.execute(request, response);

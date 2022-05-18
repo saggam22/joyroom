@@ -17,7 +17,7 @@ public class UserCheckControl implements Controller {
 		
 		response.setContentType("text/json;charset=utf-8");
 		String job = request.getParameter("job");
-		String userId = request.getParameter("user");
+		
 		String totalTel = "";
 		int userTel = 0;
 		
@@ -27,17 +27,29 @@ public class UserCheckControl implements Controller {
 			String tel2 = request.getParameter("tel2");
 			String tel3 = request.getParameter("tel3");
 			totalTel = tel1 + tel2 + tel3;
-			userTel = Integer.valueOf(totalTel);
+			
+			if (totalTel.isEmpty()) {
+				response.getWriter().print("{\"error\" : \"null\"}");
+				return;
+			}
+			
+			try {
+				userTel = Integer.valueOf(totalTel);	
+			} catch (NumberFormatException e) {
+				response.getWriter().print("{\"error\" : \"string\"}");
+				return;
+			}
+			
 			
 		}
 		
 		
+		String userId = request.getParameter("user");
 		CfnService service = new CfnService();
 
 		// 아이디 찾기
 		if (job.equals("iFind")) {
-
-
+			
 			System.out.println(totalTel);
 			String findId = service.userIdSelect(userTel);
 		
@@ -53,6 +65,11 @@ public class UserCheckControl implements Controller {
 			
 		// 비밀번호 찾기 > 아이디 검색
 		} else if (job.equals("bFindId")) {
+			
+			if(userId.isEmpty()) {
+				response.getWriter().print("{\"error\" : \"null\"}");
+				return;
+			}
 			
 			if (service.userSelect(userId) != null) {
 				response.getWriter().print("{\"userCheck\" : \"true\"}");

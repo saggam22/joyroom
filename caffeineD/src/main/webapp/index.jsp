@@ -32,14 +32,6 @@
 			</script>
 				<% request.getSession().removeAttribute("error"); %>
 		</c:when>
-		<c:otherwise>
-			<c:if test="${!empty success }">
-				<script>
-					alert("${success }")
-				</script>
-				<% request.getSession().removeAttribute("success"); %>
-			</c:if>
-		</c:otherwise>
 	</c:choose>
 	
 	<h2><a href="index.jsp">CaffeineD</a></h2><br>
@@ -57,7 +49,7 @@
     
 	<c:choose>
    		<c:when test="${empty user }"></c:when>
-   		<c:otherwise><span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/${user.img }"></span>${user.nickname }</c:otherwise>
+   		<c:otherwise><span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/profimg/${user.img }"></span>${user.nickname }</c:otherwise>
     </c:choose>
 	<c:choose>
    		<c:when test="${empty user }"><a href="view/user/login.jsp">로그인</a></c:when>
@@ -67,4 +59,5 @@
     <a href="getApiData.do">api호출</a><br>
 
 </body>
+
 </html>

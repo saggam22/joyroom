@@ -23,7 +23,7 @@ public class ReviewInsertControl implements Controller {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		String saveDir = "upload";
+		String saveDir = "reviewimg";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		int maxSize = 1024 * 1024 * 10;
 		String encoding = "UTF-8";
@@ -35,26 +35,6 @@ public class ReviewInsertControl implements Controller {
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("img");
 				
-
-		if(content.isBlank()) {
-			request.setAttribute("error", "글을 입력해 주세요.");
-			request.getRequestDispatcher("/review.do").forward(request, response);
-			return;
-		}
-		
-		if(star.isBlank()) {
-			request.setAttribute("error", "평점을 선택해 주세요.");
-			request.getRequestDispatcher("/review.do").forward(request, response);
-			return;
-		}
-		
-		if(content.length() < 10) {
-			request.getSession().setAttribute("error", "10자 이상 입력해 주세요.");
-			request.getRequestDispatcher("/review.do").forward(request, response);
-			return;
-		}
-				
-		
 		HttpSession session = request.getSession();
 		UserVO uvo = (UserVO) session.getAttribute("user");
 		String userId = uvo.getId();

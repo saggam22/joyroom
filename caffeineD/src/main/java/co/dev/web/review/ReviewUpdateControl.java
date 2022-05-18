@@ -20,7 +20,7 @@ public class ReviewUpdateControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String saveDir = "upload";
+		String saveDir = "reviewimg";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		int maxSize = 1024 * 1024 * 10;
 		String encoding = "UTF-8";
@@ -34,19 +34,6 @@ public class ReviewUpdateControl implements Controller {
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("img");
 				
-
-		if(content.isBlank()) {
-			request.setAttribute("error", "글을 입력해 주세요.");
-			request.getRequestDispatcher("/review.do").forward(request, response);
-			return;
-		}
-		
-		if(content.length() < 10) {
-			request.setAttribute("error", "10자 이상 입력해 주세요.");
-			request.getRequestDispatcher("/review.do").forward(request, response);
-			return;
-		}
-		
 		CfnService service = new CfnService();
 		
 		ReviewVO vo = new ReviewVO();

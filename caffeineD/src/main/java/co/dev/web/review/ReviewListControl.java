@@ -54,7 +54,7 @@ public class ReviewListControl implements Controller {
 			UserVO vo = (UserVO) session.getAttribute("user");
 			
 			if (vo == null) {
-				session.setAttribute("error", "회원가입이 필요합니다.");
+				session.setAttribute("error", "로그인이 필요합니다.");
 				response.sendRedirect("index.jsp");
 				return;
 			}
