@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.web.review.BoardContentsControl;
-import co.dev.web.review.BoardInsertControl;
-import co.dev.web.review.BoardLoadControl;
 import co.dev.web.bookmark.BookmarkDelteControl;
 import co.dev.web.bookmark.BookmarkInsertControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
@@ -23,6 +20,9 @@ import co.dev.web.cafeinfo.CafeInfoInsertControl;
 import co.dev.web.cafeinfo.CafeInfoSelectControl;
 import co.dev.web.cafeinfo.CafeInfoUpdateControl;
 import co.dev.web.cafeinfo.CafeListControl;
+import co.dev.web.review.BoardContentsControl;
+import co.dev.web.review.BoardInsertControl;
+import co.dev.web.review.BoardLoadControl;
 import co.dev.web.review.LikeCheckControl;
 import co.dev.web.review.ReviewListControl;
 import co.dev.web.review.ReviewDeleteControl;
@@ -46,21 +46,23 @@ public class FrontController extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 
-
 		map = new HashMap<String, Controller>();
 
-    // board
-		map.put("/cafeList.do", new CafeListControl());	
+		// board
+		map.put("/cafeList.do", new CafeListControl());
 		map.put("/board.do", new BoardLoadControl());
 		map.put("/boardWrite.do", new BoardInsertControl());
 		map.put("/boardContents.do", new BoardContentsControl());
+		map.put("/deleteBoard.do", new deleteBoardControl());
+		
+		// myPage
+		map.put("/updateInfo.do", new updateInfoControl());
 
 		// login
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
 		map.put("/userIdCheck.do", new UserCheckControl());
     map.put("/userInsert.do", new UserInsertControl()); //유저 회원가입
-
 
 		// review
 		map.put("/review.do", new ReviewListControl("review"));			// 리뷰 리스트
@@ -73,8 +75,6 @@ public class FrontController extends HttpServlet {
 		map.put("/likeCheck.do", new LikeCheckControl());	
 		
     // cafe
-		map.put("/getApiData.do", new ApiDataInsertControl()); //api데이터 저장
-		
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회
 		map.put("/cafeInfoInsert.do", new CafeInfoInsertControl()); //카페 정보 추가
 		map.put("/cafeInfoDelete.do", new CafeInfoDelteControl()); //카페 정보 삭제
@@ -86,17 +86,20 @@ public class FrontController extends HttpServlet {
 		map.put("/bookmarkDelete.do", new BookmarkDelteControl()); //북마크 삭제
 		map.put("/bookmarkSelect.do", new BookmarkSelectControl()); //북마크 조회 수정
 
+
 	}
-	
+
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
 
-		String url = request.getRequestURI(); 					
-		String context = request.getContextPath();				
+		String url = request.getRequestURI();
+		String context = request.getContextPath();
 		String path = url.substring(context.length());
-		//System.out.println(path);							
+
+		System.out.println(path);
+
 
 		Controller controller = map.get(path);
 		controller.execute(request, response);

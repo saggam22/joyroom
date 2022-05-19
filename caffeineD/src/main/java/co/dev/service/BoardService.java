@@ -8,14 +8,17 @@ import co.dev.vo.BoardVO;
 public class BoardService {
 
 	boardDAO dao = new boardDAO();
-
+	
+	public void boardDelete(String user) {
+		dao.deleteMember(user);
+	}
+	
 	public List<BoardVO> boardLoad() {
 		// 게시판 리스트 조회
 		return dao.listBoard();
 	}
 	
-	public BoardVO boardLoadOne(int num) {
-		// 게시판 리스트 조회
+	public BoardVO boardLoadOne(int num) {		
 		return dao.oneBoard(num);
 	}
 	
@@ -24,8 +27,7 @@ public class BoardService {
 	}
 
 	public void boardInsert(BoardVO board) {
-		int lastIx = dao.findIndex();
-		dao.insertBoard(board, lastIx);
+		dao.insertBoard(board);
 	}
 	
 }

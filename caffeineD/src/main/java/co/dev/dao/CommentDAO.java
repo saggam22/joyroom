@@ -52,7 +52,6 @@ public class CommentDAO extends DAO{
 	}
 
 	public List<CommentVO> listComment(int board_no) {
-		// TODO Auto-generated method stub
 		conn();
 		List<CommentVO> list = new ArrayList<CommentVO>();
 		
