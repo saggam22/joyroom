@@ -21,6 +21,7 @@
 					<tr>
 						<th>제목</th>
 						<th>작성자</th>
+						<th>작성날짜</th>
 						<th>조회수</th>
 					</tr>
 				</thead>
@@ -28,15 +29,17 @@
 					<tr>
 						<td>${contents.title}</td>
 						<td>${contents.user}</td>
+						<td>${contents.date }</td>
 						<td>${contents.view}</td>
-					</tr>
 				</tbody>
 			</table>
-			내용<div style="height: 100px; border: 1px;">${contents.content}</div>			
-
+			<br>
+			<td>${contents.content }</td>
 		</c:otherwise>
-	</c:choose>
-
+	</c:choose><br><br>
+		<div style="margin-left:10%;">
+		<button onclick="location.href='updateBoard.jsp'" type="button">글수정</button> <button onclick="location.href='deleteBoard.jsp'" type="button">삭제</button>
+		</div>
 	<c:choose>
 		<c:when test="${empty comments }">
 			<h3>댓글이 없습니다.</h3>
@@ -51,25 +54,31 @@
 							<th>내용</th>
 					<tbody>
 						<c:forEach items="${comments }" var="comment">
-							<tr>
-								<td>${comment.comment_no }</td>
-								<td>${comment.comment_user }</td>
-								<td>${comment.comment_content }</td>
-							</tr>
+							<div style="margin-top: 100px;">
+								<tr>
+									<td>${comment.comment_no }</td>
+									<td>${comment.comment_user }</td>
+									<td>${comment.comment_content }</td>
+								</tr>
+							</div>
+
+
 						</c:forEach>
 					</tbody>
+
 				</table>
 			</form>
-			<div>
-				<form action="boardContents.do?no=${contents.no}" method="post">
-					<textarea style="margin-top:10px;" name="comment" placeholder="바르고 고운말을 씁시다."  rows="3" cols="38"  required></textarea><br>
-					<div style="margin-left:130px; margin-top:5px;" >
-					<input type="submit" value="댓글등록">	<a href="board.do"><button type="button">돌아가기</button></a>
-					</div>					
-				</form>
-			</div>
 		</c:otherwise>
 	</c:choose>
-
+	<form style="margin-top: 10px;"
+		"action="boardContents.do?no=${contents.no}" method="post">
+		<textarea style="margin-top: 10px;" name="comment"
+			placeholder="바르고 고운말을 씁시다." rows="3" cols="38" required></textarea>
+		<br>
+		<div style="margin-left: 130px; margin-top: 5px;">
+			<input type="submit" value="댓글등록"> <a href="board.do"><button
+					type="button">돌아가기</button></a>
+		</div>
+	</form>
 </body>
 </html>

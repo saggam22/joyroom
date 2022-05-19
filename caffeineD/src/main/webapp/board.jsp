@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,6 +10,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	String id = null;
+	if(session.getAttribute("id") != null){
+		id = (String) session.getAttribute("id");
+	}
+	if(id != null){
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('이미 로그인이 되어있습니다.')");
+		script.println("location.href = 'boar.jsp'");
+		script.println("</script>");
+	}
+	%>
 	<h1>커뮤니티</h1>
 	<div style="margin-bottom:10px;">
 	<a href="index.jsp">메인</a>

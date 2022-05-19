@@ -62,6 +62,23 @@ public class UserDAO extends DAO implements UserService {
 		return false;
 	}
 
+	// myPage 내정보수정
+	public void updateInfo(UserVO vo) {
+		conn();
+		String sql = "update cfn_user set user_pwd=?, user_nuck=?, user_tel=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getPwd());
+			psmt.setString(2, vo.getNickname());
+			psmt.setString(3, vo.getTel());
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+	}
+
 	// 북마크 추가
 	public void insertBookmark(int cafeNo, String userId) {
 
@@ -143,4 +160,5 @@ public class UserDAO extends DAO implements UserService {
 		}
 		return null;
 	}
+
 }

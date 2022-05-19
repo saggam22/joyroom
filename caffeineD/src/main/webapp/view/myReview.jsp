@@ -7,69 +7,9 @@
 <meta charset="UTF-8">
 <title>myReview.jsp</title>
 <style>
-.pop_wrap {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, .5);
-	font-size: 0;
-	text-align: center;
-}
-
-.pop_wrap:after {
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-	content: '';
-}
-
-.pop_wrap .pop_inner {
-	display: inline-block;
-	padding: 20px 30px;
-	background: #fff;
-	width: 500px;
-	vertical-align: middle;
-	font-size: 15px;
-	text-align: left;
-}
-
-.star {
-	color: #f5d36c;
-}
-
-.userProf {
-	padding:0;
-	display: inline-block;
-	width: 30px;
-    height: 30px; 
-    border-radius: 70%;
-    overflow: hidden;
-}
-
-.userProf img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-button {
-	background: rgba(0, 0, 0, 0);
-	border: none;
-	padding: 2px;
-}
-
-.review {
-	font-size: 10pt;
-	padding: 20px;
-	text-align: center;
-}
-
-span {
-	padding-left: 5px;
-}
+	<link href="css/review.css" rel="stylesheet">
 </style>
+
 </head>
 <body>
 
@@ -99,11 +39,11 @@ span {
 						<div>
 							<c:if test="${!empty review.img }">
 								<img width="200px"
-									src="${pageContext.servletContext.contextPath }/upload/${review.img }">
+									src="${pageContext.servletContext.contextPath }/img/reviewimg/${review.img }">
 							</c:if>
 						</div>
 						<div>
-							<span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/${review.userImg }"></span>${review.userNick }</div>
+							<span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/profimg/${review.userImg }"></span>${review.userNick }</div>
 						<div>
 							<span>${review.date }</span> <span class="star"><c:choose>
 									<c:when test="${review.star eq '5' }">★★★★★</c:when>
@@ -133,23 +73,21 @@ span {
 		<div id="reviewUpdate" class="pop_wrap" style="display: none;">
 
 			<div class="pop_inner">
-				<button type="button" class="btn_close">X</button>
+				<button type="button" id="btn_close">X</button>
 				<br>
 				<form
 					action="${pageContext.servletContext.contextPath }/reviewUpdate.do"
-					method="post" enctype="multipart/form-data">
-					<input id="reviewNo" type="hidden" name="reviewNo" value="">
-					<div id="imgSection"></div>
-					<div>
-						<input type="hidden" id="filePath" disabled="disabled"
-							value="리뷰 사진"> <label for="uploadImg"
-							style="border: none; font-size: 10pt;">사진 변경하기</label> <input
-							id="uploadImg" type="file" name="img"
+					method="post" enctype="multipart/form-data" onsubmit="return submitCheck();">
+					<input type="hidden" name="cafeNo" value="1">
+					<input type="hidden" id="reviewNo" name="reviewNo">
+					
+					<div id="imgSection" data-placeholder='방문한 카페에서 찍은 사진을 자랑해 주세요!'></div>
+						<label for="uploadImg" style="border: none; font-size: 10pt;">사진 변경</label> 
+						<input id="uploadImg" name="img" type="file"
 							accept="image/jpg, image/png, image/jpeg"
 							style="position: absolute; clip: rect(0, 0, 0, 0);">
-					</div>
 					<div id="updateStar">
-						<input class="starVal" type="hidden" name="star" value="">
+						<input id="starVal" type="hidden" name="star" value="">
 						<button class="starBtn" type="button" name="1">
 							<img
 								src="${pageContext.servletContext.contextPath }/img/eptstar.svg.png"
@@ -178,8 +116,8 @@ span {
 					</div>
 
 					<textarea name="content"
-						placeholder="리뷰 내용을 10자 이상 입력해 주세요.&#13;&#10;사진은 5MB 이하의 PNG, JPG, JPEG 파일만 등록 가능합니다."
-						cols="50" rows="10"></textarea>
+						placeholder="리뷰는 10자 이상 입력해 주세요.&#13;&#10;사진은 5MB 이하의 PNG, JPG, JPEG 파일만 등록 가능합니다."
+						cols="50" rows="10" minlength="10" required oninvalid="this.setCustomValidity('리뷰를 10자 이상 입력해주세요.')"></textarea>
 					<br>
 					<button type="submit">수정</button>
 				</form>
@@ -190,4 +128,13 @@ span {
 
 </body>
 <script src="js/myReview.js"></script>
+<script>
+function submitCheck() {
+	let starVal = document.querySelector('#starVal');
+	if (starVal.value === '') {
+		alert('평점을 선택해주세요.')
+		return false;
+	}
+}
+</script>
 </html>

@@ -27,15 +27,19 @@ if (job==='findid') {
 		})
 			.then(result => result.json())
 			.then(result => {
-				if (result.error != null) {					
+				if (result.error == 'cannot find') {	
 					alert('입력한 정보에 해당하는 회원을 찾을 수 없습니다.');
-					iTel1.value = '';
-					iTel2.value = '';
-					iTel3.value = '';
+				} else if (result.error === 'null') {
+					alert('휴대전화 번호를 모두 입력해주세요. ');
+				} else if (result.error === 'string') {
+					alert('숫자만 입력할 수 있습니다.');
 				} else {
 					iFindDiv.style.display = 'none';
 					iResultDiv.innerHTML = `찾으시는 아이디는 ${result.findId }입니다.`;
 				}
+				iTel1.value = '';
+				iTel2.value = '';
+				iTel3.value = '';
 			})
 			.catch(error => console.log(error));
 	});
@@ -57,14 +61,17 @@ if (job==='findid') {
 		})
 			.then(result => result.json())
 			.then(result => {
-				
 				if (result.userCheck === 'true') {
-					bTelDiv.style.display = 'block';
 					bIdDiv.style.display = 'none';
+					bTelDiv.style.display = 'block';
+					let findId = document.getElementById('findId');
+					findId.innerHTML = `입력하신 아이디는 ${bUserId.value }입니다.`;
+				} else if (result.error === 'null') {
+					alert('아이디를 입력해주세요.');
 				} else {
 					alert('입력하신 아이디를 찾을 수 없습니다.');
-					bUserId.value = '';
 				}
+				bUserId.value = '';
 				
 			})
 			.catch(error => console.log(error))
@@ -87,17 +94,20 @@ if (job==='findid') {
 		})
 			.then(result => result.json())
 			.then(result => {
-				if (result.error != null) {	
-					console.log(result.error);				
+				if (result.error == 'cannot find') {	
 					alert('입력한 정보에 해당하는 회원을 찾을 수 없습니다.');
-					bTel1.value = '';
-					bTel2.value = '';
-					bTel3.value = '';
-				} else {
+				} else if (result.error == 'null') {
+					alert('휴대전화 번호를 모두 입력해주세요. ');
+				} else if (result.error == 'string') {
+					alert('숫자만 입력할 수 있습니다.');
+				}  else {
 					console.log(result.findPwd);
 					bFindDiv.style.display = 'none';
 					bResultDiv.innerHTML = `찾으시는 비밀번호는 ${result.findPwd }입니다.`;
 				}
+				bTel1.value = '';
+				bTel2.value = '';
+				bTel3.value = '';
 			})
 			.catch(error => console.log(error));
 	});
