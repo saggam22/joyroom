@@ -1,4 +1,4 @@
-package co.dev.web.review;
+package co.dev.web.board;
 
 import java.io.IOException;
 

@@ -65,13 +65,15 @@ public class UserDAO extends DAO implements UserService {
 	// myPage 내정보수정
 	public void updateInfo(UserVO vo) {
 		conn();
-		String sql = "update cfn_user set user_pwd=?, user_nuck=?, user_tel=?";
+		String sql = "update cfn_user set user_pwd=?, user_nick=?, user_tel=? where user_id =?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getPwd());
 			psmt.setString(2, vo.getNickname());
 			psmt.setString(3, vo.getTel());
+			psmt.setString(4, vo.getId());
 			psmt.executeUpdate();
+			System.out.println(vo.getNickname());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h3>${user.id }님의 정보가 수정되었습니다.</h3>
-	<a href="myPage.jsp"></a>
+	<a href="myPage.jsp">My Page</a>
 </body>
 </html>

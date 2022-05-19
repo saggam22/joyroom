@@ -28,7 +28,7 @@
 				<tbody>
 					<tr>
 						<td>${contents.title}</td>
-						<td>${contents.user}</td>
+						<td>${contents.user_id}</td>
 						<td>${contents.date }</td>
 						<td>${contents.view}</td>
 				</tbody>
@@ -51,13 +51,13 @@
 						<tr>
 							<th>번호</th>
 							<th>작성자</th>
-							<th>내용</th>
+							<th>내용</th>							
 					<tbody>
 						<c:forEach items="${comments }" var="comment">
 							<div style="margin-top: 100px;">
 								<tr>
 									<td>${comment.comment_no }</td>
-									<td>${comment.comment_user }</td>
+									<td>${comment.user_id }</td>
 									<td>${comment.comment_content }</td>
 								</tr>
 							</div>

@@ -1,4 +1,4 @@
-package co.dev.web.review;
+package co.dev.web.board;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,19 +12,20 @@ import co.dev.service.BoardService;
 import co.dev.service.CommentService;
 import co.dev.vo.BoardVO;
 import co.dev.vo.CommentVO;
+import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
 public class BoardContentsControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.invalidate();
+//		HttpSession session = request.getSession();
+//		UserVO uvo = (UserVO) session.getAttribute("user_id");
+//		uvo.setId("user_id");
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		
-		String param_comment = request.getParameter("comment");
 
+		String param_comment = request.getParameter("comment");
 
 		String param = request.getParameter("no");
 		int num = Integer.parseInt(param);
@@ -33,33 +34,28 @@ public class BoardContentsControl implements Controller {
 		BoardService b_service = new BoardService();
 		b_service.plusView(num); // 조회수 1증가
 		BoardVO vo = b_service.boardLoadOne(num); // 게시글 내용조회해서
-
+		
 		CommentService c_service = new CommentService();
 		List<CommentVO> c_list = c_service.commentList(num);
-		
+
 		if (vo == null) {
 			System.out.println("없는 게시글입니다.");
 		} else {
 			request.setAttribute("contents", vo); // 화면에뿌리기
 			request.setAttribute("comments", c_list);
 		}
-		
 
 		if (param_comment != null) {
 			System.out.println("댓글등록요청 : " + param_comment);
 			CommentVO comment = new CommentVO();
-			
+
 			comment.setBoard_no(num);
 			comment.setComment_content(param_comment);
-			
+
 			c_service.commentInsert(comment);
 		}
 		request.getRequestDispatcher("boardContents.jsp").forward(request, response);
 
 	}
 
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		
-//	}
 }

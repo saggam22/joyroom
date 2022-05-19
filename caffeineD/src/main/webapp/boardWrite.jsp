@@ -16,6 +16,7 @@
 			<textarea name="content" rows="15" cols="150" placeholder="내용" required></textarea><br>
 			<div style ="margin-top:10px">
 			<input type="file" name="file"><br>
+			<input type="hidden" name="user_id" value=user_id>
 			</div>	
 			<div style ="margin-top:15px;margin-left:900px;">
         	<input type="submit" value="등록">  
