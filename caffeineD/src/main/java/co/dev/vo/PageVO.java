@@ -10,7 +10,7 @@ public class PageVO {
 	// 화면에 표시할 데이터 수
 	private int amount = 10;
 	// 화면에 표시할 블럭 수
-	private int block = 10;
+	private int block = 5;
 	// 전체 게시글 수
 	private int total;
 	// 이전버튼, 다음버튼 활성화 여부
@@ -89,7 +89,7 @@ public class PageVO {
 		endPage = ((int) Math.ceil(pageNum / (double) block)) * block;
 		System.out.println("마지막페이지 : " + endPage);
 
-		startPage = endPage - (block - 1);
+		startPage = endPage - block + 1;
 		System.out.println("시작페이지 : " + startPage);
 		
 		int totalPage = (int)Math.ceil(total/(double)amount);
@@ -100,7 +100,7 @@ public class PageVO {
         }else{
             next = true;
         }
-        prev = (startPage==1)?false:true; //page가 11이상에만 나온다.
+        prev = (startPage==1)?false:true; //page가 6이상에만 나온다.
         System.out.println("마지막페이지 : " + endPage);
         System.out.println("전체페이지 : " + totalPage);
 	}

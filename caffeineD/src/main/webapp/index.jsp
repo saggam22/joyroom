@@ -47,6 +47,7 @@
 
     <a href="myReview.do">내 리뷰</a><br>
     
+  <c:if test="${user.nickname eq 'admin' }"><a href="user.do">회원관리</a><br></c:if> 
 	<c:choose>
    		<c:when test="${empty user }"></c:when>
    		<c:otherwise><span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/profimg/${user.img }"></span>${user.nickname }</c:otherwise>

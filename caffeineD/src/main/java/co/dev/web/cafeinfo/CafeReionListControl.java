@@ -18,7 +18,7 @@ public class CafeReionListControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-response.setContentType("text/json;charset=utf-8");
+		response.setContentType("text/json;charset=utf-8");
 		
 		String job = request.getParameter("job");
 		

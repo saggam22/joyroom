@@ -9,6 +9,7 @@ public class NoticeVO {
 	private String img;
 	private int view;
 	private String user;
+	private String check;
 
 	public int getNo() {
 		return no;
@@ -66,4 +67,12 @@ public class NoticeVO {
 		this.user = user;
 	}
 
+	public String getCheck() {
+		return check;
+	}
+
+	public void setCheck(String check) {
+		this.check = check;
+	}
+	
 }

@@ -38,7 +38,7 @@ public class CafeDAO extends DAO implements CafeService {
 		int startNum = (pageNum-1)*10+1;
 		int endNum = pageNum*10;
 		conn();
-		String sql = "select * from (select rownum rn,  a.* from (select * from cafe order by cafe_no ) a ) where rn >= ? and rn <= ?";
+		String sql = "SELECT * FROM (SELECT rownum rn,  a.* FROM (SELECT * FROM cafe ORDER BY cafe_no ) a ) WHERE rn >= ? AND rn <= ?";
 
 		List<CafeVO> list = new ArrayList<CafeVO>();
 		
@@ -71,7 +71,7 @@ public class CafeDAO extends DAO implements CafeService {
 		return list;
 	}
 
-	// 카페 페이지 갯수
+	// 지역별 카페 페이지 갯수
 		public int regionCafeCount(String region) {
 
 			conn();
