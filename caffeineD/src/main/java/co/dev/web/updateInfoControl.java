@@ -30,8 +30,8 @@ public class updateInfoControl implements Controller {
 
 		MyPageService service = new MyPageService();
 		service.userUpdate(user);
-
-
+		
+//		request.setAttribute("user", user);
 		request.getRequestDispatcher("result/updateInfoOutput.jsp").forward(request, response);
 	}
 

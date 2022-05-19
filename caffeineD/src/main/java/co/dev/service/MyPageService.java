@@ -10,4 +10,9 @@ public class MyPageService {
 	public void userUpdate(UserVO user) {
 		dao.updateInfo(user);
 	}
+	
+	public UserVO userOne(String userId) {
+		return dao.userOne(userId);
+	}
+	
 }

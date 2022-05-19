@@ -10,8 +10,8 @@ public class CommentDAO extends DAO{
 	
 	public void insertComment(CommentVO comment, int lastIx) {
 		conn();
-		String sql = "insert into cfn_comment(board_no,comment_no,comment_content,comment_date,comment_img,user_id) values(?,?,?,sysdate,'111',?)";
-
+		String sql = "insert into cfn_comment(comment_code, board_no,comment_no,comment_content,comment_date,comment_img,user_id) values(seq_code.nextval,?,?,?,sysdate,'111',?)";
+		System.out.println(lastIx + "번째 댓글 달림");
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, comment.getBoard_no());
@@ -20,7 +20,7 @@ public class CommentDAO extends DAO{
 			psmt.setString(4, comment.getUser_id());
 			
 			int r = psmt.executeUpdate();
-			System.out.println(r + "건 입력됨.");
+			//System.out.println(r + "건 입력됨.");
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -33,7 +33,7 @@ public class CommentDAO extends DAO{
 		conn();
 		int lastIx = 0;
 		try {
-			psmt = conn.prepareStatement("select comment_no from cfn_comment where rownum=1 and board_no = ? order by comment_no desc");
+			psmt = conn.prepareStatement("select comment_no from cfn_comment where board_no = ? order by comment_no desc");
 			psmt.setInt(1, board_no);
 			rs = psmt.executeQuery();
 			

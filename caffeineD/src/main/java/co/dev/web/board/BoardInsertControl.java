@@ -36,12 +36,18 @@ public class BoardInsertControl implements Controller {
 //		}		
 //		request.setCharacterEncoding(encoding);
 		
+		HttpSession session = request.getSession();
+		UserVO vo = new UserVO();
+		vo = (UserVO) session.getAttribute("user");
+		
+		String userId = vo.getId(); // 로그인 사용자 ID
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
 		BoardVO board = new BoardVO();
 		board.setContent(content);
 		board.setTitle(title);
+		board.setUser_id(userId);
 		
 		
 		BoardService service = new BoardService();

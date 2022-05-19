@@ -7,35 +7,37 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<center>
-		<a href="index.jsp">메인</a>
-		<h1>My Page</h1>
 
-		<table border="1" width="300" height="250">
+	<a href="index.jsp">메인</a>
+	<h1>My Page</h1>
 
-			<div style="text-align: center;">
+	<form>
+		<table border="1">
+			<thead>
 				<tr>
-					<td>
-						<center>
-							<div>    
-                            아이디 : ${user.id} <br><br>                            	          
-                            닉네임 : ${user.nickname }<br><br>                            
-                            연락처 : ${user.tel }<br><br>                            
-                            프로필 : ${user.img }<br><br>
-							</div>
-						</center>
-					</td>
+					<th>아이디</th>
+					<th>닉네임</th>
+					<th>연락처</th>
+					<th>프로필</th>
+			<tbody>
+				<tr>
+					<td>${users.id }</td>
+					<td>${users.nickname }</td>
+					<td>${users.tel }</td>
+					<td>${users.img }</td>
 				</tr>
-			</div>			
+			</tbody>
 		</table>
-		<div style="margin-top: 10px;">
-			<a href="updateInfo.jsp"><input type="button" value="정보 수정"></a>
-			<a href="myBoard.jsp"><input type="button" value="작성글 보기"></a> <a
-				href="myComment.jsp"><input type="button" value="작성댓글 보기"></a>
-		</div>
-	</center>	
-
+	</form>
 	
+	<div style="margin-top: 10px;">
+		<a href="updateInfo.jsp"><input type="button" value="정보 수정"></a>
+		<a href="myBoard.jsp"><input type="button" value="작성글 보기"></a>
+		<a href="myComment.jsp"><input type="button" value="작성댓글 보기"></a>
+	</div>
+
+
+
 
 </body>
 </html>

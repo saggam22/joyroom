@@ -163,4 +163,28 @@ public class UserDAO extends DAO implements UserService {
 		return null;
 	}
 
+	public UserVO userOne(String userId) {
+		conn();
+		String sql = "select * from cfn_user where user_id = ?";
+		UserVO vo = new UserVO();
+		
+		try {
+			psmt =conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				vo.setId(rs.getString("user_id"));
+				vo.setNickname(rs.getString("user_nick"));
+				vo.setTel(rs.getString("user_tel"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
+
 }

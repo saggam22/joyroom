@@ -56,6 +56,7 @@ public class FrontController extends HttpServlet {
 		
 		// myPage
 		map.put("/updateInfo.do", new updateInfoControl());
+		map.put("/myPage.do", new myPageLoadController());
 
 		// login
 		map.put("/login.do", new LoginControl());

@@ -37,6 +37,12 @@ public class BoardContentsControl implements Controller {
 		
 		CommentService c_service = new CommentService();
 		List<CommentVO> c_list = c_service.commentList(num);
+		
+		HttpSession session = request.getSession();
+		UserVO uvo = new UserVO();
+		uvo = (UserVO) session.getAttribute("user");
+		
+		String userId = uvo.getId(); // 로그인 사용자 ID
 
 		if (vo == null) {
 			System.out.println("없는 게시글입니다.");
@@ -48,7 +54,7 @@ public class BoardContentsControl implements Controller {
 		if (param_comment != null) {
 			System.out.println("댓글등록요청 : " + param_comment);
 			CommentVO comment = new CommentVO();
-
+			comment.setUser_id(userId);
 			comment.setBoard_no(num);
 			comment.setComment_content(param_comment);
 

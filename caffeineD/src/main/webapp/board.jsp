@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+		
 	<h1>커뮤니티</h1>
 	<div style="margin-bottom: 10px;">
 		<a href="index.jsp">메인</a>
