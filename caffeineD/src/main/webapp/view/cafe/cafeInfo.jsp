@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-  <title>cafeSebuInfoOutput.jsp</title>
+  <title>cafeInfo.jsp</title>
   <style>
    #map {
    	float: left;
@@ -29,48 +29,36 @@
 <div id="info">
 	<h4>information</h4>
 	<ul id="ulTag"></ul>
-	<form action="${pageContext.servletContext.contextPath }/bookmarkInsert.do" method="post">
-    <input type="hidden" name="cafeNo" value=""><br><!-- 카페 정보 받아오기 -->
-		<input type="submit" value="북마크">
-  </form>
+	<a href="${pageContext.servletContext.contextPath }/bookmark.do" onsubmit="return bookmarkCheck()" class="bookmarkBtn"><img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="25px"></a>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4583766540818c898f0a4d850e5046e&libraries=services"></script>
 <script>
 let url = location.href;
 console.log(url);
-let jpos = url.indexOf('juso=');
-let npos = url.indexOf('name=');
+let apos = url.indexOf('address=');
+let mpos = url.indexOf('name=');
 let tpos = url.indexOf('tel=');
-let mpos = url.indexOf('menu=');
-let opos = url.indexOf('open=');
+let npos = url.indexOf('no=');
 
-let juso = url.substring(jpos+5, npos-1);
-let name = url.substring(npos+5, tpos-1);
-let tel = url.substring(tpos+4, mpos-1);
-let menu = url.substring(mpos+5, opos-1);
-let open = url.substring(opos+5);
+let address = url.substring(apos+8, mpos-1);
+let name = url.substring(mpos+5, tpos-1);
+let tel = url.substring(tpos+4, npos-1);
+let no = url.substring(mpos+3);
 let kname = decodeURIComponent(name);
-let kjuso = decodeURIComponent(juso);
-let kmenu = decodeURIComponent(menu);
-let kopen = decodeURIComponent(open);
-let rjuso = kjuso.replace('%',' ');
+let kaddress = decodeURIComponent(address);
+let raddress = kaddress.replace('%',' ');
+
 
 obj = {
 		name: kname,
-		juso: kjuso,
-		tel: tel,
-		menu: kmenu,
-		open: kopen
+		address: raddress,
+		tel: tel
 };
 
 let ul = document.getElementById('ulTag');
 for (let feild in obj) {
 	let li = document.createElement('li');
-	if (obj[feild] == 'undefined' || obj[feild] == 'null') {
-		li.innerHTML=' ';
-	} else {
 	li.innerHTML=obj[feild];
-	}
 	ul.appendChild(li);
 }
 
@@ -87,7 +75,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch(rjuso, function(result, status) {
+geocoder.addressSearch(raddress, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
@@ -109,7 +97,11 @@ geocoder.addressSearch(rjuso, function(result, status) {
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-});    
+});
+</script>
+
+<script>
+
 </script>
 </body>
 </html>
