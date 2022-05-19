@@ -33,22 +33,23 @@ public class CafeDAO extends DAO implements CafeService {
 	}
 	
 	// 카페 리스트 전체 조회
-	public List<CafeVO> cafeList(int pageNum, int amount) {
-
+	public List<CafeVO> cafeList(int pageNum) {
+		
+		int startNum = (pageNum-1)*10+1;
+		int endNum = pageNum*10;
 		conn();
-		String sql = "select * from (select rownum rn,  a.* from (select * from cafe order by cafe_no ) a ) where rn > ? and rn <= ?";
+		String sql = "select * from (select rownum rn,  a.* from (select * from cafe order by cafe_no ) a ) where rn >= ? and rn <= ?";
 
-		List<CafeVO> list = null;
-
+		List<CafeVO> list = new ArrayList<CafeVO>();
+		
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, ((pageNum-1)*amount));
-			psmt.setInt(2, (pageNum*amount));
+			psmt.setInt(1, startNum);
+			psmt.setInt(2, endNum);
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
 				
-				list = new ArrayList<>();
 				CafeVO vo = new CafeVO();
 
 				vo.setNo(rs.getInt("cafe_no"));
@@ -70,17 +71,43 @@ public class CafeDAO extends DAO implements CafeService {
 		return list;
 	}
 
+	// 카페 페이지 갯수
+		public int regionCafeCount(String region) {
+
+			conn();
+			String sql = "SELECT COUNT(*) as total FROM cafe WHERE cafe_region = ?";
+			int count = 0;
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, region);
+				rs = psmt.executeQuery();
+				
+				if (rs.next()) {
+					count = rs.getInt("total");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				disconn();
+			}
+			return count;
+		}
+		
 	// 지역별 카페 리스트 조회
-	public List<CafeVO> cafeListRegion(String region) {
-
+	public List<CafeVO> cafeListRegion(String region, int pageNum) {
+		int startNum = (pageNum-1)*10+1;
+		int endNum = pageNum*10;
+		
 		conn();
-		String sql = "SELECT * FROM cafe WHERE cafe_region LIKE '%'||?||'%' ORDER BY cafe_no";
-
-		List<CafeVO> list = new ArrayList<>();
+		String sql = "select * from (select rownum rn,  a.* from (select * from cafe where cafe_region = ? order by cafe_no ) a ) where rn >= ? and rn <= ?";
+		List<CafeVO> list = new ArrayList<CafeVO>();
 
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, region);
+			psmt.setInt(2, startNum);
+			psmt.setInt(3, endNum);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 

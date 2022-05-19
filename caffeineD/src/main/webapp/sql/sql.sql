@@ -1,8 +1,8 @@
 drop table review_like;
 drop table review;
 drop table cfn_user;
-drop table cafe;
 drop table bookmark;
+drop table cafe;
 
 -- 유저
 CREATE TABLE cfn_user

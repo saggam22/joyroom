@@ -10,6 +10,7 @@ import co.dev.vo.UserVO;
 
 public class UserDAO extends DAO implements UserService {
 
+	//회원가입
 	public void userInsert(UserVO vo) {
 
 		conn();
@@ -32,34 +33,6 @@ public class UserDAO extends DAO implements UserService {
 		} finally {
 			disconn();
 		}
-	}
-	
-	public boolean checkBookmark(int cafeNo, String userId) {
-		
-		conn();
-		String sql = "SELECT * FROM bookmark "
-				+ "WHERE cafe_no=? AND user_id=?";
-		
-		try {
-			
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, cafeNo);
-			psmt.setString(2, userId);
-			
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("북마크 " + r + "건 조회");
-				return true;
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-		
-		return false;
 	}
 
 	// myPage 내정보수정
@@ -160,5 +133,33 @@ public class UserDAO extends DAO implements UserService {
 		}
 		return null;
 	}
-
+	
+	//카페 중복체크
+		public boolean checkBookmark(int cafeNo, String userId) {
+			
+			conn();
+			String sql = "SELECT * FROM bookmark "
+					+ "WHERE cafe_no=? AND user_id=?";
+			
+			try {
+				
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, cafeNo);
+				psmt.setString(2, userId);
+				
+				int r = psmt.executeUpdate();
+				
+				if (r>0) {
+					System.out.println("북마크 " + r + "건 조회");
+					return true;
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				disconn();
+			}
+			return false;
+		}
 }

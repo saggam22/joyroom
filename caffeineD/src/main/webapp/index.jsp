@@ -51,6 +51,7 @@
    		<c:when test="${empty user }"></c:when>
    		<c:otherwise><span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/profimg/${user.img }"></span>${user.nickname }</c:otherwise>
     </c:choose>
+  <c:if test="${empty user }"><a href="view/userInsert.jsp">회원가입</a></c:if>
 	<c:choose>
    		<c:when test="${empty user }"><a href="view/user/login.jsp">로그인</a></c:when>
    		<c:otherwise><a href="logout.do">로그아웃</a></c:otherwise>
