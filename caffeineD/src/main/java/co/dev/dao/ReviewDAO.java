@@ -7,7 +7,7 @@ import java.util.List;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
-public class ReviewDAO extends DAO_mac {
+public class ReviewDAO extends DAO {
 
 	// 리뷰 리스트 조회
 	public List<ReviewVO> selectReviews(int cafeNo) {
