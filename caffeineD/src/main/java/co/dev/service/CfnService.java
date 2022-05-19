@@ -69,6 +69,16 @@ public class CfnService {
 	public UserVO userSelect(String userId) {
 		return dao.selectUser(userId);
 	}
+	
+	// 유저 아이디 조회
+	public String userIdSelect(int userTel) {
+		return dao.selectUserId(userTel);
+	}
+	
+	// 유저 비밀번호 조회
+	public String userPwdSelect(String userId, int userTel) {
+		return dao.selectUserPwd(userId, userTel);
+	}
 
 	// 로그인 유저 조회
 	public boolean userLogin(String userId, String userPwd) {

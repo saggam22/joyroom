@@ -17,10 +17,12 @@
 
 	<h2>로그인</h2>
 	<form action="${pageContext.servletContext.contextPath }/login.do" method="post">
-		<label for="uid">아이디</label><input id="uid" type="text" name="id">
-		<label for="upwd">비밀번호</label><input id="upwd" type="password" name="pwd"><input type="submit" value="로그인">
+		<input id="uid" type="text" name="id" placeholder="이메일" required
+			oninvalid="this.setCustomValidity('아이디를 입력해주세요.')">
+		<input id="upwd" type="password" name="pwd" placeholder="비밀번호"  required
+			oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')"><input type="submit" value="로그인">
 	</form>
-		<a href="findId.jsp"><button type="button">아이디 찾기</button></a>
-		<a href="findPwd.jsp"><button type="button">비밀번호 찾기</button></a>
+		<a href="findIdPwd.jsp?job=findid"><button type="button">아이디 찾기</button></a>
+		<a href="findIdPwd.jsp?job=findpwd"><button type="button">비밀번호 찾기</button></a>
 </body>
 </html>
