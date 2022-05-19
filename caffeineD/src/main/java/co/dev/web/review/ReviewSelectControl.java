@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
@@ -24,7 +24,7 @@ public class ReviewSelectControl implements Controller {
 
 		int reviewNo = Integer.valueOf(request.getParameter("reviewNo"));
 		
-		CfnService service = new CfnService();
+		ReviewService service = new ReviewService();
 		ReviewVO vo = service.reviewSelect(reviewNo);
 		
 		Gson gson = new GsonBuilder().create();

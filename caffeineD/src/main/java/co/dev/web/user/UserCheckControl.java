@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
@@ -45,7 +45,7 @@ public class UserCheckControl implements Controller {
 		
 		
 		String userId = request.getParameter("user");
-		CfnService service = new CfnService();
+		ReviewService service = new ReviewService();
 
 		// 아이디 찾기
 		if (job.equals("iFind")) {
@@ -80,10 +80,11 @@ public class UserCheckControl implements Controller {
 			
 		} else if (job.equals("bFind")) {
 			
-
+			System.out.println(userId);
+			System.out.println(userTel);
 			String findPwd = service.userPwdSelect(userId, userTel);
-
 			
+			System.out.println(findPwd);
 			if (findPwd == null) {
 				response.getWriter().print("{\"error\" : \"cannot find\"}");
 			} else {

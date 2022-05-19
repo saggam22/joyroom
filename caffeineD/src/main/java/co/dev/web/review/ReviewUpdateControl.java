@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
@@ -20,7 +20,7 @@ public class ReviewUpdateControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String saveDir = "reviewimg";
+		String saveDir = "img/reviewimg";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		int maxSize = 1024 * 1024 * 10;
 		String encoding = "UTF-8";
@@ -34,7 +34,7 @@ public class ReviewUpdateControl implements Controller {
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("img");
 				
-		CfnService service = new CfnService();
+		ReviewService service = new ReviewService();
 		
 		ReviewVO vo = new ReviewVO();
 		vo.setNo(Integer.valueOf(no));

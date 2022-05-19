@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
@@ -23,7 +23,7 @@ public class ReviewInsertControl implements Controller {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		String saveDir = "reviewimg";
+		String saveDir = "img/reviewimg";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		int maxSize = 1024 * 1024 * 10;
 		String encoding = "UTF-8";
@@ -42,7 +42,7 @@ public class ReviewInsertControl implements Controller {
 		String userImg = uvo.getImg();
 
 		
-		CfnService service = new CfnService();
+		ReviewService service = new ReviewService();
 		
 		ReviewVO rvo = new ReviewVO();
 		rvo.setCafeNo(Integer.valueOf(cafeNo));

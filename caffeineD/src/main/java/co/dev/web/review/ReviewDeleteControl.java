@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.web.Controller;
 
 public class ReviewDeleteControl implements Controller {
@@ -18,7 +18,7 @@ public class ReviewDeleteControl implements Controller {
 		
 		int reviewNo = Integer.valueOf(request.getParameter("reviewNo"));
 
-		CfnService service = new CfnService();
+		ReviewService service = new ReviewService();
 		
 		
 		if (service.reviewDelete(reviewNo)) {

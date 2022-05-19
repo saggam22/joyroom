@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=Castoro&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 * { 
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
@@ -7,57 +7,14 @@
 	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
 	font-size: 10pt;
 	box-sizing: border-box;
-
 }
 
 #container {
 	text-align: center;
-	margin: 0;
 }
 
 body {
 	background: #f6f6f6;
-	margin: 0;
-}
-
-#reviews_info {
-	background: white;
-	padding: 50px 0;
-	margin-bottom: 20px;
-}
-
-#star_avg {
-	font-size:30pt;
-}
-
-#star_show {
-	font-size: 30pt;
-	color:  #ffe378;
-	margin-bottom: 20px;
-}
-
-#review_count {
-	color:rgb(120, 120, 120);
-	margin-bottom: 10px;
-}
-
-.star_count_show {
-	background: rgb(200, 200, 200);
-	width: 120px;
-	height: 7px;
-	margin: 0 5px;
-}
-
-.star_count_show_color {
-	background: #8d8d8d;
-	width: 0px;
-	height: 7px;
-	margin: 0;
-	position: absolute;
-}
-
-.star_info {
-	color: #ffe378;    
 }
 
 .pop_wrap {
@@ -90,29 +47,10 @@ body {
 	box-shadow: 0 0 10px 1px rgb(120, 120, 120);
 }
 
-#btn_open {
-	font-weight: 700;
-	letter-spacing : 1px;
-	text-decoration: none;
-	display: inline-block;
-	width: 100px;
-	height: 50px;
-	border-radius: 30px;
-	background: rgb(90, 90, 90);
-	color: white;
-	font-size: 15px;
-	padding-top: 15px;
-	margin: 20px;
-}
-
-#btn_open:hover {
-	background: rgb(150, 189, 100);
-}
-
 .pop_left {
 	width: 50%;
+	padding-left:15px;
 	float: left;
-	padding-left: 15px;
 }
 
 .pop_right {
@@ -167,7 +105,7 @@ textarea {
 }
 
 .star {
-	color: #ffe378;
+	color: #f5d36c;
 	font-size: 20pt;
 }
 
@@ -193,9 +131,6 @@ button {
 	padding: 0;
 }
 
-#moreBtn {
-	margin-bottom: 50px;
-}
 
 
 .review {
@@ -223,16 +158,33 @@ button {
 	margin: 10px 0px;
 }
 
+#moreBtn {
+	margin-bottom: 50px;
+}
+
+a {
+	text-decoration: none;
+	display: inline-block;
+	width: 35px;
+	margin:0;
+}
+
+a button {
+	color: rgb(160, 160, 160);
+}
+
+.btn_section {
+	display: inline-block;
+	padding-left: 20px;
+	margin-bottom: 20px;
+	width: 700px;
+	text-align:left;
+}
+
 #imgSection {
 	width: 310px;
 	min-height: 320px;
 
-}
-
-#imgSection:empty:before {
-	content: attr(data-placeholder);
-	color: #999;
-	font-size: .9em;
 }
 
 #topBtn {
@@ -252,5 +204,4 @@ button {
 .bold_text {
 	font-weight: 700;
 	font-size: 15px;
-	
 }

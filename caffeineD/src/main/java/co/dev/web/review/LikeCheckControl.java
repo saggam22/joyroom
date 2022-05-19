@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
@@ -29,7 +29,7 @@ public class LikeCheckControl implements Controller {
 		String userId = vo.getId();
 		int reviewNo = Integer.valueOf(request.getParameter("reviewNo"));
 				
-		CfnService service = new CfnService();
+		ReviewService service = new ReviewService();
 		boolean likeCheck = service.likeInfoSelect(userId, reviewNo);
 		
 		if (likeCheck) {
