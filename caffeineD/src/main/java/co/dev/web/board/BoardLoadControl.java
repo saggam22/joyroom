@@ -38,7 +38,7 @@ public class BoardLoadControl implements Controller {
 			List<BoardVO> list = service.boardLoad();
 
 			request.setAttribute("all", list);
-			request.getRequestDispatcher("board.jsp").forward(request, response);
+			request.getRequestDispatcher("view/board/board.jsp").forward(request, response);
 		}
 	}
 }

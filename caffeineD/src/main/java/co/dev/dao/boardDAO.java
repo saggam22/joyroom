@@ -15,9 +15,9 @@ public class boardDAO extends DAO {
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, board.getTitle());
-			psmt.setString(2, board.getUser_id() ); 
+			psmt.setString(2, board.getUser_id());
 			psmt.setString(3, board.getContent());
-			psmt.setString(4, "111"); // board.getImg()
+			psmt.setString(4, board.getImg()); 
 			psmt.setInt(5, 0);
 
 			int r = psmt.executeUpdate();
@@ -30,13 +30,14 @@ public class boardDAO extends DAO {
 	}
 
 	// 게시글 삭제
-	public void deleteMember(String user) {
+	public void deleteBoard(int board_no) {
 		conn();
-		String sql = "delete from board where board_user=?";
+		String sql = "delete from board where board_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, user);
+			psmt.setInt(1, board_no);
 			psmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

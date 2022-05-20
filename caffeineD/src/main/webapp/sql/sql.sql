@@ -36,9 +36,9 @@ CREATE TABLE notice
 -- 커뮤니티 게시판
 CREATE TABLE board
 (
-   board_no             NUMBER,
+    board_no             NUMBER,
     board_title          VARCHAR2(50),
-   board_user          VARCHAR2(20),
+    user_id         VARCHAR2(20),
     board_content       CLOB,
     board_date           DATE,
     board_img           CLOB,
@@ -51,16 +51,16 @@ CREATE TABLE board
 -- 커뮤니티 게시판 댓글
 CREATE TABLE cfn_comment
 (
+   comment_code             NUMBER,
    board_no              NUMBER,
    comment_no         NUMBER,
    comment_content   CLOB,
    comment_date      DATE,
    comment_img      CLOB,
-   comment_user      VARCHAR2(20),
+   user_id      VARCHAR2(20),
    
-   PRIMARY KEY(comment_no),
-   FOREIGN KEY(board_no) REFERENCES board(board_no)
-   
+   PRIMARY KEY(comment_code),
+   FOREIGN KEY(board_no) REFERENCES board(board_no) 
 );
 
 -- 카페 정보

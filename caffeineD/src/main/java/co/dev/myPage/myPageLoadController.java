@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.myPage;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import co.dev.dao.UserDAO;
 import co.dev.service.MyPageService;
 import co.dev.vo.UserVO;
+import co.dev.web.Controller;
 
 public class myPageLoadController implements Controller {
 
@@ -30,9 +31,9 @@ public class myPageLoadController implements Controller {
 		MyPageService service = new MyPageService();
 
 		user = service.userOne(vo.getId());
-
-		request.setAttribute("users", user);
-		request.getRequestDispatcher("myPage.jsp").forward(request, response);
+		
+		request.setAttribute("user", user);
+		request.getRequestDispatcher("view/myPage/myPage.tiles").forward(request, response);
 	}
 
 }

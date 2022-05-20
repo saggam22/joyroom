@@ -42,7 +42,7 @@ public class CommentInsertControl implements Controller {
 		BoardService service = new BoardService();
 		service.boardInsert(board);
 		
-		request.getRequestDispatcher("board.do").forward(request, response);
+		request.getRequestDispatcher("view/board/board.do").forward(request, response);
 		
 	}
 }

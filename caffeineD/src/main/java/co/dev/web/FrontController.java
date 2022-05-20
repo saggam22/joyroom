@@ -15,6 +15,8 @@ import co.dev.web.board.BoardContentsControl;
 import co.dev.web.board.BoardDeleteControl;
 import co.dev.web.board.BoardInsertControl;
 import co.dev.web.board.BoardLoadControl;
+import co.dev.myPage.myPageLoadController;
+import co.dev.myPage.updateInfoControl;
 import co.dev.web.admin.userListControl;
 import co.dev.web.bookmark.BookmarkCheckControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
@@ -54,7 +56,7 @@ public class FrontController extends HttpServlet {
 
 		// board
 		map.put("/board.do", new BoardLoadControl());
-		map.put("/boardWrite.do", new BoardInsertControl());
+		map.put("/board.do", new BoardInsertControl());
 		map.put("/boardContents.do", new BoardContentsControl());
 		map.put("/deleteBoard.do", new BoardDeleteControl());
 		
