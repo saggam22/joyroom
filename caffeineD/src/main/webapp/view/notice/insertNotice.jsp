@@ -15,14 +15,14 @@ form ul {
 <form action="${pageContext.servletContext.contextPath }/noticeInsert.do" method="post" enctype="multipart/form-data">
 <fieldset>
 	  <ul>
-		  <li><label><input type="checkbox" name="check" value="checked">필독공지</label></li>
+		  <li><label><input type="checkbox" name="check" value="checked">공지사항 상단 고정</label></li>
 	    <li><label for="title">제목</label>
-	      <input id="title" type="text" size="40"></li>
+	      <input id="title" type="text" size="40" name="title"></li>
 	    <li><label for="content">내용</label>
-	      <textarea cols="60" row="5" id="content"></textarea></li>
+	      <textarea cols="60" row="5" id="content" name="content"></textarea></li>
 	    <li><label for="file">파일첨부</label>
-	      <input id="file" type="file"></li>
-	    <li><button type="submit">접수하기</button></li>
+	      <input id="img" type="file" name="img"></li>
+	    <li><button type="submit">등록하기</button></li>
 	  </ul>
 </fieldset>
 </form>

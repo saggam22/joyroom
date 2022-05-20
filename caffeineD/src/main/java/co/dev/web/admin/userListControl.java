@@ -24,7 +24,7 @@ public class userListControl implements Controller {
 		List<UserVO> list = service.userList();
 
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("view/admin/userList.jsp").forward(request, response);
+		request.getRequestDispatcher("/view/admin/userList.tiles").forward(request, response);
 
 	}
 }

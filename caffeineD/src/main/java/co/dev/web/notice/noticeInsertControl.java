@@ -21,10 +21,10 @@ public class noticeInsertControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		UserVO vo = (UserVO) session.getAttribute("user");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		
-		String saveDir = "upload";
+		String saveDir = "img/noticeimg";
 		saveDir = request.getServletContext().getRealPath(saveDir); //getServletContext() 프로젝트명 .getRealPath(saveDir) 폴더명을 읽어옴
 		int maxSize = 1024*1024*5; //(5메가바이트)
 		String encoding = "UTF-8";
@@ -33,21 +33,30 @@ public class noticeInsertControl implements Controller {
 		
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
-		String file = multi.getParameter("file");
+		String img = multi.getParameter("img");
 		String check = multi.getParameter("check");
+		
+		HttpSession session = request.getSession();
+		UserVO vo = (UserVO) session.getAttribute("user");
 		
 		NoticeVO notice = new NoticeVO();
 		notice.setTitle(title);
 		notice.setContent(content);
-		notice.setImg(file);
-		notice.setCheck(check);
 		notice.setUser(vo.getNickname());
+		
+		if(img!=null) {			
+			notice.setImg(img);
+		}
+		
+		if(check!=null) {			
+			notice.setCheck(check);
+		}
 		
 		NoticeService service = new NoticeDAO();
 		service.insertNotice(notice);
 		
-		//Dispatcher객체 forward 요청정보를 그대로 지정페이지에서 호출
-		request.getRequestDispatcher("view/notice/notice.jsp").forward(request, response);
+		request.getSession().setAttribute("success", "공지사항 등록이 완료되었습니다.");
+		response.sendRedirect("notice.do");
 		
 	}
 

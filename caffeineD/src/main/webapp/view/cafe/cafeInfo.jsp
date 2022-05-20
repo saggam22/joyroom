@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
   <title>cafeInfo.jsp</title>
   <style>
-   #map {
-   	float: left;
-   	}
-   #info {
-   	float: right;
-   	width:35%;
-   	margin-left:10px;
-   	}
    ul {
   	list-style: none;
   	margin: 0;
@@ -28,47 +21,23 @@
 <div id="map" style="width:60%;height:350px;"></div>
 <div id="info">
 	<h4>information</h4>
-	<ul id="ulTag"></ul>
+	<ul id="ulTag">
+		<li>${cafeinfo.name }</li>
+		<li>${cafeinfo.address }</li>
+		<li>${cafeinfo.tel }</li>
+	</ul>
 	<a href='#' onclick="changeBtn()" id="bookmarkBtn">
 	<img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="30px"></a>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4583766540818c898f0a4d850e5046e&libraries=services"></script>
 <script>
-let url = location.href;
-console.log(url);
-let apos = url.indexOf('address=');
-let mpos = url.indexOf('name=');
-let tpos = url.indexOf('tel=');
-let npos = url.indexOf('no=');
-
-let address = url.substring(apos+8, mpos-1);
-let name = url.substring(mpos+5, tpos-1);
-let tel = url.substring(tpos+4, npos-1);
-let no = url.substring(npos+3);
-let kname = decodeURIComponent(name);
-let kaddress = decodeURIComponent(address);
-let raddress = kaddress.replace('%',' ');
-
-
-obj = {
-		name: kname,
-		address: raddress,
-		tel: tel
-};
-
-let ul = document.getElementById('ulTag');
-for (let feild in obj) {
-	let li = document.createElement('li');
-	li.innerHTML=obj[feild];
-	ul.appendChild(li);
-}
 
 function changeBtn() {
 	
 	 fetch('${pageContext.servletContext.contextPath }/bookmarkCheck.do', {
-	 	method: 'post',
+	 		method: 'post',
 	    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-	    body: 'cafeNo='+no
+	    body: 'cafeNo=${cafeinfo.no}'
 	 	})
 	 	.then(result =>result.json())
 	 	.then(result => {
@@ -108,7 +77,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch(raddress, function(result, status) {
+geocoder.addressSearch("${cafeinfo.address}", function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
@@ -123,7 +92,7 @@ geocoder.addressSearch(raddress, function(result, status) {
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="width:150px;text-align:center;padding:6px 0;">\${kname}</div>`
+            content: `<div style="width:150px;text-align:center;padding:6px 0;">${cafeinfo.name}</div>`
         });
         infowindow.open(map, marker);
 
@@ -132,6 +101,6 @@ geocoder.addressSearch(raddress, function(result, status) {
     } 
 });
 </script>
-
+<jsp:include page="/view/review/review.jsp"></jsp:include>
 </body>
 </html>
