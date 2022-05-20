@@ -10,7 +10,7 @@
 </head>
 <body>	
 	<h2>정보 수정</h2>
-	<form action="myPage.do" method="post">
+	<form action="${pageContext.servletContext.contextPath }/updateInfo.do" method="post">
 		아이디: <input type="text" name="id" readonly value="${user.id }"><br>
 		비밀번호: <input type="password" name="pwd" value="${user.pwd }"><br>
 		닉네임: <input type="text" name="nickname" value="${user.nickname }"><br>

@@ -15,11 +15,11 @@ public class updateInfoControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.invalidate();
+		UserVO vo = (UserVO) session.getAttribute("user");
 		
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		String nick = request.getParameter("nick");
+		String nick = request.getParameter("nickname");
 		String tel = request.getParameter("tel");
 		
 		UserVO user = new UserVO();
@@ -30,10 +30,9 @@ public class updateInfoControl implements Controller {
 
 		MyPageService service = new MyPageService();
 		service.userUpdate(user);
-
-		request.setAttribute("id", id);
-
-		request.getRequestDispatcher("updateOutput.jsp").forward(request, response);
+		
+//		request.setAttribute("user", user);
+		request.getRequestDispatcher("result/updateInfoOutput.jsp").forward(request, response);
 	}
 
 }

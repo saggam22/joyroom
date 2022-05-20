@@ -8,6 +8,27 @@ import co.dev.vo.BoardVO;
 
 public class boardDAO extends DAO {
 
+	// 글쓰기
+	public void insertBoard(BoardVO board) {
+		conn();
+		String sql = "insert into board values(seq_board.nextval,?, ?, ?, sysdate,\r\n" + "?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, board.getTitle());
+			psmt.setString(2, board.getUser_id() ); 
+			psmt.setString(3, board.getContent());
+			psmt.setString(4, "111"); // board.getImg()
+			psmt.setInt(5, 0);
+
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력됨.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+	}
+
 	// 게시글 삭제
 	public void deleteMember(String user) {
 		conn();
@@ -36,7 +57,7 @@ public class boardDAO extends DAO {
 				BoardVO vo = new BoardVO();
 				vo.setNo(rs.getInt("board_no"));
 				vo.setTitle(rs.getString("board_title"));
-				vo.setUser(rs.getString("board_user"));
+				vo.setUser_id(rs.getString("user_id"));
 				vo.setContent(rs.getString("board_content"));
 				vo.setDate(rs.getString("board_date"));
 				vo.setImg(rs.getString("board_img"));
@@ -51,7 +72,7 @@ public class boardDAO extends DAO {
 		return list;
 	}
 
-	// 자세히 보기
+	// 상세 보기
 	public BoardVO oneBoard(int num) {
 		conn();
 
@@ -63,7 +84,7 @@ public class boardDAO extends DAO {
 				BoardVO vo = new BoardVO();
 				vo.setNo(rs.getInt("board_no"));
 				vo.setTitle(rs.getString("board_title"));
-				vo.setUser(rs.getString("board_user"));
+				vo.setUser_id(rs.getString("user_id"));
 				vo.setContent(rs.getString("board_content"));
 				vo.setDate(rs.getString("board_date"));
 				vo.setImg(rs.getString("board_img"));
@@ -92,28 +113,6 @@ public class boardDAO extends DAO {
 			disconn();
 		}
 		return null;
-	}
-
-	// 글쓰기
-	public void insertBoard(BoardVO board) {
-		conn();
-		String sql = "insert into board values(seq_board.nextval,?, ?, ?, sysdate,\r\n"
-				+ "?,?)";
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, board.getTitle());
-			psmt.setString(2, board.getUser()); // board.getUser()
-			psmt.setString(3, board.getContent());
-			psmt.setString(4, "111"); // board.getImg()
-			psmt.setInt(5, 0);
-
-			int r = psmt.executeUpdate();
-			System.out.println(r + "건 입력됨.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
 	}
 
 	// 게시글 마지막번호 찾기

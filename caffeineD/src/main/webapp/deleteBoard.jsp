@@ -14,5 +14,6 @@
 		삭제할 글의 작성자: <input type="text" name="user" value="${board.user }"><br>
 		<input type="submit" value="삭제">
 	</form>
+	
 </body>
 </html>

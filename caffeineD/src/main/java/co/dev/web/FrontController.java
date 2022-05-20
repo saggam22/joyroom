@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.web.review.BoardContentsControl;
-import co.dev.web.review.BoardInsertControl;
-import co.dev.web.review.BoardLoadControl;
+import co.dev.web.board.BoardContentsControl;
+import co.dev.web.board.BoardDeleteControl;
+import co.dev.web.board.BoardInsertControl;
+import co.dev.web.board.BoardLoadControl;
 import co.dev.web.admin.userListControl;
 import co.dev.web.bookmark.BookmarkCheckControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
@@ -26,10 +27,10 @@ import co.dev.web.cafeinfo.CafeReionListControl;
 import co.dev.web.notice.noticeInsertControl;
 import co.dev.web.notice.noticeListControl;
 import co.dev.web.review.LikeCheckControl;
-import co.dev.web.review.ReviewListControl;
 import co.dev.web.review.ReviewDeleteControl;
 import co.dev.web.review.ReviewInsertControl;
 import co.dev.web.review.ReviewLikeControl;
+import co.dev.web.review.ReviewListControl;
 import co.dev.web.review.ReviewSelectControl;
 import co.dev.web.review.ReviewUpdateControl;
 import co.dev.web.review.StarAvgControl;
@@ -55,10 +56,11 @@ public class FrontController extends HttpServlet {
 		map.put("/board.do", new BoardLoadControl());
 		map.put("/boardWrite.do", new BoardInsertControl());
 		map.put("/boardContents.do", new BoardContentsControl());
-		map.put("/deleteBoard.do", new deleteBoardControl());
+		map.put("/deleteBoard.do", new BoardDeleteControl());
 		
 		// myPage
 		map.put("/updateInfo.do", new updateInfoControl());
+		map.put("/myPage.do", new myPageLoadController());
 
 		// login
 		map.put("/login.do", new LoginControl());

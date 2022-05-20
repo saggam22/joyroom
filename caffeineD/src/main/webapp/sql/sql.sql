@@ -63,21 +63,6 @@ CREATE TABLE cfn_comment
    
 );
 
--- 커뮤니티 게시판 대댓글
-CREATE TABLE cfn_recomment
-(
-   comment_no               NUMBER,
-   recomment_no         NUMBER,
-   recomment_content      CLOB,
-   recomment_date         DATE,
-   recomment_img          CLOB,
-   recomment_user         VARCHAR2(20),
-   
-   PRIMARY KEY(recomment_no),
-   FOREIGN KEY(comment_no) REFERENCES cfn_comment(comment_no)
-   
-);
-
 -- 카페 정보
 CREATE TABLE cafe
 (
