@@ -18,8 +18,8 @@ public class updateInfoControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		UserVO vo = (UserVO) session.getAttribute("user");
+		HttpSession session = request.getSession();
+		UserVO vo = (UserVO) session.getAttribute("user");
 		response.setContentType("text/json;charset=UTF-8");
 		String saveDir = "/img";
 		saveDir = request.getServletContext().getRealPath(saveDir);

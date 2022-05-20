@@ -22,8 +22,9 @@ public class BoardInsertControl implements Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/json;charset=UTF-8");
-		String saveDir = "/img";
+		String saveDir = "img";
 		saveDir = request.getServletContext().getRealPath(saveDir);
+		System.out.println(saveDir);
 		int maxSize = 1024 * 1024 * 10;
 		String encoding = "UTF-8";
 
@@ -50,7 +51,7 @@ public class BoardInsertControl implements Controller {
 		service.boardInsert(board);
 
 		// response.sendRedirect("board.do");
-		request.getRequestDispatcher("board.do").forward(request, response);
+		request.getRequestDispatcher("view/board/board.jsp").forward(request, response);
 
 	}
 

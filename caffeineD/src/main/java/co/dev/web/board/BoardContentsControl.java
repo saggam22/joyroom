@@ -60,7 +60,7 @@ public class BoardContentsControl implements Controller {
 
 			c_service.commentInsert(comment);
 		}
-		request.getRequestDispatcher("boardContents.jsp").forward(request, response);
+		request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);
 
 	}
 

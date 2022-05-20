@@ -22,7 +22,7 @@
 			</tbody>
 		</table>
 	</form>
-	<button style="margin-top: 10px;" type="button"
-		onclick="location.href='myPage.do'">돌아가기</button>
+		<button style="margin-top: 10px;" type="button"
+		onclick="location.href='${pageContext.servletContext.contextPath }/myPage.do'">돌아가기</button>		
 </body>
 </html>

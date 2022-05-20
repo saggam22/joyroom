@@ -46,7 +46,7 @@
 		</c:otherwise>
 	</c:choose>
 	<div style="margin-top: 10px;">
-		<a href="boardWrite.jsp">글쓰기</a>
+		<a href="view/board/boardWrite.jsp">글쓰기</a>
 	</div>
 </body>
 </html>

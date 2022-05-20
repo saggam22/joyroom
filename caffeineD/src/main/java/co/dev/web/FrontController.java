@@ -56,7 +56,7 @@ public class FrontController extends HttpServlet {
 
 		// board
 		map.put("/board.do", new BoardLoadControl());
-		map.put("/boardWrite.do", new BoardInsertControl());
+		map.put("/board.do", new BoardInsertControl());
 		map.put("/boardContents.do", new BoardContentsControl());
 		map.put("/deleteBoard.do", new BoardDeleteControl());
 		

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +31,11 @@
 			</tbody>
 		</table>
 	</form>
-	
+
 	<div style="margin-top: 10px;">
-		<a href="updateInfo.jsp"><input type="button" value="정보 수정"></a>
-		<a href="myBoard.jsp"><input type="button" value="작성글 보기"></a>
-		<a href="myComment.jsp"><input type="button" value="작성댓글 보기"></a>
+		<a href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.jsp"><input type="button" value="정보 수정"></a> 
+		<a href="${pageContext.servletContext.contextPath }/view/myPage/myBoard.jsp"><input type="button" value="작성글 보기"></a> 
+		<a href="${pageContext.servletContext.contextPath }/view/myPage/myComment.jsp"><input type="button" value="작성댓글 보기"></a>
 	</div>
 
 

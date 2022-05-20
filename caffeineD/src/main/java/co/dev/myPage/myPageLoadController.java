@@ -33,7 +33,7 @@ public class myPageLoadController implements Controller {
 		user = service.userOne(vo.getId());
 		
 		request.setAttribute("user", user);
-		request.getRequestDispatcher("myPage.jsp").forward(request, response);
+		request.getRequestDispatcher("view/myPage/myPage.tiles").forward(request, response);
 	}
 
 }
