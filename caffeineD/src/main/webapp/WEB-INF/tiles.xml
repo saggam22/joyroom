@@ -1,0 +1,16 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  <definition name="caffeineD.homepage" template="/WEB-INF/view/layout.jsp">
+    <put-attribute name="title" value="caffeineD" />
+    <put-attribute name="header" value="/WEB-INF/view/header.jsp" />
+    <put-attribute name="menu" value="/WEB-INF/view/menu.jsp" />
+    <put-attribute name="body" value="/WEB-INF/view/main.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/view/footer.jsp" />
+  </definition>
+  <definition name="WILDCARD:*/*/*" extends="caffeineD.homepage">
+  	<put-attribute name="body" value="/{1}/{2}/{3}.jsp"/>
+  </definition>
+</tiles-definitions>
+
