@@ -43,7 +43,12 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/notice.do">공지사항</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/cafeList.do">카페</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/board.do">커뮤니티</a></li>
+                        <c:choose>
+                        <c:when test="${user.nickname eq '관리자' }"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/user.do">관리자페이지</a></c:when>
+                        <c:otherwise>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/myPage.do">마이페이지</a></li>
+                        </c:otherwise>
+                        </c:choose>
                         <li class="nav-item px-lg-4">		
                         		<c:choose>
 							   		<c:when test="${empty user }"></c:when>

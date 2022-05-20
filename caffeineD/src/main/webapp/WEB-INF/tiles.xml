@@ -13,4 +13,3 @@
   	<put-attribute name="body" value="/{1}/{2}/{3}.jsp"/>
   </definition>
 </tiles-definitions>
-

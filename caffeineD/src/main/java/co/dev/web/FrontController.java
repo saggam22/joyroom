@@ -96,7 +96,7 @@ public class FrontController extends HttpServlet {
 		//notice
 		map.put("/notice.do", new noticeListControl()); //공지사항리스트(페이징)
 		map.put("/noticeInsert.do", new noticeInsertControl());
-
+		
 		//admin page
 		map.put("/user.do", new userListControl()); //유저 리스트
 	}

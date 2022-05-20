@@ -9,7 +9,9 @@
 </head>
 
 <body>
+
 	<jsp:forward page="caffeineD.homepage.tiles"></jsp:forward>
+
 </body>
 
 </html>

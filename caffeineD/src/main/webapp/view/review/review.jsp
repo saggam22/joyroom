@@ -137,7 +137,7 @@
 						method="post" enctype="multipart/form-data"
 						onsubmit="return submitCheck();">
 						<div class="pop_left">
-							<input type="hidden" name="cafeNo" value="1">
+							<input type="hidden" name="cafeNo" value="${cafeinfo.no }">
 							<div id="imgSection"><div id="reviewImgDiv"><img id="firstImg" src="${pageContext.servletContext.contextPath }/img/emptyimg.jpg"></div></div>
 							<input type="hidden" id="filePath" disabled="disabled"> <label
 								for="uploadImg" style="border: none; font-size: 10pt; margin:20px 0 0 120px; color:rgb(120, 120, 120); ">사진

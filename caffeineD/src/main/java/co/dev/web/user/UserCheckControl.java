@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.dev.service.ReviewService;
-import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
 public class UserCheckControl implements Controller {
