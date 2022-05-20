@@ -29,7 +29,8 @@
 <div id="info">
 	<h4>information</h4>
 	<ul id="ulTag"></ul>
-	<a href="${pageContext.servletContext.contextPath }/bookmark.do" onsubmit="return bookmarkCheck()" class="bookmarkBtn"><img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="25px"></a>
+	<a href='#' onclick="changeBtn()" id="bookmarkBtn">
+	<img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="30px"></a>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4583766540818c898f0a4d850e5046e&libraries=services"></script>
 <script>
@@ -43,7 +44,7 @@ let npos = url.indexOf('no=');
 let address = url.substring(apos+8, mpos-1);
 let name = url.substring(mpos+5, tpos-1);
 let tel = url.substring(tpos+4, npos-1);
-let no = url.substring(mpos+3);
+let no = url.substring(npos+3);
 let kname = decodeURIComponent(name);
 let kaddress = decodeURIComponent(address);
 let raddress = kaddress.replace('%',' ');
@@ -60,6 +61,38 @@ for (let feild in obj) {
 	let li = document.createElement('li');
 	li.innerHTML=obj[feild];
 	ul.appendChild(li);
+}
+
+function changeBtn() {
+	
+	 fetch('${pageContext.servletContext.contextPath }/bookmarkCheck.do', {
+	 	method: 'post',
+	    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	    body: 'cafeNo='+no
+	 	})
+	 	.then(result =>result.json())
+	 	.then(result => {
+	 		console.log(typeof result.bookmarkCheck);
+	 		if(result.bookmarkCheck == "false") {
+	 			console.log(result.bookmarkCheck);
+	 			let tag = document.getElementById("mark");
+	 			tag.setAttribute("src","${pageContext.servletContext.contextPath }/img/bookmark.png"); //속성값 부여할땐 절대경로 사용가능
+		  	alert("북마크 완료")
+	 		} else {
+		  	console.log(result.bookmarkCheck);
+		  	let tag = document.getElementById("mark").src = getPathRootJump()+"/img/unbookmark.png"; //함수 사용해보기
+		  	alert("북마크 취소")
+		  	}
+	 	})
+	 	.catch(error => console.log(error));
+	 }
+
+//절대경로 구하는 함수
+function getPathRootJump() {
+	var pathName = window.location.pathname.substring(1);
+	var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));
+	var path_root = window.location.protocol + '//' + window.location.host + '/' + webName + '/';
+	return path_root;
 }
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -100,8 +133,5 @@ geocoder.addressSearch(raddress, function(result, status) {
 });
 </script>
 
-<script>
-
-</script>
 </body>
 </html>

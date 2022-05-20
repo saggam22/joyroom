@@ -18,23 +18,30 @@ public class BookmarkCheckControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.setContentType("text/json;charset=utf-8");
+		response.setContentType("application/json;charset=utf-8");
 		
 		HttpSession session = request.getSession();
 		UserVO vo = (UserVO) session.getAttribute("user");
+
 		
 		if(vo == null) {
 			return;
 		}
 		
 		String userId = vo.getId();
+		
 		int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
 					
 		UserService service = new UserDAO();
 		boolean check = service.checkBookmark(cafeNo, userId);
-	
-		request.setAttribute("check", check);
-		request.getRequestDispatcher("view/cafe/cafeinfo.jsp").forward(request, response);
+		
+		if (check) {
+			response.getWriter().print("{\"bookmarkCheck\" : \"true\"}");
+			service.deleteBookmark(cafeNo, userId);
+		} else {
+			response.getWriter().print("{\"bookmarkCheck\" : \"false\"}");
+			service.insertBookmark(cafeNo, userId);
+		}
 	}
 
 }

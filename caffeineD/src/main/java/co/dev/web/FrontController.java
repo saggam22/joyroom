@@ -14,14 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 import co.dev.web.review.BoardContentsControl;
 import co.dev.web.review.BoardInsertControl;
 import co.dev.web.review.BoardLoadControl;
+import co.dev.web.admin.userListControl;
 import co.dev.web.bookmark.BookmarkCheckControl;
-import co.dev.web.bookmark.BookmarkControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
 import co.dev.web.cafeinfo.CafeInfoDelteControl;
 import co.dev.web.cafeinfo.CafeInfoInsertControl;
 import co.dev.web.cafeinfo.CafeInfoSelectControl;
 import co.dev.web.cafeinfo.CafeInfoUpdateControl;
 import co.dev.web.cafeinfo.CafeListControl;
+import co.dev.web.cafeinfo.CafeReionListControl;
+import co.dev.web.notice.noticeInsertControl;
+import co.dev.web.notice.noticeListControl;
 import co.dev.web.review.LikeCheckControl;
 import co.dev.web.review.ReviewListControl;
 import co.dev.web.review.ReviewDeleteControl;
@@ -76,18 +79,22 @@ public class FrontController extends HttpServlet {
 		
 		 // cafe
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회(페이징)
+		map.put("/cafeRegionList.do", new CafeReionListControl()); //카페 지역별리스트 조회(페이징)
 		map.put("/cafeInfoInsert.do", new CafeInfoInsertControl()); //카페 정보 추가
 		map.put("/cafeInfoDelete.do", new CafeInfoDelteControl()); //카페 정보 삭제
 		map.put("/cafeInfoUpdate.do", new CafeInfoUpdateControl()); //카페 정보 수정
 		map.put("/cafeInfoSelect.do", new CafeInfoSelectControl()); //카페 정보 세부 조회
 		
 		// bookmark
-		map.put("/bookmark.do", new BookmarkControl()); //북마크 +-
-		map.put("/bookmarkCheck.do", new BookmarkCheckControl()); //북마크 체크
+		map.put("/bookmarkCheck.do", new BookmarkCheckControl()); //북마크 +-체크
 		map.put("/bookmarkSelect.do", new BookmarkSelectControl()); //내 북마크 조회
 
+		//notice
+		map.put("/notice.do", new noticeListControl()); //공지사항리스트(페이징)
+		map.put("/noticeInsert.do", new noticeInsertControl());
 
-
+		//admin page
+		map.put("/user.do", new userListControl()); //유저 리스트
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)

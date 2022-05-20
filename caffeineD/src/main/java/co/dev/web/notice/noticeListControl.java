@@ -1,4 +1,4 @@
-package co.dev.web.cafeinfo;
+package co.dev.web.notice;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,21 +6,18 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import co.dev.dao.CafeDAO;
-import co.dev.service.CafeService;
-import co.dev.vo.CafeVO;
+import co.dev.dao.NoticeDAO;
+import co.dev.service.NoticeService;
+import co.dev.vo.NoticeVO;
 import co.dev.vo.PageVO;
-import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
-public class CafeListControl implements Controller {
+public class noticeListControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("text/json;charset=utf-8");
+response.setContentType("text/json;charset=utf-8");
 		
 		//첫페이지
 		int pageNum = 1;
@@ -33,14 +30,15 @@ public class CafeListControl implements Controller {
 		PageVO pasing = new PageVO();
 		pasing.setPageNum(pageNum);
 		
-		CafeService dao = new CafeDAO();
-		int total = dao.cafeCount();
+		NoticeService dao = new NoticeDAO();
+		int total = dao.noticeCount();
 		pasing.setTotal(total);
-		List<CafeVO> list = dao.cafeList(pageNum);
+		List<NoticeVO> list = dao.noticeList(pageNum);
 
 		request.setAttribute("paging", pasing);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("view/cafe/cafeList.jsp").forward(request, response);
+		request.getRequestDispatcher("view/notice/notice.jsp").forward(request, response);
 	}
+
 }

@@ -10,6 +10,7 @@ import co.dev.vo.UserVO;
 
 public class UserDAO extends DAO implements UserService {
 
+	// 회원가입
 	public void userInsert(UserVO vo) {
 
 		conn();
@@ -32,34 +33,6 @@ public class UserDAO extends DAO implements UserService {
 		} finally {
 			disconn();
 		}
-	}
-	
-	public boolean checkBookmark(int cafeNo, String userId) {
-		
-		conn();
-		String sql = "SELECT * FROM bookmark "
-				+ "WHERE cafe_no=? AND user_id=?";
-		
-		try {
-			
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, cafeNo);
-			psmt.setString(2, userId);
-			
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("북마크 " + r + "건 조회");
-				return true;
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-		
-		return false;
 	}
 
 	// myPage 내정보수정
@@ -131,7 +104,7 @@ public class UserDAO extends DAO implements UserService {
 		conn();
 		String sql = "SELECT * FROM cafe WHERE cafe_no IN (SELECT cafe_no FROM bookmark WHERE user_id LIKE ?)";
 
-		List<CafeVO> list = new ArrayList<>();
+		List<CafeVO> list = new ArrayList<CafeVO>();
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -150,7 +123,6 @@ public class UserDAO extends DAO implements UserService {
 				vo.setRegion(rs.getString("cafe_region"));
 				list.add(vo);
 
-				return list;
 			}
 
 		} catch (SQLException e) {
@@ -158,7 +130,66 @@ public class UserDAO extends DAO implements UserService {
 		} finally {
 			disconn();
 		}
-		return null;
+		return list;
 	}
 
+	// 카페 중복체크
+	public boolean checkBookmark(int cafeNo, String userId) {
+
+		conn();
+		String sql = "SELECT * FROM bookmark " + "WHERE cafe_no=? AND user_id=?";
+
+		try {
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, cafeNo);
+			psmt.setString(2, userId);
+
+			int r = psmt.executeUpdate();
+
+			if (r > 0) {
+				System.out.println("북마크 " + r + "건 조회");
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return false;
+	}
+
+	public List<UserVO> userList() {
+		conn();
+		String sql = "SELECT * FROM cfn_user";
+
+		List<UserVO> list = new ArrayList<UserVO>();
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+
+				UserVO vo = new UserVO();
+				
+				vo.setId(rs.getString("user_id"));
+				vo.setPwd(rs.getString("user_pwd"));
+				vo.setNickname(rs.getString("user_nick"));
+				vo.setTel(rs.getString("user_tel"));
+				vo.setImg(rs.getString("user_img"));
+
+				list.add(vo);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
+	}
+					
 }
