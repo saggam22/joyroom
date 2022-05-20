@@ -32,6 +32,7 @@ import co.dev.web.review.ReviewInsertControl;
 import co.dev.web.review.ReviewLikeControl;
 import co.dev.web.review.ReviewSelectControl;
 import co.dev.web.review.ReviewUpdateControl;
+import co.dev.web.review.StarAvgControl;
 import co.dev.web.user.LoginControl;
 import co.dev.web.user.LogoutControl;
 import co.dev.web.user.UserCheckControl;
@@ -73,7 +74,8 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewUpdate.do", new ReviewUpdateControl()); 		// 리뷰 수정
 		map.put("/reviewDelete.do", new ReviewDeleteControl());			// 리뷰 삭제
 		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
-		map.put("/likeCheck.do", new LikeCheckControl());	
+		map.put("/likeCheck.do", new LikeCheckControl());				// 좋아요 체크	
+		map.put("/starAvg.do", new StarAvgControl());									// 평균 평점 조회
 		
 		 // cafe
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회(페이징)

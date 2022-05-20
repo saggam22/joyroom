@@ -6,7 +6,7 @@ function getParameter(name) {
 }
 
 let job = getParameter('job');
-
+let results = document.querySelectorAll('.result');
 // 아이디 찾기
 if (job==='findid') {
 	
@@ -18,7 +18,32 @@ if (job==='findid') {
 	let iFindDiv = document.querySelector("#iFindDiv");
 	let iResultDiv = document.querySelector("#iResultDiv");
 	
-	iFindBtn.addEventListener('click', function() {
+	iFindBtn.addEventListener('click', idFindCallBack);
+	
+// 비밀번호 찾기
+} else if (job==='findpwd') {
+	
+	//아이디 입력 버튼
+	let idBtn = document.querySelector("#idBtn");
+	let bUserId = document.querySelector("#bUserId");
+	let bTelDiv = document.querySelector("#bTelDiv");
+	let bIdDiv = document.querySelector("#bIdDiv");
+	
+	idBtn.addEventListener('click', idCheckCallBack);
+	
+	// 찾기 버튼
+	let bFindBtn = document.querySelector("#bFindBtn");
+	let bTel1 = document.querySelector("#bTel1");
+	let bTel2 = document.querySelector("#bTel2");
+	let bTel3 = document.querySelector("#bTel3");
+	let bFindDiv = document.querySelector("#bFindDiv");
+	let bResultDiv = document.querySelector("#bResultDiv");
+	
+	bFindBtn.addEventListener('click', pwdFindCallBack);
+	
+}
+
+function idFindCallBack() {
 		console.log('click');
 		fetch(getPathRootJump()+'userIdCheck.do', {
 				method: 'post',
@@ -35,25 +60,17 @@ if (job==='findid') {
 					alert('숫자만 입력할 수 있습니다.');
 				} else {
 					iFindDiv.style.display = 'none';
-					iResultDiv.innerHTML = `찾으시는 아이디는 ${result.findId }입니다.`;
+					iResultDiv.style.display = 'block';
+					results[0].innerHTML = `${result.findId}`;
 				}
 				iTel1.value = '';
 				iTel2.value = '';
 				iTel3.value = '';
 			})
 			.catch(error => console.log(error));
-	});
+	}
 	
-// 비밀번호 찾기
-} else if (job==='findpwd') {
-	
-	//아이디 입력 버튼
-	let idBtn = document.querySelector("#idBtn");
-	let bUserId = document.querySelector("#bUserId");
-	let bTelDiv = document.querySelector("#bTelDiv");
-	let bIdDiv = document.querySelector("#bIdDiv");
-	
-	idBtn.addEventListener('click', function() {
+function idCheckCallBack() {
 		fetch(getPathRootJump()+'userIdCheck.do', {
 				method: 'post',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -64,29 +81,19 @@ if (job==='findid') {
 				if (result.userCheck === 'true') {
 					bIdDiv.style.display = 'none';
 					bTelDiv.style.display = 'block';
-					let findId = document.getElementById('findId');
-					findId.innerHTML = `입력하신 아이디는 ${bUserId.value }입니다.`;
+					results[0].innerHTML = `${bUserId.value }`;
 				} else if (result.error === 'null') {
 					alert('아이디를 입력해주세요.');
 				} else {
 					alert('입력하신 아이디를 찾을 수 없습니다.');
 				}
-				bUserId.value = '';
 				
 			})
 			.catch(error => console.log(error))
-	});
-	
-	// 찾기 버튼
-	let bFindBtn = document.querySelector("#bFindBtn");
-	let bTel1 = document.querySelector("#bTel1");
-	let bTel2 = document.querySelector("#bTel2");
-	let bTel3 = document.querySelector("#bTel3");
-	let bFindDiv = document.querySelector("#bFindDiv");
-	let bResultDiv = document.querySelector("#bResultDiv");
-	
-	bFindBtn.addEventListener('click', function() {
-		console.log('click');
+}
+
+function pwdFindCallBack() {
+		console.log(`${bUserId.value}`);
 		fetch(getPathRootJump()+'userIdCheck.do', {
 				method: 'post',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -110,10 +117,7 @@ if (job==='findid') {
 				bTel3.value = '';
 			})
 			.catch(error => console.log(error));
-	});
-	
-}
-
+	}
 
 function getPathRootJump() {
 	var pathName = window.location.pathname.substring(1);

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
@@ -32,7 +32,7 @@ public class ReviewListControl implements Controller {
 			//int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
 			int cafeNo = 1;
 			
-			CfnService service = new CfnService();
+			ReviewService service = new ReviewService();
 			List<ReviewVO> reviewList = service.reviewList(cafeNo);
 			
 			if (reviewList != null) {
@@ -61,7 +61,7 @@ public class ReviewListControl implements Controller {
 			
 			String userId = vo.getId();
 
-			CfnService service = new CfnService();
+			ReviewService service = new ReviewService();
 			List<ReviewVO> list = service.myReviewList(userId);
 
 			request.setAttribute("myReviewList", list);

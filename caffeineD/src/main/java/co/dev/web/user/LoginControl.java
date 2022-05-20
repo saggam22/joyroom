@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import co.dev.service.CfnService;
+import co.dev.service.ReviewService;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
@@ -19,7 +19,7 @@ public class LoginControl implements Controller {
 		String userId = request.getParameter("id");
 		String userPwd = request.getParameter("pwd");
 		
-		CfnService service = new CfnService();
+		ReviewService service = new ReviewService();
 		boolean whoRU = service.userLogin(userId, userPwd);
 				
 		HttpSession session = request.getSession();
