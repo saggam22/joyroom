@@ -41,6 +41,6 @@ public class CafeListControl implements Controller {
 		request.setAttribute("paging", pasing);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("view/cafe/cafeList.jsp").forward(request, response);
+		request.getRequestDispatcher("/view/cafe/cafeList.tiles").forward(request, response);
 	}
 }

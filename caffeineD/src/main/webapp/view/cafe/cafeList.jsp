@@ -43,7 +43,7 @@ a {
 		<hr>
 		<div id="bigBox">
 			<c:forEach var="cafeinfo" items="${list }">
-				<a href="view/cafe/cafeInfo.jsp?address=${cafeinfo.address}&name=${cafeinfo.name}&tel=${cafeinfo.tel}&no=${cafeinfo.no}">
+				<a href="${pageContext.servletContext.contextPath }/cafeInfoSelect.do?no=${cafeinfo.no}">
 					<img src="${pageContext.servletContext.contextPath }/img/cafeimg/${cafeinfo.img }">
 					<span>${cafeinfo.name }</span>
 				</a>

@@ -24,6 +24,13 @@ public class ReviewListControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+
+
+
+
+		String url = this.getClass().getResource("").getPath(); 
+		url = url.substring(1,url.indexOf(".metadata"))+"caffeineD";
+		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
@@ -38,12 +45,12 @@ public class ReviewListControl implements Controller {
 			if (reviewList != null) {
 				
 				request.setAttribute("reviewList", reviewList);
-				request.getRequestDispatcher("view/review.jsp").forward(request, response);
+				request.getRequestDispatcher("/view/review/review.tiles").forward(request, response);
 				return;
 				
 			} else {
 				
-				request.getRequestDispatcher("view/review.jsp").forward(request, response);
+				request.getRequestDispatcher("/view/review/review.tiles").forward(request, response);
 				return;	
 				
 			}
@@ -55,7 +62,7 @@ public class ReviewListControl implements Controller {
 			
 			if (vo == null) {
 				session.setAttribute("error", "로그인이 필요합니다.");
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("/caffeineD/index.jsp");
 				return;
 			}
 			
@@ -66,7 +73,7 @@ public class ReviewListControl implements Controller {
 
 			request.setAttribute("myReviewList", list);
 
-			request.getRequestDispatcher("view/myReview.jsp").forward(request, response);
+			request.getRequestDispatcher("/view/review/myReview.tiles").forward(request, response);
 			
 		}
 		

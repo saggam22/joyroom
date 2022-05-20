@@ -38,7 +38,7 @@ public class noticeListControl implements Controller {
 		request.setAttribute("paging", pasing);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("view/notice/notice.jsp").forward(request, response);
+		request.getRequestDispatcher("/view/notice/notice.tiles").forward(request, response);
 	}
 
 }
