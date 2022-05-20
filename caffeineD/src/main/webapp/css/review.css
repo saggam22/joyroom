@@ -10,14 +10,18 @@
 
 }
 
-#container {
-	text-align: center;
-	margin: 0;
-}
+
 
 body {
 	background: #f6f6f6;
 	margin: 0;
+	text-align: center;
+}
+
+#container {
+	width: 800px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 #reviews_info {
