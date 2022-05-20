@@ -107,7 +107,7 @@ form {
 		<a href="findIdPwd.jsp?job=findid"><button type="button">아이디/비밀번호 찾기</button></a>
 	</div>
 	<div class="outer_section">
-		<a href="#"><button type="button">회원 가입</button></a>
+		<a href="${pageContext.servletContext.contextPath }/view/user/userInsert.tiles"><button type="button">회원 가입</button></a>
 	</div>
 	</form>
 </section>

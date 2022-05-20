@@ -187,7 +187,7 @@ public class UserDAO extends DAO implements UserService {
 		return vo;
 	}
 
-  
+	//유저리스트
 	public List<UserVO> userList() {
 		conn();
 		String sql = "SELECT * FROM cfn_user";

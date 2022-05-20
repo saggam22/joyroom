@@ -41,10 +41,12 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
+
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/index.jsp">home</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/notice.do">notice</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/cafeList.do">cafe</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/board.do">community</a></li>
+                        <a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/user.do">관리자페이지</a><
                      </ul>
                       <ul id="login_user" class="navbar-nav mx-auto">
 				<c:choose>

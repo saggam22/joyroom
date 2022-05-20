@@ -140,21 +140,17 @@ public class CafeDAO extends DAO implements CafeService {
 		CafeVO vo = null;
 				
 		try {
-
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, cafeNo);
-
-			while (rs.next()) {
-
+			rs = psmt.executeQuery();
+			while (rs.next()) {		
 				vo = new CafeVO();
-
 				vo.setNo(rs.getInt("cafe_no"));
 				vo.setName(rs.getString("cafe_name"));
 				vo.setAddress(rs.getString("cafe_address"));
 				vo.setTel(rs.getString("cafe_tel"));
 				vo.setImg(rs.getString("cafe_img"));
 				vo.setRegion(rs.getString("cafe_region"));
-				
 			}
 			
 		} catch (SQLException e) {
