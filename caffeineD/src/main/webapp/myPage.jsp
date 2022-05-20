@@ -7,10 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<a href="index.jsp">메인</a>
 	<h1>My Page</h1>
-
 	<form>
 		<table border="1">
 			<thead>
@@ -34,12 +32,6 @@
 		<a href="updateInfo.jsp"><input type="button" value="정보 수정"></a>
 		<a href="myBoard.jsp"><input type="button" value="작성글 보기"></a>
 		<a href="myComment.jsp"><input type="button" value="작성댓글 보기"></a>
-		
-		<a href="${pageContext.servletContext.contextPath }/myReview.do">내 리뷰</a><br>
 	</div>
-
-
-
-
 </body>
 </html>
