@@ -29,12 +29,17 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-
-	<article id="reviews_info">
+	
+	<c:choose>
+	
+		<c:when test="${empty reviewList }">리뷰가 없습니다.</c:when>
+		
+		<c:otherwise>
+			<article id="reviews_info">
 					<div><span id="star_avg"></span><span style="color:rgb(120, 120, 120);"> / 5</span></div>
 					<div id="star_show"></div>
 					<div id="review_count" ></div>
-						
+
 					<table style="display:inline-block; ">
 						<tr>
 							<td>1</td><td class="star_info">★</td><td><div class="star_count_show"><div class="star_count_show_color"></div></div></td>
@@ -53,15 +58,10 @@
 						</tr>
 					</table>
 						
-	</article>
+			</article>
 
 	<div id="container">
-		<c:choose>
-			<c:when test="${empty reviewList }">첫 리뷰를 남겨보세요!</c:when>
-			<c:otherwise>
 
-				
-			
 				<article>
 					<c:choose>
 						<c:when test="${empty user }"></c:when>
@@ -120,7 +120,9 @@
 					</c:forEach>
 				</article>
 			<button id="moreBtn" onClick="listMore()"><img src="${pageContext.servletContext.contextPath }/img/moreBtn.png" style="width: 50px;" ></button>
-			</c:otherwise>
+	</div>	
+	</c:otherwise>
+	
 		</c:choose>
 
 
@@ -137,7 +139,7 @@
 						method="post" enctype="multipart/form-data"
 						onsubmit="return submitCheck();">
 						<div class="pop_left">
-							<input type="hidden" name="cafeNo" value="1">
+							<input type="hidden" name="cafeNo" value="${cafeinfo.no }">
 							<div id="imgSection"><div id="reviewImgDiv"><img id="firstImg" src="${pageContext.servletContext.contextPath }/img/emptyimg.jpg"></div></div>
 							<input type="hidden" id="filePath" disabled="disabled"> <label
 								for="uploadImg" style="border: none; font-size: 10pt; margin:20px 0 0 120px; color:rgb(120, 120, 120); ">사진
@@ -187,7 +189,7 @@
 		
 		<div id="topBtn" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>
 		
-	</div>
+
 </body>
 
 <script src="js/review.js"></script>

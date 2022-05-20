@@ -10,21 +10,18 @@
 @charset "UTF-8";
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-* { 
+#login_section { 
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
 	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
 	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
 	font-size: 10pt;
 	box-sizing: border-box;
-}
-
-#login_section {
 	text-align: center;
-	margin-top: 100px;
+	margin: 40px 0;
 }
 
 h2 {
-	margin: 0 0 10px 0;
+	margin: 0;
 	font-size: 25pt;
 }
 
