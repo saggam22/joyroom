@@ -29,12 +29,17 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-
-	<article id="reviews_info">
+	
+	<c:choose>
+	
+		<c:when test="${empty reviewList }">리뷰가 없습니다.</c:when>
+		
+		<c:otherwise>
+			<article id="reviews_info">
 					<div><span id="star_avg"></span><span style="color:rgb(120, 120, 120);"> / 5</span></div>
 					<div id="star_show"></div>
 					<div id="review_count" ></div>
-						
+
 					<table style="display:inline-block; ">
 						<tr>
 							<td>1</td><td class="star_info">★</td><td><div class="star_count_show"><div class="star_count_show_color"></div></div></td>
@@ -53,15 +58,10 @@
 						</tr>
 					</table>
 						
-	</article>
+			</article>
 
 	<div id="container">
-		<c:choose>
-			<c:when test="${empty reviewList }">첫 리뷰를 남겨보세요!</c:when>
-			<c:otherwise>
 
-				
-			
 				<article>
 					<c:choose>
 						<c:when test="${empty user }"></c:when>
@@ -120,7 +120,9 @@
 					</c:forEach>
 				</article>
 			<button id="moreBtn" onClick="listMore()"><img src="${pageContext.servletContext.contextPath }/img/moreBtn.png" style="width: 50px;" ></button>
-			</c:otherwise>
+	</div>	
+	</c:otherwise>
+	
 		</c:choose>
 
 
@@ -187,7 +189,7 @@
 		
 		<div id="topBtn" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>
 		
-	</div>
+
 </body>
 
 <script src="js/review.js"></script>
