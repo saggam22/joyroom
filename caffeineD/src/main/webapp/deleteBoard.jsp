@@ -9,11 +9,6 @@
 <title>deleteBoard.jsp</title>
 </head>
 <body>
-	<h3>글삭제</h3>
-	<form action="board.do" method="post">
-		삭제할 글의 작성자: <input type="text" name="user" value="${board.user }"><br>
-		<input type="submit" value="삭제">
-	</form>
 	
 </body>
 </html>

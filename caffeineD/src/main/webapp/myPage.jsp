@@ -21,10 +21,10 @@
 					<th>프로필</th>
 			<tbody>
 				<tr>
-					<td>${users.id }</td>
-					<td>${users.nickname }</td>
-					<td>${users.tel }</td>
-					<td>${users.img }</td>
+					<td>${user.id }</td>
+					<td>${user.nickname }</td>
+					<td>${user.tel }</td>
+					<td>${user.img }</td>
 				</tr>
 			</tbody>
 		</table>

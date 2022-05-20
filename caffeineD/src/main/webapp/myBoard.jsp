@@ -8,27 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	<c:choose>
-		<c:when test="${!empty error}">
-			<script>
-				alert("${error }")
-			</script>
-			<%
-			request.getSession().removeAttribute("error");
-			%>
-		</c:when>
-		<c:otherwise>
-			<c:if test="${!empty success }">
-				<script>
-					alert("${success }")
-				</script>
-				<%
-				request.getSession().removeAttribute("success");
-				%>
-			</c:if>
-		</c:otherwise>
-	</c:choose>
+<body>	
 	<form>
 		<table border="1">
 			<thead>
@@ -43,6 +23,6 @@
 		</table>
 	</form>
 	<button style="margin-top: 10px;" type="button"
-		onclick="location.href='myPage.jsp'">돌아가기</button>
+		onclick="location.href='myPage.do'">돌아가기</button>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.myPage;
 
 import java.io.IOException;
 
@@ -7,32 +7,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import co.dev.dao.UserDAO;
 import co.dev.service.MyPageService;
 import co.dev.vo.UserVO;
+import co.dev.web.Controller;
 
-public class updateInfoControl implements Controller {
+public class myPageLoadController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
 		UserVO vo = (UserVO) session.getAttribute("user");
-		
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
-		String nick = request.getParameter("nickname");
-		String tel = request.getParameter("tel");
-		
 		UserVO user = new UserVO();
-		user.setId(id);
-		user.setPwd(pwd);
-		user.setNickname(nick);
-		user.setTel(tel);
 
+		if (vo == null) {
+			session.setAttribute("error", "로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+			response.sendRedirect("view/user/login.jsp");
+			return;
+		}
+
+		System.out.println("로그인유저 : " + vo.getId());
 		MyPageService service = new MyPageService();
-		service.userUpdate(user);
+
+		user = service.userOne(vo.getId());
 		
-//		request.setAttribute("user", user);
-		request.getRequestDispatcher("result/updateInfoOutput.jsp").forward(request, response);
+		request.setAttribute("user", user);
+		request.getRequestDispatcher("myPage.jsp").forward(request, response);
 	}
 
 }

@@ -9,12 +9,12 @@ public class BoardService {
 
 	boardDAO dao = new boardDAO();
 	
-	public void boardDelete(String user) {
-		dao.deleteMember(user);
+	public void boardDelete(int board_no) {
+		dao.deleteBoard(board_no);
 	}
 	
-	public List<BoardVO> boardLoad() {
-		// 게시판 리스트 조회
+	// 게시판 리스트 조회
+	public List<BoardVO> boardLoad() {		
 		return dao.listBoard();
 	}
 	

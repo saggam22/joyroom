@@ -1,7 +1,6 @@
-package co.dev.web.board;
+package co.dev.myPage;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,16 +10,16 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import co.dev.service.BoardService;
-import co.dev.vo.BoardVO;
+import co.dev.service.MyPageService;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
-public class BoardInsertControl implements Controller {
+public class updateInfoControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+//		HttpSession session = request.getSession();
+//		UserVO vo = (UserVO) session.getAttribute("user");
 		response.setContentType("text/json;charset=UTF-8");
 		String saveDir = "/img";
 		saveDir = request.getServletContext().getRealPath(saveDir);
@@ -29,29 +28,25 @@ public class BoardInsertControl implements Controller {
 
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
 		request.setCharacterEncoding(encoding);
-
-		HttpSession session = request.getSession();
-		UserVO vo = new UserVO();
-		vo = (UserVO) session.getAttribute("user");
-
-		String userId = vo.getId(); // 로그인 사용자 ID
-		String title = multi.getParameter("title");
-		String content = multi.getParameter("content");
+		
+		String id = multi.getParameter("id");
+		String pwd = multi.getParameter("pwd");
+		String nick = multi.getParameter("nickname");
+		String tel = multi.getParameter("tel");
 		String img = multi.getFilesystemName("img");
-		System.out.println(img);
+		
+		UserVO user = new UserVO();
+		user.setId(id);
+		user.setPwd(pwd);
+		user.setNickname(nick);
+		user.setTel(tel);
+		user.setImg(img);
 
-		BoardVO board = new BoardVO();
-		board.setContent(content);
-		board.setTitle(title);
-		board.setUser_id(userId);
-		board.setImg(img);
-
-		BoardService service = new BoardService();
-		service.boardInsert(board);
-
-		// response.sendRedirect("board.do");
-		request.getRequestDispatcher("board.do").forward(request, response);
-
+		MyPageService service = new MyPageService();
+		service.userUpdate(user);
+		
+//		request.setAttribute("user", user);
+		request.getRequestDispatcher("result/updateInfoOutput.jsp").forward(request, response);
 	}
 
 }

@@ -48,7 +48,7 @@ public class BoardContentsControl implements Controller {
 			System.out.println("없는 게시글입니다.");
 		} else {
 			request.setAttribute("contents", vo); // 화면에뿌리기
-			request.setAttribute("comments", c_list);
+			request.setAttribute("comments", c_list);			
 		}
 
 		if (param_comment != null) {

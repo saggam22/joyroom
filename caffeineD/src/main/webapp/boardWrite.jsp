@@ -11,11 +11,11 @@
 	
 	<div style="width:90%;">
 		<h4>글을 작성하는 공간입니다.</h4>	
-		<form action="boardWrite.do" method="post" entype="Multipart/form-data">
+		<form action="boardWrite.do" method="post" enctype="Multipart/form-data">
 			<textarea name="title"placeholder="제목"  rows="1" cols="150"  required></textarea><br>
 			<textarea name="content" rows="15" cols="150" placeholder="내용" required></textarea><br>
 			<div style ="margin-top:10px">
-			<input type="file" name="file"><br>
+			<input type="file" name="img" value=img><br>
 			<input type="hidden" name="user_id" value=user_id>
 			</div>	
 			<div style ="margin-top:15px;margin-left:900px;">
