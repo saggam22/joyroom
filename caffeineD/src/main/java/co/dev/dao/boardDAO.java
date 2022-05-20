@@ -1,13 +1,10 @@
 package co.dev.dao;
 
-import java.sql.PreparedStatement;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import co.dev.vo.BoardVO;
-import java.time.LocalDateTime;
 
 public class boardDAO extends DAO {
 

@@ -2,12 +2,12 @@ package co.dev.service;
 
 import java.util.List;
 
-import co.dev.dao.CfnDAO;
+import co.dev.dao.ReviewDAO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
-public class CfnService {
-	CfnDAO dao = new CfnDAO();
+public class ReviewService {
+	ReviewDAO dao = new ReviewDAO();
 
 	// 전체 리뷰 리스트 조회
 	public List<ReviewVO> reviewList(int cafeNo) {
@@ -47,7 +47,6 @@ public class CfnService {
 	// 수정할 리뷰 조회
 	public ReviewVO reviewSelect(int reviewNo) {
 		return dao.selectReview(reviewNo);
-		
 	}
 	
 	// 내 리뷰 리스트 조회
@@ -63,6 +62,16 @@ public class CfnService {
 	// 내 리뷰 삭제
 	public boolean reviewDelete(int reviewNo) {
 		return dao.deleteReview(reviewNo);
+	}
+	
+	// 평균 평점, 리뷰 수 구하기
+	public float[] reviewInfoSelect(int cafeNo) {
+		return dao.selectReviewInfo(cafeNo);
+	}
+	
+	// 평점 개수 세기
+	public int[] starCountSelect(int cafeNo) {
+		return dao.selectStarCount(cafeNo);
 	}
 
 	// 유저 조회
@@ -85,5 +94,6 @@ public class CfnService {
 		return dao.userForLogin(userId, userPwd);
 	}
 
+	
 
 }

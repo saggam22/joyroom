@@ -1,8 +1,8 @@
 drop table review_like;
 drop table review;
 drop table cfn_user;
-drop table cafe;
 drop table bookmark;
+drop table cafe;
 
 -- 유저
 CREATE TABLE cfn_user
@@ -27,6 +27,7 @@ CREATE TABLE notice
     notice_img          CLOB,
     notice_view         NUMBER,
     notice_user          VARCHAR2(20),
+    notice_check          VARCHAR2(20),
    
     PRIMARY KEY(notice_no)
    
@@ -147,3 +148,10 @@ INSERT INTO cfn_user
 VALUES ('jeeesubb@naver.com', '1234', '숩숩', '01012341234', 'userProf.jpg');
 
 commit;
+
+-- 공지사항 게시글 시퀀스
+CREATE SEQUENCE seq_notice_no
+INCREMENT BY 1
+start with 1
+NOCACHE
+NOCYCLE;

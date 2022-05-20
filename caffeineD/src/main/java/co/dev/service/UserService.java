@@ -17,4 +17,6 @@ public interface UserService {
 	public void deleteBookmark(int cafeNo, String userId);
 	// 내 북마크 조회
 	public List<CafeVO> selectBookmark(String userId);
+	// 회원리스트 조회
+	public List<UserVO> userList();
 }

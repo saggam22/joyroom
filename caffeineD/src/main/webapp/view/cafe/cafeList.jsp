@@ -33,10 +33,10 @@ a {
 <body>
 	<div class=container>
 		<ul id="anchor">
-			<li><a href="javascript:load('all');">전체</a></li>
-			<li><a href="javascript:load('susung');">수성구</a></li>
-			<li><a href="javascript:load('seogu');">서구</a></li>
-			<li><a href="javascript:load('bukgu');">북구</a></li>
+			<li><a href="${pageContext.servletContext.contextPath }/cafeList.do">전체</a></li>
+			<li><a href="${pageContext.servletContext.contextPath }/cafeRegionList.do?job=susung">수성구</a></li>
+			<li><a href="${pageContext.servletContext.contextPath }/cafeRegionList.do?job=seogu">서구</a></li>
+			<li><a href="${pageContext.servletContext.contextPath }/cafeRegionList.do?job=bukgu">북구</a></li>
 		</ul>
 	</div>
 	<div class="cafelist" id="list">
@@ -44,24 +44,19 @@ a {
 		<div id="bigBox">
 			<c:forEach var="cafeinfo" items="${list }">
 				<a href="view/cafe/cafeInfo.jsp?address=${cafeinfo.address}&name=${cafeinfo.name}&tel=${cafeinfo.tel}&no=${cafeinfo.no}">
-					<img src="${pageContext.servletContext.contextPath }/img/${cafeinfo.img }">${cafeinfo.name }
+					<img src="${pageContext.servletContext.contextPath }/img/cafeimg/${cafeinfo.img }">
+					<span>${cafeinfo.name }</span>
 				</a>
 			</c:forEach>
 		</div>
 	</div>
-	<div class="pager">
-	  <ul class="pagination">
-	    <c:if test="${page.prev }">
-      	<li><a href="${pageContext.servletContext.contextPath }/cafeList.do?pageNum=${page.startPage - 1 }&amount=${page.amount}">이전</a></li>
-			</c:if>
-			<c:forEach var="num" begin="${page.startPage }" end="${page.endPage }">
-	      <li class="${page.pageNum eq num ? 'active' : '' }">
-	        <a href="${pageContext.servletContext.contextPath }/cafeList.do?pageNum=${num }&amount=${page.amount}">${num }</a></li>
-      </c:forEach>
-      <c:if test="${page.next }">
-        <li><a href="${pageContext.servletContext.contextPath }/cafeList.do?pageNum=${page.endPage + 1 }&amount=${page.amount}">다음</a></li>
-      </c:if>
-    </ul>
-	</div>
+<jsp:include page="/view/cafe/cafePaging.jsp">
+    <jsp:param value="${paging.pageNum}" name="pageNum"/>
+    <jsp:param value="${paging.startPage}" name="startPage"/>
+    <jsp:param value="${paging.endPage}" name="endPage"/>
+    <jsp:param value="${paging.prev}" name="prev"/>
+    <jsp:param value="${paging.next}" name="next"/>
+</jsp:include>
+
 </body>
 </html> 
