@@ -1,42 +1,17 @@
-//document.addEventListener('DOMContentLoaded', DOMLoadedCallBack);
 likeCheck();
 
 	
 // 수정 팝업
 let target = document.querySelectorAll('.btn_open');
 let btnPopClose = document.querySelector('#btn_close');
-	
-		// 팝업 열기
+	// 팝업 열기
 for (let i = 0; i<target.length; i++) {
 	target[i].addEventListener('click', openPopCallBack);
 }
-	
-		// 팝업 닫기
-
-		btnPopClose.addEventListener('click', function(e) {
-	
-		e.target.parentNode.parentNode.style.display = 'none';
-	
-		let starBtns = document.querySelectorAll('.starBtn');
-		
-		for (let i = 0; i < 5; i++) {
-			let starImg = starBtns[i].childNodes[1];
-			starImg.setAttribute('src', getPathRootJump() + '/img/eptstar.svg.png');
-		}
-	
-		document.querySelector('#reviewUpdate textarea').value = '';
-	
-		let reviewImgDiv = document.querySelector('#reviewImgDiv');
-		var uploadImg = document.querySelector('#uploadImg');
-			if (reviewImgDiv) {
-				reviewImgDiv.remove();
-				uploadImg.value = '';
-			}
-	
-		});
+	// 팝업 닫기
+btnPopClose.addEventListener('click', closePopCallBack);
 
 	
-
 
 // 좋아요 버튼
 let likeBtns = document.querySelectorAll('.likeBtn');
@@ -44,6 +19,7 @@ let likeBtns = document.querySelectorAll('.likeBtn');
 for (let i = 0; i < likeBtns.length; i++) {
 	likeBtns[i].addEventListener('click', likeCallBack);
 }
+
 
 // 삭제 팝업
 let delBtns = document.querySelectorAll('.delBtn');
@@ -68,6 +44,7 @@ for (let i = 0; i < delBtns.length; i++) {
 	});
 }
 
+
 // 평점
 let starBtns = document.querySelectorAll('.starBtn');
 
@@ -76,40 +53,38 @@ for (let i = 0; i < starBtns.length; i++) {
 }
 
 
+// 사진 업로드 시 미리보기, 삭제
+let div_style = 'display:inline-block; position:relative; width:300px; height:300px; margin:5px;';
+let img_style = 'position:absolute; width:100%; height:100%; object-fit:cover;';
 
-// 사진 미리보기 수정, 삭제
-var div_style = 'display:inline-block; position:relative; width:300px; height:300px; margin:5px;';
-var img_style = 'position:absolute; width:100%; height:100%; object-fit:cover;';
-
-var uploadImg = document.querySelector('#uploadImg');
-var imgSection = document.querySelector('#imgSection');	// 이미지가 보여지는 섹션 div	
- // file로 넘어오는 이미지
+let uploadImg = document.querySelector('#uploadImg');
+let imgSection = document.querySelector('#imgSection');	
 
 // 이미지 미리보기
-uploadImg.addEventListener('change', (changeEvent) => {
-	console.log('img upload!');
+uploadImg.addEventListener('change', function(changeEvent) {
+	
 	const reader = new FileReader();
-	reader.addEventListener('load', function(readerEvent) { 
+	reader.addEventListener('load', function(readerEvent) {
 
-		var reviewImgDiv = document.querySelector('#reviewImgDiv');	// 이미지와 삭제 버튼을 감싸는 div	
-		
+		var reviewImgDiv = document.querySelector('#reviewImgDiv');	
+
 		if (reviewImgDiv) {
 			reviewImgDiv.remove();
 		}
-		
+
 		let div = document.createElement('div');
 		div.setAttribute('style', div_style);
 		div.setAttribute('id', 'reviewImgDiv')
-		
+
 		let img = document.createElement('img');
 		img.setAttribute('style', img_style);
 		img.setAttribute('id', 'reviewImg')
 		img.setAttribute('src', readerEvent.target.result);
-		
+
 		imgSection.appendChild(div);	//<div id="imgSection"><div></div></div>
 		div.appendChild(img)			//<div id="imgSection"><div><img></div></div>
 		div.appendChild(makeX());		//<div id="imgSection"><div><img><btn></btn></div></div>
-		
+
 	});
 
 	const img = changeEvent.target.files[0];
@@ -120,18 +95,23 @@ uploadImg.addEventListener('change', (changeEvent) => {
 // 이미지 삭제 버튼
 function makeX() {
 
-	var uploadImg = document.querySelector('#uploadImg');
-	var chk_style = 'width:25px; height:25px; position:absolute; font-size:15px;' +
+	let reviewImg = document.querySelector('#reviewImg');
+	let uploadImg = document.querySelector('#uploadImg');
+	
+	let chk_style = 'width:25px; height:25px; position:absolute; font-size:15px;' +
         'right:0px; bottom:0px; z-index:999; background-color:rgba(0,0,0,0.5); color:white; border:none;';
 
-	var btn = document.createElement('input');
+	let btn = document.createElement('input');
 	btn.setAttribute('type', 'button');
 	btn.setAttribute('value', 'x');
-	btn.setAttribute('id', 'uploadBtn');
-	btn.setAttribute('style', chk_style); // <div><img><input type="button"></div>
+	btn.setAttribute('id', 'imgDelBtn');
+	btn.setAttribute('style', chk_style); 
 	
 	btn.addEventListener('click', function(e) {
-		e.target.parentNode.remove();
+		
+		reviewImg.setAttribute('id', 'firstImg');
+		reviewImg.setAttribute('src', getPathRootJump() + `/img/emptyimg.jpg`);
+		this.remove();
 		uploadImg.value = '';
 		
 	})
@@ -140,10 +120,10 @@ function makeX() {
 }
 
 
-
+// 좋아요 체크 조회
 function likeCheck() {
 
-	// 좋아요 체크 조회
+
 	let reviews = document.querySelectorAll('.review');
 
 	for (let i = 0; i < reviews.length; i++) {
@@ -248,35 +228,28 @@ function openPopCallBack() {
 	let targetID = this.getAttribute('href');
 	let popDiv = document.querySelector(targetID);
 	popDiv.style.display = 'block';
+	
+
+	let reviewNo = this.parentNode.childNodes[3].childNodes[0].name.substr(7);
 
 	fetch('reviewSelect.do', {
 		method: 'post',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: `reviewNo=${this.parentNode.id}`
+		body: `reviewNo=${reviewNo}`
 	})
 		.then(result => result.json())
 		.then(review => {
 
 			// 이미지	불러오기
 			if (review.img != null) {
-				var div_style = 'display:inline-block; position:relative; width:300px; height:300px; margin:5px;';
-				var img_style = 'position:absolute; width:100%; height:100%; object-fit:cover;';
 				
-				var imgSection = document.querySelector('#imgSection');	// 이미지가 보여지는 섹션 div	
+				var reviewImgDiv = document.querySelector('#reviewImgDiv');	// 이미지가 보여지는 섹션 div	
+				var firstImg = document.querySelector('#firstImg');
+
+				firstImg.setAttribute('id', 'reviewImg');
+				firstImg.setAttribute('src', getPathRootJump() + `/img/reviewimg/${review.img}`);
 				
-				let div = document.createElement('div');
-				div.setAttribute('style', div_style);
-				div.setAttribute('id', 'reviewImgDiv')
-				
-				let img = document.createElement('img');
-				img.setAttribute('width', '200px');
-				img.setAttribute('style', img_style);
-				img.setAttribute('id', 'reviewImg')
-				img.setAttribute('src', getPathRootJump() + `/img/reviewimg/${review.img}`);
-				
-				imgSection.appendChild(div);	//<div id="imgSection"><div></div></div>
-				div.appendChild(img)			//<div id="imgSection"><div><img></div></div>
-				div.appendChild(makeX());		//<div id="imgSection"><div><img><btn></btn></div></div>
+				reviewImgDiv.appendChild(makeX());		
 				
 			}
 
@@ -299,6 +272,36 @@ function openPopCallBack() {
 		.catch(error => console.log(error));
 
 }
+
+// 팝업 닫기 콜백 
+function closePopCallBack(e) {
+	
+		e.target.parentNode.parentNode.style.display = 'none';
+	
+		let starBtns = document.querySelectorAll('.starBtn');
+		
+		for (let i = 0; i < 5; i++) {
+			let starImg = starBtns[i].childNodes[1];
+			starImg.setAttribute('src', getPathRootJump() + '/img/eptstar.svg.png');
+		}
+	
+		document.querySelector('#reviewUpdate textarea').value = '';
+	
+
+		let reviewImg = document.querySelector('#reviewImg');
+		let uploadImg = document.querySelector('#uploadImg');
+		let imgDelBtn = document.querySelector('#imgDelBtn');
+			if (reviewImg) {
+				reviewImg.setAttribute('id', 'firstImg');
+				reviewImg.setAttribute('src', getPathRootJump() + `/img/emptyimg.jpg`);
+				imgDelBtn.remove();
+				uploadImg.value = '';
+			}
+		
+		let topBtn = document.querySelector('#topBtn');
+		topBtn.style.display = 'block';
+	
+		}
 
 
 // 절대 경로

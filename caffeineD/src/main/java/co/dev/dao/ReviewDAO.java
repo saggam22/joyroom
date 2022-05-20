@@ -7,7 +7,7 @@ import java.util.List;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
-public class CfnDAO extends DAO {
+public class ReviewDAO extends DAO {
 
 	// 리뷰 리스트 조회
 	public List<ReviewVO> selectReviews(int cafeNo) {
@@ -60,7 +60,7 @@ public class CfnDAO extends DAO {
 	public List<ReviewVO> myReviewSelect(String userId) {
 			
 		conn();
-		String sql = "SELECT * FROM review WHERE review_userid = ?";
+		String sql = "SELECT * FROM review WHERE review_userid = ? ORDER BY review_date desc";
 		
 		List<ReviewVO> list = new ArrayList<>();
 			
@@ -523,6 +523,75 @@ public class CfnDAO extends DAO {
 		}
 
 		return false;
+	}
+
+	// 평균 평점, 리뷰 수 구하기
+	public float[] selectReviewInfo(int cafeNo) {
+		conn();
+		String sql = "SELECT round(avg(review_star), 1) as star_avg, count(*) as review_count\n"
+				+ "FROM review WHERE cafe_no = ?";
+		float[] reviewInfo = new float[2];
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, cafeNo);
+			
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				reviewInfo[0] = rs.getFloat("star_avg");
+				reviewInfo[1] = rs.getFloat("review_count");
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 정보 " + r + "건 조회");
+				return reviewInfo;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return null;
+	}
+	
+	// 평점 개수 세기
+	public int[] selectStarCount(int cafeNo) {
+		conn();
+		String sql = "SELECT review_star, count(*) AS star_count\n"
+				+ "FROM review \n"
+				+ "WHERE cafe_no = ?\n"
+				+ "GROUP BY review_star\n"
+				+ "ORDER BY review_star";
+		
+		int[] starArr = new int[5];
+		
+		int i = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, cafeNo);
+			
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				starArr[i] = rs.getInt("star_count");
+				i++;
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("평점 개수 " + r + "건 조회");
+				return starArr;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return null;
 	}
 	
 	
