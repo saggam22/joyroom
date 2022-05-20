@@ -36,7 +36,8 @@ public class ReviewListControl implements Controller {
 		
 		if (job.equals("review")) {
 			
-			int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
+			//int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
+			int cafeNo = 1;
 			
 			ReviewService service = new ReviewService();
 			List<ReviewVO> reviewList = service.reviewList(cafeNo);
