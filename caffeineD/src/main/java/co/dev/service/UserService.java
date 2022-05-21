@@ -19,4 +19,7 @@ public interface UserService {
 	public List<CafeVO> selectBookmark(String userId);
 	// 회원리스트 조회
 	public List<UserVO> userList();
+	
+	// 임시 비밀번호 발급 -> 아이디값 받아 비밀번호 정보만 변경
+	public void updatePwd(String tempPwd, String userId);
 }

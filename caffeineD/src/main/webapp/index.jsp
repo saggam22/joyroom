@@ -10,8 +10,9 @@
 
 <body>
 
-	<jsp:forward page="caffeineD.homepage.tiles"></jsp:forward>
+	<jsp:forward page="mainAd.do"></jsp:forward>
 
 </body>
-
+<script>
+</script>
 </html>

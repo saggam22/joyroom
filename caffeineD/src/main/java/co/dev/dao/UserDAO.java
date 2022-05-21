@@ -8,7 +8,7 @@ import co.dev.service.UserService;
 import co.dev.vo.CafeVO;
 import co.dev.vo.UserVO;
 
-public class UserDAO extends DAO implements UserService {
+public class UserDAO extends DAO_mac implements UserService {
 
 	// 회원가입
 	public void userInsert(UserVO vo) {
@@ -52,6 +52,32 @@ public class UserDAO extends DAO implements UserService {
 		} finally {
 			disconn();
 		}
+	}
+	
+	// 임시비밀번호 발급 -> 아이디값 받아 비밀번호 정보만 변경
+	public void updatePwd(String tempPwd, String userId) {
+		
+		conn();
+		String sql = "UPDATE cfn_user SET user_pwd=? where user_id =?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, tempPwd);
+			psmt.setString(2, userId);
+
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				System.out.println("임시 비밀번호 변경 완료");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		
+		System.out.println("임시 비밀번호 변경 실패");
+		
 	}
 
 	// 북마크 추가
@@ -219,5 +245,7 @@ public class UserDAO extends DAO implements UserService {
 		}
 		return list;
 	}
+	
+	
 					
 }

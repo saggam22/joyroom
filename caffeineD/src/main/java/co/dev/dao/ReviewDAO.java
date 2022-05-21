@@ -7,7 +7,7 @@ import java.util.List;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
-public class ReviewDAO extends DAO {
+public class ReviewDAO extends DAO_mac {
 
 	// 리뷰 리스트 조회
 	public List<ReviewVO> selectReviews(int cafeNo) {
@@ -382,7 +382,6 @@ public class ReviewDAO extends DAO {
 				System.out.println("좋아요 " + r + "건 조회");
 				return true;
 			}
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

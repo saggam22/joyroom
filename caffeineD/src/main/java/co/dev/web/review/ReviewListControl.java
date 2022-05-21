@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import co.dev.service.ReviewService;
+import co.dev.vo.CafeVO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
@@ -16,56 +17,44 @@ import co.dev.web.Controller;
 public class ReviewListControl implements Controller {
 
 	String job;
-	
+
 	public ReviewListControl(String job) {
 		this.job = job;
 	}
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 
-
-
-
-		String url = this.getClass().getResource("").getPath(); 
-		url = url.substring(1,url.indexOf(".metadata"))+"caffeineD";
-		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		
+
+
 		if (job.equals("review")) {
-			
-			//int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
-			int cafeNo = 1;
-			
+
+			CafeVO cvo = (CafeVO) request.getAttribute("cafeinfo");
+
 			ReviewService service = new ReviewService();
-			List<ReviewVO> reviewList = service.reviewList(cafeNo);
-			
+			List<ReviewVO> reviewList = service.reviewList(cvo.getNo());
+
 			if (reviewList != null) {
-				
+
+				request.setAttribute("cafeinfo", cvo);
 				request.setAttribute("reviewList", reviewList);
-				request.getRequestDispatcher("/view/review/review.tiles").forward(request, response);
+				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
 				return;
-				
+
 			} else {
-				
-				request.getRequestDispatcher("/view/review/review.tiles").forward(request, response);
-				return;	
-				
+
+				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
+				return;
+
 			}
-			
+
 		} else if (job.equals("myReview")) {
-			
+
 			HttpSession session = request.getSession();
 			UserVO vo = (UserVO) session.getAttribute("user");
-			
-			if (vo == null) {
-				session.setAttribute("error", "로그인이 필요합니다.");
-				response.sendRedirect("/caffeineD/index.jsp");
-				return;
-			}
-			
+
 			String userId = vo.getId();
 
 			ReviewService service = new ReviewService();
@@ -74,9 +63,9 @@ public class ReviewListControl implements Controller {
 			request.setAttribute("myReviewList", list);
 
 			request.getRequestDispatcher("/view/review/myReview.tiles").forward(request, response);
-			
+
 		}
-		
+
 
 	}
 

@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>myReview.jsp</title>
-<link href="css/myReview.css" rel="stylesheet">
+
+	<meta charset="UTF-8">
+	<title>myReview.jsp</title>
+	<link href="css/myReview.css" rel="stylesheet">
 
 </head>
 <body>
