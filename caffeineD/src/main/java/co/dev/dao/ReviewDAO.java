@@ -4,12 +4,95 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.dev.vo.CafeVO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
-public class ReviewDAO extends DAO_mac {
+public class ReviewDAO extends DAO {
 
-	// 리뷰 리스트 조회
+
+	
+	// 관리자페이지 전체 리뷰 리스트
+	public List<ReviewVO> selectTotalReview(int pageNum) {
+	
+		conn();
+		String sql = "SELECT * FROM (SELECT rownum rn,  a.* FROM (SELECT * FROM review ORDER BY review_no desc ) a ) WHERE rn >= ? AND rn <= ?";
+		
+		int startNum = (pageNum-1)*10+1;
+		int endNum = pageNum*10;
+		List<ReviewVO> list = new ArrayList<>();
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, startNum);
+			psmt.setInt(2, endNum);
+			rs = psmt.executeQuery();
+		
+			while (rs.next()) {
+				
+				ReviewVO vo = new ReviewVO();
+				
+				vo.setCafeNo(rs.getInt("cafe_no"));
+				vo.setNo(rs.getInt("review_no"));
+				vo.setContent(rs.getString("review_content"));
+				vo.setDate(rs.getString("review_date").substring(0, 10));
+				vo.setImg(rs.getString("review_img"));
+				vo.setLike(rs.getInt("review_like"));
+				vo.setStar(rs.getInt("review_star"));
+				vo.setUserId(rs.getString("review_userid"));
+				vo.setUserNick(rs.getString("review_usernick"));
+				vo.setUserImg(rs.getString("review_userimg"));
+				
+				list.add(vo);
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 " + r + "건 조회");
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
+
+	}
+	
+	
+	// 전체 리뷰 카운트
+	public int selectReviewCount() {
+		conn();
+		String sql = "SELECT count(*) as total_review "
+				+ "FROM review";
+		int totalReview = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				totalReview = rs.getInt("total_review");
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("총 리뷰 " + r + "건 조회");
+				return totalReview;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return 0;
+	}
+	
+	// 카페 상세 정보 리뷰 리스트 조회
 	public List<ReviewVO> selectReviews(int cafeNo) {
 		
 		conn();
@@ -392,6 +475,124 @@ public class ReviewDAO extends DAO_mac {
 		return false;
 	}
 	
+	// 평균 평점, 리뷰 수 구하기
+	public float[] selectReviewInfo(int cafeNo) {
+		conn();
+		String sql = "SELECT round(avg(review_star), 1) as star_avg, count(*) as review_count\n"
+				+ "FROM review WHERE cafe_no = ?";
+		float[] reviewInfo = new float[2];
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, cafeNo);
+			
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				reviewInfo[0] = rs.getFloat("star_avg");
+				reviewInfo[1] = rs.getFloat("review_count");
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 정보 " + r + "건 조회");
+				return reviewInfo;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return null;
+	}
+	
+	// 평점 개수 세기
+	public int[] selectStarCount(int cafeNo) {
+		conn();
+		String sql = "SELECT review_star, count(*) AS star_count\n"
+				+ "FROM review \n"
+				+ "WHERE cafe_no = ?\n"
+				+ "GROUP BY review_star\n"
+				+ "ORDER BY review_star";
+		
+		int[] starArr = {0,0,0,0,0};
+		
+		int i = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, cafeNo);
+			
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				int star = rs.getInt("review_star");
+				starArr[(star-1)] = rs.getInt("star_count");
+				i++;
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("평점 " + r + "건 조회");
+				return starArr;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			disconn();
+		}
+
+		return null;
+	}
+
+	// 카페 간단 조회
+	public CafeVO selectCafeInfo(int cafeNo) {
+		
+		conn();
+		String sql = "SELECT cafe_no, cafe_name, cafe_img FROM cafe "
+				+ "WHERE cafe_no=?";
+		
+		CafeVO vo = new CafeVO();
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, cafeNo);
+			
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				
+				vo.setNo(Integer.valueOf(cafeNo));
+				vo.setName(rs.getString("cafe_name"));
+				vo.setImg(rs.getString("cafe_img"));
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("카페 " + r + "건 조회");
+				return vo;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 유저 조회
 	public UserVO selectUser(String userId) {
 		
@@ -524,74 +725,9 @@ public class ReviewDAO extends DAO_mac {
 		return false;
 	}
 
-	// 평균 평점, 리뷰 수 구하기
-	public float[] selectReviewInfo(int cafeNo) {
-		conn();
-		String sql = "SELECT round(avg(review_star), 1) as star_avg, count(*) as review_count\n"
-				+ "FROM review WHERE cafe_no = ?";
-		float[] reviewInfo = new float[2];
-		
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, cafeNo);
-			
-			rs = psmt.executeQuery();
-			while (rs.next()) {
-				reviewInfo[0] = rs.getFloat("star_avg");
-				reviewInfo[1] = rs.getFloat("review_count");
-			}
-			
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("리뷰 정보 " + r + "건 조회");
-				return reviewInfo;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  finally {
-			disconn();
-		}
 
-		return null;
-	}
-	
-	// 평점 개수 세기
-	public int[] selectStarCount(int cafeNo) {
-		conn();
-		String sql = "SELECT review_star, count(*) AS star_count\n"
-				+ "FROM review \n"
-				+ "WHERE cafe_no = ?\n"
-				+ "GROUP BY review_star\n"
-				+ "ORDER BY review_star";
-		
-		int[] starArr = new int[5];
-		
-		int i = 0;
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, cafeNo);
-			
-			rs = psmt.executeQuery();
-			while (rs.next()) {
-				starArr[i] = rs.getInt("star_count");
-				i++;
-			}
-			
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("평점 개수 " + r + "건 조회");
-				return starArr;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  finally {
-			disconn();
-		}
 
-		return null;
-	}
+
 	
 	
 	

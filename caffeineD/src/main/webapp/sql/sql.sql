@@ -76,6 +76,14 @@ CREATE TABLE cafe
     PRIMARY KEY(cafe_no)
 );
 
+
+-- 카페 번호 부여 시퀀스
+CREATE SEQUENCE seq_cafe_no
+INCREMENT BY 1
+start with 100
+NOCACHE
+NOCYCLE;
+
 -- 리뷰
 CREATE TABLE review
 (
@@ -95,13 +103,6 @@ CREATE TABLE review
    
 );
 
--- 카페 번호 부여 시퀀스
-CREATE SEQUENCE seq_cafe_no
-INCREMENT BY 1
-start with 100
-NOCACHE
-NOCYCLE;
-
 -- 리뷰 시퀀스
 CREATE SEQUENCE review_seq INCREMENT BY 1 NOCYCLE NOCACHE;
 
@@ -114,6 +115,7 @@ CREATE TABLE review_like
 	
     FOREIGN KEY(review_no) REFERENCES review(review_no) ON DELETE CASCADE
 );
+
 
 -- 카페-회원 매핑테이블(북마크 기능)
 CREATE TABLE bookmark
@@ -137,10 +139,9 @@ NOCYCLE;
 -- 메인 페이지 광고
 CREATE TABLE ad_cafe
 (
-	ad_cafe_no			NUMBER,
+	ad_cafe_no			NUMBER UNIQUE,
     ad_cafe_info        VARCHAR2(1000),
 
 );
-
 
 commit;

@@ -3,6 +3,7 @@ package co.dev.service;
 import java.util.List;
 
 import co.dev.dao.ReviewDAO;
+import co.dev.vo.CafeVO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
@@ -73,7 +74,32 @@ public class ReviewService {
 	public int[] starCountSelect(int cafeNo) {
 		return dao.selectStarCount(cafeNo);
 	}
+	
+	public int totalReviewCount() {
+		return dao.selectReviewCount();
+	}
+	
+	// 관리자페이지 전체 리뷰 조회
+	public List<ReviewVO> totalReviewList(int pageNum) {
+		return dao.selectTotalReview(pageNum);
+	}
+	
+	// 카페 정보 간단 조회
+	public CafeVO cafeInfo(int cafeNo) {
+		return dao.selectCafeInfo(cafeNo);
+		
+	}
 
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
 	// 유저 조회
 	public UserVO userSelect(String userId) {
 		return dao.selectUser(userId);
@@ -93,6 +119,10 @@ public class ReviewService {
 	public boolean userLogin(String userId, String userPwd) {
 		return dao.userForLogin(userId, userPwd);
 	}
+
+
+	
+
 
 	
 

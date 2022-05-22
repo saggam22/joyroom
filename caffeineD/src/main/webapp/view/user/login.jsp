@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>login.jsp</title>
-	<link
-		href="${pageContext.servletContext.contextPath }/css/findIdPwd.css"
-		rel="stylesheet">
+<meta charset="UTF-8">
+<title>login.jsp</title>
+<link
+	href="${pageContext.servletContext.contextPath }/css/findIdPwd.css"
+	rel="stylesheet">
 <style>
 </style>
 </head>
@@ -37,7 +37,14 @@
 					oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')">
 			</div>
 			<input id="login_btn" type="submit" value="Login">
-			<div></div>
+<!-- 			<div> -->
+
+<!-- 				<a id="custom-login-btn" href="javascript:loginWithKakao()"> <img -->
+<!-- 					src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" -->
+<!-- 					width="222" alt="카카오 로그인 버튼" /> -->
+<!-- 				</a> -->
+
+<!-- 			</div> -->
 			<div class="outer_section">
 				<a
 					href="${pageContext.servletContext.contextPath }/view/user/findId.tiles"><button
@@ -52,60 +59,52 @@
 	</div>
 
 
-	<ul>
-		<li onclick="kakaoLogin();"><a href="javascript:void(0)"> <span>카카오
-					로그인</span>
-		</a></li>
-		<li onclick="kakaoLogout();"><a href="javascript:void(0)"> <span>카카오
-					로그아웃</span>
-		</a></li>
-	</ul>
+
 
 	<p id="token-result"></p>
 
 
 
 </body>
-<script>
-	
-</script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js">
-	Kakao.init('84601a6d23d8e300abd7d586902cde2d');
-	console.log(Kakao.isInitialized());
 
-	function kakaoLogin() {
-		Kakao.Auth.login({
-			success : function(response) {
-				Kakao.API.request({
-					url : '/v2/user/me',
-					success : function(response) {
-						console.log(response)
-					},
-					fail : function(error) {
-						console.log(error)
-					},
-				})
-			},
-			fail : function(error) {
-				console.log(error)
-			},
-		})
-	}
-	//카카오로그아웃  
-	function kakaoLogout() {
-		if (Kakao.Auth.getAccessToken()) {
-			Kakao.API.request({
-				url : '/v1/user/unlink',
-				success : function(response) {
-					console.log(response)
-				},
-				fail : function(error) {
-					console.log(error)
-				},
-			})
-			Kakao.Auth.setAccessToken(undefined)
-		}
-	}
-</script>
+<!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
+<!-- <script>
+ 	Kakao.init('84601a6d23d8e300abd7d586902cde2d');
+ 	console.log(Kakao.isInitialized());
+
+ 	function loginWithKakao() {
+ 		window.Kakao.Auth.login({
+			scope : 'profile_nickname, profile_image',
+ 			success : function(response) {
+ 				console.log(response)
+ 				window.KaKao.API.request({
+ 					url : '/v2/user/me',
+ 					success : (res) => {
+ 						let kakao.account = res.kakao_account;
+ 						console.log(kakao.account)
+ 					}
+ 				});
+ 				window.location.href='/index.jsp';
+ 			fail : function(err) {
+ 				console.log(err)
+ 			},
+ 		})
+ 	}
+ 	//카카오로그아웃  
+ 	function kakaoLogout() {
+ 		if (Kakao.Auth.getAccessToken()) {
+ 			Kakao.API.request({
+ 				url : '/v1/user/unlink',
+ 				success : function(response) {
+ 					console.log(response)
+ 				},
+ 				fail : function(error) {
+ 					console.log(error)
+ 				},
+ 			})
+ 			Kakao.Auth.setAccessToken(undefined)
+ 		}
+ 	}
+<!-- </script> -->
 
 </html>

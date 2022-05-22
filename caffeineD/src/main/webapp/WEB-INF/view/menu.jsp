@@ -56,7 +56,7 @@
 						<li class="nav-item px-lg-4">
 								<span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/profimg/${user.img }"></span>
 								<c:choose>
-									<c:when test="${user.id == 'admin'}"> <a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/user.do" style="display: inline-block;">admin</a></c:when>
+									<c:when test="${user.id == 'admin'}"> <a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/view/admin/adminPage.tiles" style="display: inline-block;">admin</a></c:when>
 									<c:otherwise><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/myPage.do" style="display: inline-block;">${user.nickname }</a></c:otherwise>
 								</c:choose>
 								

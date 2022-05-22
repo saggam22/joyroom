@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.dev.myPage.myPageLoadController;
 import co.dev.myPage.updateInfoControl;
+import co.dev.web.admin.adCafeControl;
+import co.dev.web.admin.adCafeListControl;
+import co.dev.web.admin.totalReviewListControl;
 import co.dev.web.admin.userListControl;
 import co.dev.web.board.BoardContentsControl;
 import co.dev.web.board.BoardDeleteControl;
@@ -28,7 +31,14 @@ import co.dev.web.cafeinfo.CafeListControl;
 import co.dev.web.cafeinfo.CafeReionListControl;
 import co.dev.web.notice.noticeInsertControl;
 import co.dev.web.notice.noticeListControl;
-import co.dev.web.review.*;
+import co.dev.web.review.LikeCheckControl;
+import co.dev.web.review.ReviewDeleteControl;
+import co.dev.web.review.ReviewInsertControl;
+import co.dev.web.review.ReviewLikeControl;
+import co.dev.web.review.ReviewListControl;
+import co.dev.web.review.ReviewSelectControl;
+import co.dev.web.review.ReviewUpdateControl;
+import co.dev.web.review.StarAvgControl;
 import co.dev.web.user.LoginControl;
 import co.dev.web.user.LogoutControl;
 import co.dev.web.user.MailSendControl;
@@ -76,7 +86,8 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewDelete.do", new ReviewDeleteControl());			// 리뷰 삭제
 		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
 		map.put("/likeCheck.do", new LikeCheckControl());				// 좋아요 체크	
-		map.put("/starAvg.do", new StarAvgControl());									// 평균 평점 조회
+		map.put("/starAvg.do", new StarAvgControl());					// 평균 평점 조회
+		map.put("/cafeInfo.do", new ReviewListControl("cafeInfo"));		// 마이페이지 카페 정보
 		
 		 // cafe
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회(페이징)
@@ -96,6 +107,12 @@ public class FrontController extends HttpServlet {
 		
 		//admin page
 		map.put("/user.do", new userListControl()); //유저 리스트
+		map.put("/totalReviewList.do", new totalReviewListControl()); // 리뷰 리스트
+		map.put("/adList.do", new adCafeListControl());	// 광고 리스트
+		map.put("/adCafeInsertView.do", new adCafeControl("view"));
+		map.put("/adCafeInsert.do", new adCafeControl("insert"));
+		map.put("/adCafeDelete.do", new adCafeControl("delete"));
+		map.put("/adCafeUpdate.do", new adCafeControl("update"));
 		
 		//main
 		map.put("/mainAd.do", new mainAdControl());	// 메인 광고

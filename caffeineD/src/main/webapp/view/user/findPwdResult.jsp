@@ -17,8 +17,9 @@
 	<p>임시 비밀번호가 발급 되었습니다.<br>
 	로그인 페이지로 이동하여 로그인해 주세요.<br>
 	비밀번호 변경은 마이페이지의 내 정보에서 변경 가능합니다.</p>
-	<strong>${tempPwd }</strong>
+	<p><strong>${tempPwd }</strong></p>
 	
+	<a class="link_move_btn" href="${pageContext.servletContext.contextPath }/view/user/login.tiles">로그인 페이지로 이동	</a>
 </div>
 </body>
 </html>

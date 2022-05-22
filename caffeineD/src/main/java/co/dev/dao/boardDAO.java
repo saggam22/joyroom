@@ -6,7 +6,7 @@ import java.util.List;
 
 import co.dev.vo.BoardVO;
 
-public class boardDAO extends DAO_mac {
+public class boardDAO extends DAO {
 
 	// 글쓰기
 	public void insertBoard(BoardVO board) {

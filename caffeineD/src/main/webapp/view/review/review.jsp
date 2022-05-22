@@ -32,7 +32,7 @@
 		
 	<div id="container">
 	<c:choose>
-		<c:when test="${empty reviewList }">첫 리뷰를 남겨보세요!	</c:when>
+		<c:when test="${empty reviewList }">등록된 리뷰가 없습니다.</c:when>
 		<c:otherwise>
 			<article id="reviews_info" >
 					<div><span id="star_avg"></span><span style="color:rgb(120, 120, 120);"> / 5</span></div>
@@ -69,8 +69,16 @@
 							<div>
 								<a href="#reviewInsert" id="btn_open" onclick="javascript:topBtnNone();">Write</a>
 							</div>
+						
+					
+							<div class="review" style="text-align: center;">
+								<p style="margin: 0 0 3px 0;">리뷰 수정, 삭제는 마이페이지의 내 리뷰에서 가능합니다.</p>
+								<button type="button" style="text-decoration: underline; color:rgb(120, 120, 120);" 
+									onclick="location.href='${pageContext.servletContext.contextPath }/myReview.do'">내 리뷰 바로가기</button>
+							</div>
 						</c:otherwise>
 					</c:choose>
+					
 					<c:forEach var="review" items="${reviewList }">
 						<div id="${review.no }" class="review">
 							<div class="review_left">
@@ -208,7 +216,7 @@
 		console.log('more');
 		for (let i = showCount; i < showCount + moreCount; i++) {
 			if (reviews[i] != null) {
-				reviews[i].style.display = 'inline-block';
+				reviews[i].style.display = 'block';
 			} else {
 				moreBtn.style.display = 'none';
 			}

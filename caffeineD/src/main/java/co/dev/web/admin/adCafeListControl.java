@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.dev.service.AdService;
 import co.dev.vo.adCafeVO;
+import co.dev.web.Controller;
 
-public class mainAdControl implements Controller {
+public class adCafeListControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		AdService service = new AdService();
-		List<adCafeVO> list = service.adSelect();
-
-		request.setAttribute("adCafeFirst", list.get(0));
-		request.setAttribute("adCafeSecond", list.get(1));
+		List<adCafeVO> list = service.adList();
 		
-		request.getRequestDispatcher("caffeineD.homepage.tiles").forward(request, response);;
+		request.setAttribute("adCafeList", list);
+		request.getRequestDispatcher("/view/admin/adCafeList.tiles").forward(request, response);
 
 	}
 
