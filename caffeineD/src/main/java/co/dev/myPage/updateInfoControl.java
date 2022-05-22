@@ -22,7 +22,7 @@ public class updateInfoControl implements Controller {
 		response.setContentType("text/json;charset=UTF-8");
 		String saveDir = "/img";
 		saveDir = request.getServletContext().getRealPath(saveDir);
-		int maxSize = 256 * 256 * 10;
+		int maxSize = 1024 * 1024 * 10;
 		String encoding = "UTF-8";
 
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
@@ -48,9 +48,9 @@ public class updateInfoControl implements Controller {
 		
 		request.getSession().setAttribute("success", "정보 수정이 완료되었습니다.");
 		
-		response.sendRedirect("view/myPage/myPage.tiles");
+		//response.sendRedirect("view/myPage/myPage.tiles");
 
-		//request.getRequestDispatcher("view/myPage/myPage.tiles").forward(request, response);
+		request.getRequestDispatcher("view/myPage/myPage.tiles").forward(request, response);
 	}
 
 }
