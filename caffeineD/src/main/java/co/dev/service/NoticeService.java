@@ -14,6 +14,8 @@ public interface NoticeService {
 		public List<NoticeVO> noticeList(int pageNum);
 		// 검색 조회
 		public List<NoticeVO> searchList(String title);
+		// 공지글 내용 조회
+		public NoticeVO selectNotice(String title);
 		// 공지글 등록
 		public void insertNotice(NoticeVO vo);
 		// 공지글 수정
@@ -21,5 +23,5 @@ public interface NoticeService {
 		// 공지글 삭제
 		public void deleteNotice(int noticeNo);
 		// 공지글 조회수
-		public void viewCntNotice(int noticeNo);
+		public void viewCntNotice(String title);
 }

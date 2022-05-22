@@ -87,6 +87,7 @@ form {
 </style>
 </head>
 <body>
+	<c:if test="${!empty userInsert }"><script>alert("${userInsert}")</script><% request.getSession().removeAttribute("userInsert"); %></c:if>
 	<c:if test="${!empty error}">
 		<script>
 			alert("${error }")

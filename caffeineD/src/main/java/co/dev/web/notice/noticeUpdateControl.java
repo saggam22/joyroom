@@ -16,33 +16,30 @@ import co.dev.vo.NoticeVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
-public class noticeInsertControl implements Controller {
+public class noticeUpdateControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
 		
 		String saveDir = "img/noticeimg";
-		saveDir = request.getServletContext().getRealPath(saveDir); //getServletContext() 프로젝트명 .getRealPath(saveDir) 폴더명을 읽어옴
-		int maxSize = 1024*1024*5; //(5메가바이트)
+		saveDir = request.getServletContext().getRealPath(saveDir);
+		int maxSize = 1024*1024*5;
 		String encoding = "UTF-8";
 		
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
-		
+
+		int no = Integer.parseInt(multi.getParameter("no"));
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("nfile");
 		String check = multi.getParameter("check");
 		
-		HttpSession session = request.getSession();
-		UserVO vo = (UserVO) session.getAttribute("user");
-		
 		NoticeVO notice = new NoticeVO();
+		notice.setNo(no);
 		notice.setTitle(title);
 		notice.setContent(content);
-		notice.setUser(vo.getNickname());
 		
 		if(img!=null) {			
 			notice.setImg(img);
@@ -53,9 +50,10 @@ public class noticeInsertControl implements Controller {
 		}
 		
 		NoticeService service = new NoticeDAO();
-		service.insertNotice(notice);
+		service.updateNotice(notice);
 		
-		request.getSession().setAttribute("success", "공지사항 등록이 완료되었습니다.");
 		response.sendRedirect("notice.do");
-	}	
+
+	}
+
 }

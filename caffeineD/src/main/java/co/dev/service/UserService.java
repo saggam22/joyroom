@@ -19,4 +19,8 @@ public interface UserService {
 	public List<CafeVO> selectBookmark(String userId);
 	// 회원리스트 조회
 	public List<UserVO> userList();
+	//아이디 중복 확인
+	public boolean checkId(String userId);
+	//닉네임 중복 확인
+	public boolean checkNickname(String userNickname);
 }

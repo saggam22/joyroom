@@ -48,10 +48,6 @@ input {
 	color: rgb(120, 120, 120);
 }
 
-p {
-	margin: 15px 0;
-}
-
 form {
 	display:inline-block;
 	width: 500px;
@@ -83,13 +79,15 @@ form {
 	<h2>회원가입</h2>
 	<form action="${pageContext.servletContext.contextPath }/userInsert.do" method="post" name="insert">
 		<div class="inner_section">
-			<label for="uid">아이디(이메일)</label><input id="id" type="email" name="id" placeholder="아이디는 이메일 형식입니다." required
+			<label for="uid">아이디(이메일)</label><input id="id" type="email" name="id" placeholder="아이디는 이메일 형식입니다." onchange="idCheck()" required
 			oninvalid="this.setCustomValidity('아이디를 입력해주세요.')">
 		</div>
+			<br><span id="idcheck" role="alert"></span>
 		<div class="inner_section">
-			<label for="nick">닉네임</label><input id="nick" type="text" name="nick" required
+			<label for="nick">닉네임</label><input id="nick" type="text" name="nick" onchange="nicknameCheck()" required
 			oninvalid="this.setCustomValidity('닉네임을 입력해주세요.')">
 		</div>
+			<br><span id="nickcheck" role="alert"></span>
 		<div class="inner_section">
 			<label for="upwd">비밀번호</label><input id="upwd" type="password" name="pwd" required
 			oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')">
@@ -98,7 +96,7 @@ form {
 			<label for="upwd">비밀번호 확인</label><input id="upwd" type="password" name="pwdCheck"  onchange="passwordCheck()" required
 			oninvalid="this.setCustomValidity('비밀번호를 다시 한 번 입력해주세요.')">
 		</div>
-			<br><span id="check" role="alert"></span>
+			<br><span id="pwdcheck" role="alert"></span>
 		<div class="inner_section">
 			<label for="upwd">전화번호</label><input id="tel" type="tel" name="tel" placeholder="-없이 입력하세요" required
 			oninvalid="this.setCustomValidity('연락처를 입력해주세요.')">
@@ -111,14 +109,59 @@ form {
 	 function passwordCheck() {
 	 		if(document.insert.pwd.value != '' && document.insert.pwdCheck.value != ''){
 	 			if(document.insert.pwd.value == document.insert.pwdCheck.value) {
-	 				document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
-	 				document.getElementById('check').style.color='blue';
+	 				document.getElementById('pwdcheck').innerHTML='비밀번호가 일치합니다.';
+	 				document.getElementById('pwdcheck').style.color='blue';
 	 			}
 	 			else {
-	 				document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
-	 				document.getElementById('check').style.color='red';
+	 				document.getElementById('pwdcheck').innerHTML='비밀번호가 일치하지 않습니다.';
+	 				document.getElementById('pwdcheck').style.color='red';
 	    	}
 	 		}
+	 }
+	 
+	 //아이디 중복체크
+	 function idCheck() {
+		 var inputValue = document.getElementById("id").value;
+		 fetch('${pageContext.servletContext.contextPath }/userInsertCheck.do', {
+				method: 'post',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				body: 'job=idCheck&id='+inputValue
+			})
+			.then(result =>result.json())
+			.then(result => {
+				console.log(typeof result.Check);
+				if(result.Check == "false") {
+					document.getElementById('idcheck').innerHTML='사용 가능한 아이디입니다.';
+	 				document.getElementById('idcheck').style.color='blue';
+				} else {
+					document.getElementById('idcheck').innerHTML='이미 사용중인 아이디입니다.';
+	 				document.getElementById('idcheck').style.color='red';
+				}
+			})
+			.catch(error => console.log(error));
+	 }
+	 
+	//닉네임 중복체크
+	function nicknameCheck() {
+		var inputValue = document.getElementById("nick").value;
+		console.log(inputValue)
+		 fetch('${pageContext.servletContext.contextPath }/userInsertCheck.do', {
+				method: 'post',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				body: 'job=nicknameCheck&nickname='+inputValue
+			})
+			.then(result =>result.json())
+			.then(result => {
+				console.log(result.Check);
+				if(result.Check == "false") {
+					document.getElementById('nickcheck').innerHTML='사용 가능한 닉네임입니다.';
+	 				document.getElementById('nickcheck').style.color='blue';
+				} else {
+					document.getElementById('nickcheck').innerHTML='이미 사용중인 닉네임입니다.';
+	 				document.getElementById('nickcheck').style.color='red';
+				}
+			})
+			.catch(error => console.log(error));
 	 }
 	</script>
 </body>

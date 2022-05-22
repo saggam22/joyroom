@@ -7,11 +7,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+@charset "UTF-8";
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+* { 
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
+	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
+	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
+	font-size: 10pt;
+	box-sizing: border-box;
+}
 body{
     text-align:center;
 }
 #paging{
-    font-size: 22pt;
+    font-size: 15pt;
 }
 </style>
 </head>

@@ -27,8 +27,8 @@ public class UserInsertControl implements Controller {
 		UserDAO service = new UserDAO();
 		service.userInsert(vo);
 
-		request.setAttribute("id", id);
-		request.getRequestDispatcher("result/userInsertOutput.jsp").forward(request, response);
+		request.getSession().setAttribute("userInsert", "회원가입이 완료되었습니다. 로그인해주세요");
+		response.sendRedirect("view/user/login.tiles");
 
 	}
 
