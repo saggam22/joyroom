@@ -22,7 +22,7 @@ public class updateInfoControl implements Controller {
 		response.setContentType("text/json;charset=UTF-8");
 		String saveDir = "/img";
 		saveDir = request.getServletContext().getRealPath(saveDir);
-		int maxSize = 1024 * 1024 * 10;
+		int maxSize = 256 * 256 * 10;
 		String encoding = "UTF-8";
 
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());

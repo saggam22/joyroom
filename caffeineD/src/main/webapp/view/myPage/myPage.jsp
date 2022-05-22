@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>	
+<body>
 	<c:choose>
 		<c:when test="${!empty error}">
 			<script>
@@ -45,7 +45,7 @@
 					<td>${user.id }</td>
 					<td>${user.nickname }</td>
 					<td>${user.tel }</td>
-					<td><img src = "${pageContext.servletContext.contextPath }/img/profimg/${user.img}"/>
+					<td><img src = "${pageContext.servletContext.contextPath }/img/profimg/${user.img}" style="max-width: 100px; height: auto;"/>
 				
 				</tr>
 			</tbody>
@@ -53,9 +53,9 @@
 	</form>
 
 	<div style="margin-top: 10px;">
-		<a href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.jsp"><input type="button" value="정보 수정"></a> 
-		<a href="${pageContext.servletContext.contextPath }/view/myPage/myBoard.jsp"><input type="button" value="작성글 보기"></a> 
-		<a href="${pageContext.servletContext.contextPath }/view/myPage/myComment.jsp"><input type="button" value="작성댓글 보기"></a>
+		<a href="${pageContext.servletContext.contextPath }/updateInfo.do"><input type="button" value="정보 수정"></a> 
+		<a href="${pageContext.servletContext.contextPath }/myBoard.do"><input type="button" value="작성글 보기"></a> 
+		<a href="${pageContext.servletContext.contextPath }/myComment.do"><input type="button" value="작성댓글 보기"></a>
 	</div>
 
 

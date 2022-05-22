@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.dev.myPage.myBoardControl;
+import co.dev.myPage.myCommentControl;
 import co.dev.myPage.myPageLoadController;
 import co.dev.myPage.updateInfoControl;
 import co.dev.web.admin.userListControl;
@@ -67,6 +68,7 @@ public class FrontController extends HttpServlet {
 		map.put("/updateInfo.do", new updateInfoControl());
 		map.put("/myPage.do", new myPageLoadController());
 		map.put("/myBoard.do", new myBoardControl());
+		map.put("/myComment.do", new myCommentControl());
 
 		// login
 		map.put("/login.do", new LoginControl());

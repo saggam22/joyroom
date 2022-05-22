@@ -41,7 +41,7 @@
 	<br>
 	<br>
 	<div style="margin-left: 10%;">	
-		<a href = "board.do"><button type="button">수정</button></a>
+		<a href = "boardUpdate.do?no=${contents.no}&user=${contents.user_id}"><button type="button">수정</button></a>
 		<a href = "boardDelete.do?no=${contents.no}&user=${contents.user_id}"><button type="button">삭제</button></a>
 	</div>
 	<c:choose>

@@ -30,6 +30,7 @@ public class BoardDeleteControl implements Controller {
 			d_service.boardDelete(num);
 			session.setAttribute("success", "삭제가 완료되었습니다.");
 			//response.sendRedirect("ㅠㅐㅁ.jsp");
+			
 		}
 		else {
 			session.setAttribute("error", "삭제불가능(작성자불일치)");

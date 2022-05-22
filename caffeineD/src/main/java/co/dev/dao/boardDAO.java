@@ -30,15 +30,16 @@ public class boardDAO extends DAO {
 	}
 	
 	// 게시글 수정
-	public void updateBoard(BoardVO board, int num) {
+	public void updateBoard(BoardVO board) {
 		conn();
 		String sql ="update board set board_title=?, board_content=? where board_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, board.getTitle());
 			psmt.setString(2, board.getContent());
-			psmt.setInt(3, num);
+			psmt.setInt(3, board.getNo());
 			psmt.executeUpdate();
+			System.out.println(board.getNo()+"게시글의 내용이 수정되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -193,6 +194,34 @@ public class boardDAO extends DAO {
 		}
 
 		return lastIx;
+	}
+
+	public List<BoardVO> listMyBoard(String userId) {
+		conn();
+
+		List<BoardVO> list = new ArrayList<BoardVO>();
+
+		try {
+			psmt = conn.prepareStatement("select * from board where user_id = ? order by board_no desc");
+			psmt.setString(1, userId);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setNo(rs.getInt("board_no"));
+				vo.setTitle(rs.getString("board_title"));
+				vo.setUser_id(rs.getString("user_id"));
+				vo.setContent(rs.getString("board_content"));
+				vo.setDate(rs.getString("board_date"));
+				vo.setImg(rs.getString("board_img"));
+				vo.setView(rs.getInt("board_view"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
 	}
 
 	// 게시글 번호 부여 메소드

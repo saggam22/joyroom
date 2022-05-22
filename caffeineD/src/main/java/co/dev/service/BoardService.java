@@ -17,6 +17,9 @@ public class BoardService {
 	public List<BoardVO> boardLoad() {		
 		return dao.listBoard();
 	}
+	public List<BoardVO> boardMyLoad(String userId) {		
+		return dao.listMyBoard(userId);
+	}
 	
 	public BoardVO boardLoadOne(int num) {		
 		return dao.oneBoard(num);
@@ -30,7 +33,7 @@ public class BoardService {
 		dao.insertBoard(board);
 	}
 	
-	public void boardUpdate(BoardVO board, int num) {
-		dao.updateBoard(board, num);
+	public void boardUpdate(BoardVO board) {
+		dao.updateBoard(board);
 	}
 }
