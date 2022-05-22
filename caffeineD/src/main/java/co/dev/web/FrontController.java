@@ -11,13 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.myPage.myBoardControl;
+import co.dev.myPage.myPageLoadController;
+import co.dev.myPage.updateInfoControl;
+import co.dev.web.admin.userListControl;
 import co.dev.web.board.BoardContentsControl;
 import co.dev.web.board.BoardDeleteControl;
 import co.dev.web.board.BoardInsertControl;
 import co.dev.web.board.BoardLoadControl;
-import co.dev.myPage.myPageLoadController;
-import co.dev.myPage.updateInfoControl;
-import co.dev.web.admin.userListControl;
+import co.dev.web.board.BoardUpdateControl;
 import co.dev.web.bookmark.BookmarkCheckControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
 import co.dev.web.cafeinfo.CafeInfoDelteControl;
@@ -56,13 +58,15 @@ public class FrontController extends HttpServlet {
 
 		// board
 		map.put("/board.do", new BoardLoadControl());
-		map.put("/board.do", new BoardInsertControl());
+		map.put("/boardWrite.do", new BoardInsertControl());
 		map.put("/boardContents.do", new BoardContentsControl());
-		map.put("/deleteBoard.do", new BoardDeleteControl());
+		map.put("/boardDelete.do", new BoardDeleteControl());
+		map.put("/boardUpdate.do", new BoardUpdateControl());
 		
 		// myPage
 		map.put("/updateInfo.do", new updateInfoControl());
 		map.put("/myPage.do", new myPageLoadController());
+		map.put("/myBoard.do", new myBoardControl());
 
 		// login
 		map.put("/login.do", new LoginControl());
@@ -115,7 +119,5 @@ public class FrontController extends HttpServlet {
 
 		Controller controller = map.get(path);
 		controller.execute(request, response);
-
 	}
-
 }

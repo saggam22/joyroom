@@ -48,6 +48,9 @@ CREATE TABLE board
    
 );
 
+-- 테이블 번호 시퀀스
+create sequence seq_board;
+
 -- 커뮤니티 게시판 댓글
 CREATE TABLE cfn_comment
 (

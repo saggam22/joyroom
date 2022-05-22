@@ -32,6 +32,9 @@ public class myPageLoadController implements Controller {
 
 		user = service.userOne(vo.getId());
 		
+		//session.setAttribute("success", "댓글을 작성했습니다.");
+		//response.sendRedirect("index.jsp");
+		
 		request.setAttribute("user", user);
 		request.getRequestDispatcher("view/myPage/myPage.tiles").forward(request, response);
 	}

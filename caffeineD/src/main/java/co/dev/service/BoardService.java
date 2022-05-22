@@ -9,8 +9,8 @@ public class BoardService {
 
 	boardDAO dao = new boardDAO();
 	
-	public void boardDelete(int board_no) {
-		dao.deleteBoard(board_no);
+	public void boardDelete(int param) {
+		dao.deleteBoard(param);
 	}
 	
 	// 게시판 리스트 조회
@@ -30,4 +30,7 @@ public class BoardService {
 		dao.insertBoard(board);
 	}
 	
+	public void boardUpdate(BoardVO board, int num) {
+		dao.updateBoard(board, num);
+	}
 }

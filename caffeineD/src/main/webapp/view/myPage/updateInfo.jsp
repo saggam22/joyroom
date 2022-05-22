@@ -15,7 +15,7 @@
 		비밀번호: <input type="password" name="pwd" value="${user.pwd }"><br>
 		닉네임: <input type="text" name="nickname" value="${user.nickname }"><br>
 		연락처: <input type="text" name="tel" value="${user.tel }"><br>
-		프로필: <input type="file" name="img" value=img><br>
+		프로필: <input type="file" name="img" value="${user.img }"><br>
 		<input style="margin-top:10px;" type="submit" value="수정"> <button style="margin-top:10px;" type="button" onclick="location.href='${pageContext.servletContext.contextPath }/myPage.do'">돌아가기</button>
 	</form>	
 </body>

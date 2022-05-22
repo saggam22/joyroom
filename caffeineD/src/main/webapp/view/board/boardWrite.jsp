@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div style="width:90%;">
+	
 		<h4>글을 작성하는 공간입니다.</h4>	
-		<form action="${pageContext.servletContext.contextPath }/boardWrite.do" enctype="multipart/form-data" method="post">
+		<form action="${pageContext.servletContext.contextPath }/boardWrite.do" method="post"  enctype="multipart/form-data">
 			<textarea name="title"placeholder="제목"  rows="1" cols="150"  required></textarea><br>
 			<textarea name="content" rows="15" cols="150" placeholder="내용" required></textarea><br>
 			<div style ="margin-top:10px">
@@ -19,9 +19,9 @@
 			</div>	
 			<div style ="margin-top:15px;margin-left:900px;">
         		<input type="submit" value="등록">  
-        		<button onclick="location.href='board.do'" type="button">돌아가기</button>    
+        		<a href = "${pageContext.servletContext.contextPath }/board.do"><button type="button">돌아가기</button></a>    
         	</div>  	
     	</form>    	
-	</div>
+	
 </body>
 </html>

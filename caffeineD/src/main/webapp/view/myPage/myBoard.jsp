@@ -6,15 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내가 쓴 글</title>
 </head>
 <body>	
 	<form>
 		<table border="1">
 			<thead>
 				<tr>
-					<th>제목</th>
-					<th>작성자</th>
+					<th>제목</th>					
 					<th>작성일</th>
 					<th>조회수</th>
 			<tbody>

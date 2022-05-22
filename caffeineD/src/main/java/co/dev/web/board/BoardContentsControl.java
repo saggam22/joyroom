@@ -19,12 +19,7 @@ public class BoardContentsControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		UserVO uvo = (UserVO) session.getAttribute("user_id");
-//		uvo.setId("user_id");
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-
+		
 		String param_comment = request.getParameter("comment");
 
 		String param = request.getParameter("no");
@@ -41,7 +36,6 @@ public class BoardContentsControl implements Controller {
 		HttpSession session = request.getSession();
 		UserVO uvo = new UserVO();
 		uvo = (UserVO) session.getAttribute("user");
-		
 		String userId = uvo.getId(); // 로그인 사용자 ID
 
 		if (vo == null) {
@@ -59,6 +53,8 @@ public class BoardContentsControl implements Controller {
 			comment.setComment_content(param_comment);
 
 			c_service.commentInsert(comment);
+			session.setAttribute("success", "댓글을 작성했습니다.");
+			//response.sendRedirect("boardContents.do?no="+num);
 		}
 		request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);
 

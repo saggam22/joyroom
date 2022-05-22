@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -8,12 +9,30 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-
-	<a href="index.jsp">메인</a>
-	<h1>My Page</h1>
-
-	<form>
+<body>	
+	<c:choose>
+		<c:when test="${!empty error}">
+			<script>
+				alert("${error }")
+			</script>
+			<%
+			request.getSession().removeAttribute("error");
+			%>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${!empty success }">
+				<script>
+					alert("${success }")
+				</script>
+				<%
+				request.getSession().removeAttribute("success");
+				%>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+	
+	<h1 style="text-align: center;">My Page</h1>
+	<form >
 		<table border="1">
 			<thead>
 				<tr>
@@ -26,7 +45,8 @@
 					<td>${user.id }</td>
 					<td>${user.nickname }</td>
 					<td>${user.tel }</td>
-					<td>${user.img }</td>
+					<td><img src = "${pageContext.servletContext.contextPath }/img/profimg/${user.img}"/>
+				
 				</tr>
 			</tbody>
 		</table>

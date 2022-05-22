@@ -18,8 +18,7 @@ public class updateInfoControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		UserVO vo = (UserVO) session.getAttribute("user");
+		
 		response.setContentType("text/json;charset=UTF-8");
 		String saveDir = "/img";
 		saveDir = request.getServletContext().getRealPath(saveDir);
@@ -27,9 +26,11 @@ public class updateInfoControl implements Controller {
 		String encoding = "UTF-8";
 
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
-		request.setCharacterEncoding(encoding);
 		
-		String id = multi.getParameter("id");
+		HttpSession session = request.getSession();
+		UserVO vo = new UserVO();
+		vo = (UserVO) session.getAttribute("user");
+		String id = vo.getId(); // 로그인 사용자 ID
 		String pwd = multi.getParameter("pwd");
 		String nick = multi.getParameter("nickname");
 		String tel = multi.getParameter("tel");
@@ -45,8 +46,11 @@ public class updateInfoControl implements Controller {
 		MyPageService service = new MyPageService();
 		service.userUpdate(user);
 		
-//		request.setAttribute("user", user);
-		request.getRequestDispatcher("result/updateInfoOutput.jsp").forward(request, response);
+		request.getSession().setAttribute("success", "정보 수정이 완료되었습니다.");
+		
+		response.sendRedirect("view/myPage/myPage.tiles");
+
+		//request.getRequestDispatcher("view/myPage/myPage.tiles").forward(request, response);
 	}
 
 }
