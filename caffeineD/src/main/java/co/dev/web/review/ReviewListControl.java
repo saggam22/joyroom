@@ -1,6 +1,7 @@
 package co.dev.web.review;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,74 +10,98 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import co.dev.service.ReviewService;
+import co.dev.vo.CafeVO;
 import co.dev.vo.ReviewVO;
+import co.dev.vo.MyReviewVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
 public class ReviewListControl implements Controller {
 
 	String job;
-	
+
 	public ReviewListControl(String job) {
 		this.job = job;
 	}
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 
-
-
-
-		String url = this.getClass().getResource("").getPath(); 
-		url = url.substring(1,url.indexOf(".metadata"))+"caffeineD";
-		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		
+
+		ReviewService service = new ReviewService();
+
 		if (job.equals("review")) {
-			
-			//int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
-			int cafeNo = 1;
-			
-			ReviewService service = new ReviewService();
-			List<ReviewVO> reviewList = service.reviewList(cafeNo);
-			
+
+			CafeVO cvo = (CafeVO) request.getAttribute("cafeinfo");
+
+			List<ReviewVO> reviewList = service.reviewList(cvo.getNo());
+
 			if (reviewList != null) {
-				
+
+				request.setAttribute("cafeinfo", cvo);
 				request.setAttribute("reviewList", reviewList);
-				request.getRequestDispatcher("/view/review/review.tiles").forward(request, response);
+				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
 				return;
-				
+
 			} else {
-				
-				request.getRequestDispatcher("/view/review/review.tiles").forward(request, response);
-				return;	
-				
+
+				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
+				return;
+
 			}
-			
+
 		} else if (job.equals("myReview")) {
-			
+
 			HttpSession session = request.getSession();
 			UserVO vo = (UserVO) session.getAttribute("user");
-			
-			if (vo == null) {
-				session.setAttribute("error", "로그인이 필요합니다.");
-				response.sendRedirect("/caffeineD/index.jsp");
-				return;
-			}
-			
+
 			String userId = vo.getId();
 
-			ReviewService service = new ReviewService();
-			List<ReviewVO> list = service.myReviewList(userId);
-
-			request.setAttribute("myReviewList", list);
-
-			request.getRequestDispatcher("/view/review/myReview.tiles").forward(request, response);
+			List<ReviewVO> reviewList = service.myReviewList(userId);
 			
+			List<MyReviewVO> myList = new ArrayList<>();
+			
+			
+			for (int i=0; i<reviewList.size(); i++) {
+				
+				
+				MyReviewVO myVO = new MyReviewVO();
+				
+				if (service.likeInfoSelect(userId, reviewList.get(i).getNo())) {
+					
+					myVO.setLikeCheck("true");
+					
+				} else {
+					
+					myVO.setLikeCheck("false");
+				}
+				
+				CafeVO cvo = service.cafeInfo(reviewList.get(i).getCafeNo());
+				
+				myVO.setUserId(reviewList.get(i).getUserId());
+				myVO.setUserImg(reviewList.get(i).getUserImg());
+				myVO.setUserNick(reviewList.get(i).getUserNick());
+				myVO.setContent(reviewList.get(i).getContent());
+				myVO.setDate(reviewList.get(i).getDate());
+				myVO.setImg(reviewList.get(i).getImg());
+				myVO.setLike(reviewList.get(i).getLike());
+				myVO.setNo(reviewList.get(i).getNo());
+				myVO.setStar(reviewList.get(i).getStar());
+				myVO.setCafeNo(reviewList.get(i).getCafeNo());
+				myVO.setCafeName(cvo.getName());
+				myVO.setCafeImg(cvo.getImg());
+				
+				myList.add(myVO);
+				
+			}
+			
+			request.setAttribute("myReviewList", myList);
+			request.getRequestDispatcher("/view/review/myReview.tiles").forward(request, response);
+
 		}
-		
+
 
 	}
 

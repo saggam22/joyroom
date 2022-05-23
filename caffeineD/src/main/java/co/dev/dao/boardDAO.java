@@ -11,13 +11,13 @@ public class boardDAO extends DAO {
 	// 글쓰기
 	public void insertBoard(BoardVO board) {
 		conn();
-		String sql = "insert into board values(seq_board.nextval,?, ?, ?, sysdate,\r\n" + "?,?)";
+		String sql = "insert into board values(seq_board.nextval,?, ?, ?, sysdate, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, board.getTitle());
 			psmt.setString(2, board.getUser_id());
 			psmt.setString(3, board.getContent());
-			psmt.setString(4, board.getImg()); 
+			psmt.setString(4, board.getImg());
 			psmt.setInt(5, 0);
 
 			int r = psmt.executeUpdate();
@@ -28,14 +28,32 @@ public class boardDAO extends DAO {
 			disconn();
 		}
 	}
-
+	
+	// 게시글 수정
+	public void updateBoard(BoardVO board) {
+		conn();
+		String sql ="update board set board_title=?, board_content=? where board_no=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, board.getTitle());
+			psmt.setString(2, board.getContent());
+			psmt.setInt(3, board.getNo());
+			psmt.executeUpdate();
+			System.out.println(board.getNo()+"게시글의 내용이 수정되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+	}
+	
 	// 게시글 삭제
-	public void deleteBoard(int board_no) {
+	public void deleteBoard(int num) {
 		conn();
 		String sql = "delete from board where board_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, board_no);
+			psmt.setInt(1, num);
 			psmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -45,6 +63,46 @@ public class boardDAO extends DAO {
 		}
 	}
 
+	// 게시글 수정
+	public void updateBoard(int board_no, String board_title, String board_content) {
+		conn();
+		String sql = "update board set board_title=?, board_content=? where board_no=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, board_title);
+			psmt.setString(2, board_content);
+			psmt.setInt(3, board_no);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+	}
+	// 내글 조회
+	public List<BoardVO> myBoard(){
+		conn();
+		
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		
+		try {
+			psmt=conn.prepareStatement("select * from board where user_id=?");
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setTitle(rs.getString("board_title"));
+				vo.setDate(rs.getString("board_date"));
+				vo.setView(rs.getInt("board_view"));
+				list.add(vo);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
+	}
+	
 	// 게시판 조회
 	public List<BoardVO> listBoard() {
 		conn();
@@ -136,6 +194,34 @@ public class boardDAO extends DAO {
 		}
 
 		return lastIx;
+	}
+
+	public List<BoardVO> listMyBoard(String userId) {
+		conn();
+
+		List<BoardVO> list = new ArrayList<BoardVO>();
+
+		try {
+			psmt = conn.prepareStatement("select * from board where user_id = ? order by board_no desc");
+			psmt.setString(1, userId);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setNo(rs.getInt("board_no"));
+				vo.setTitle(rs.getString("board_title"));
+				vo.setUser_id(rs.getString("user_id"));
+				vo.setContent(rs.getString("board_content"));
+				vo.setDate(rs.getString("board_date"));
+				vo.setImg(rs.getString("board_img"));
+				vo.setView(rs.getInt("board_view"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
 	}
 
 	// 게시글 번호 부여 메소드

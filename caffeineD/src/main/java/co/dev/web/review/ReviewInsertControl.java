@@ -29,12 +29,11 @@ public class ReviewInsertControl implements Controller {
 		String encoding = "UTF-8";
 		
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
-		
 		String cafeNo = multi.getParameter("cafeNo");
 		String star = multi.getParameter("star");
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("img");
-				
+		
 		HttpSession session = request.getSession();
 		UserVO uvo = (UserVO) session.getAttribute("user");
 		String userId = uvo.getId();
@@ -57,11 +56,10 @@ public class ReviewInsertControl implements Controller {
 		}
 		
 		service.reviewInsert(rvo);
+		System.out.println(cafeNo);
 		
-		request.getSession().setAttribute("success", "리뷰 등록이 완료되었습니다.");
-		response.sendRedirect("review.do");
+		request.getRequestDispatcher("/cafeInfoSelect.do?no="+cafeNo).forward(request, response);
 		
-//		request.getRequestDispatcher("/review.do").forward(request, response);
 
 	}
 

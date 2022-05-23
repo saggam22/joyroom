@@ -9,13 +9,16 @@ public class BoardService {
 
 	boardDAO dao = new boardDAO();
 	
-	public void boardDelete(int board_no) {
-		dao.deleteBoard(board_no);
+	public void boardDelete(int param) {
+		dao.deleteBoard(param);
 	}
 	
 	// 게시판 리스트 조회
 	public List<BoardVO> boardLoad() {		
 		return dao.listBoard();
+	}
+	public List<BoardVO> boardMyLoad(String userId) {		
+		return dao.listMyBoard(userId);
 	}
 	
 	public BoardVO boardLoadOne(int num) {		
@@ -30,4 +33,7 @@ public class BoardService {
 		dao.insertBoard(board);
 	}
 	
+	public void boardUpdate(BoardVO board) {
+		dao.updateBoard(board);
+	}
 }

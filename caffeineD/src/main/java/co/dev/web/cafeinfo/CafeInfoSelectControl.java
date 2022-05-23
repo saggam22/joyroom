@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.dev.dao.CafeDAO;
 import co.dev.service.CafeService;
@@ -23,8 +24,8 @@ public class CafeInfoSelectControl implements Controller {
 		CafeVO vo = service.selecCafe(cafeNo);
 		
 		request.setAttribute("cafeinfo", vo);
-		
-		request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
+
+		request.getRequestDispatcher("/review.do").forward(request, response);
 
 	}
 

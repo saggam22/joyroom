@@ -17,4 +17,7 @@ public class CommentService {
 		return dao.listComment(num);
 	}
 	
+	public List<CommentVO> listMyComment(String user_id) {
+		return dao.listMyComment(user_id);
+	}
 }

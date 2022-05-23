@@ -46,13 +46,42 @@ public class UserDAO extends DAO implements UserService {
 			psmt.setString(3, vo.getTel());
 			psmt.setString(4, vo.getId());
 			psmt.executeUpdate();
-			System.out.println(vo.getNickname());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconn();
 		}
 	}
+	
+
+	// myPage 내글보기
+
+  
+	// 임시비밀번호 발급 -> 아이디값 받아 비밀번호 정보만 변경
+	public void updatePwd(String tempPwd, String userId) {
+		
+		conn();
+		String sql = "UPDATE cfn_user SET user_pwd=? where user_id =?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, tempPwd);
+			psmt.setString(2, userId);
+
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				System.out.println("임시 비밀번호 변경 완료");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		
+		
+	}
+
 
 	// 북마크 추가
 	public void insertBookmark(int cafeNo, String userId) {
@@ -177,6 +206,7 @@ public class UserDAO extends DAO implements UserService {
 				vo.setId(rs.getString("user_id"));
 				vo.setNickname(rs.getString("user_nick"));
 				vo.setTel(rs.getString("user_tel"));
+				vo.setImg(rs.getString("user_img"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

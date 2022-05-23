@@ -23,4 +23,7 @@ public interface UserService {
 	public boolean checkId(String userId);
 	//닉네임 중복 확인
 	public boolean checkNickname(String userNickname);
+	// 임시 비밀번호 발급 -> 아이디값 받아 비밀번호 정보만 변경
+	public void updatePwd(String tempPwd, String userId);
+
 }
