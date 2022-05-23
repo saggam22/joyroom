@@ -95,6 +95,6 @@
 		</div>
 	</section>
 	<center>
-		<a href="view/board/boardWrite.jsp"><input type="button" value="글쓰기"></a>
+		<a href="view/board/boardtiles.jsp"><input type="button" value="글쓰기"></a>
 </body>
 </html>
