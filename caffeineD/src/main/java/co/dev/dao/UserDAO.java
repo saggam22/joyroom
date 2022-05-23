@@ -166,7 +166,6 @@ public class UserDAO extends DAO implements UserService {
 
 	// 카페 중복체크
 	public boolean checkBookmark(int cafeNo, String userId) {
-
 		conn();
 		String sql = "SELECT * FROM bookmark " + "WHERE cafe_no=? AND user_id=?";
 
@@ -250,6 +249,51 @@ public class UserDAO extends DAO implements UserService {
 		return list;
 	}
 	
+	//아이디 중복 확인
+	public boolean checkId(String userId) {
+		conn();
+		String sql = "SELECT * FROM cfn_user WHERE user_id=?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+
+			int r = psmt.executeUpdate();
+
+			if (r > 0) {
+				System.out.println("유저아이디 " + r + "건 조회");
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return false;
+	}
+	//닉네임 중복 확인
+	public boolean checkNickname(String userNickname) {
+		conn();
+		String sql = "SELECT * FROM cfn_user WHERE user_nick=?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userNickname);
+
+			int r = psmt.executeUpdate();
+
+			if (r > 0) {
+				System.out.println("유저닉네임 " + r + "건 조회");
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return false;
+	}
 	
-					
 }

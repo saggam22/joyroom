@@ -34,8 +34,11 @@ import co.dev.web.cafeinfo.CafeInfoSelectControl;
 import co.dev.web.cafeinfo.CafeInfoUpdateControl;
 import co.dev.web.cafeinfo.CafeListControl;
 import co.dev.web.cafeinfo.CafeReionListControl;
+import co.dev.web.notice.noticeDeleteControl;
 import co.dev.web.notice.noticeInsertControl;
 import co.dev.web.notice.noticeListControl;
+import co.dev.web.notice.noticeSelectControl;
+import co.dev.web.notice.noticeUpdateControl;
 import co.dev.web.review.LikeCheckControl;
 import co.dev.web.review.ReviewDeleteControl;
 import co.dev.web.review.ReviewInsertControl;
@@ -46,8 +49,11 @@ import co.dev.web.review.ReviewUpdateControl;
 import co.dev.web.review.StarAvgControl;
 import co.dev.web.user.LoginControl;
 import co.dev.web.user.LogoutControl;
+import co.dev.web.user.UserCheckControl;
+import co.dev.web.user.UserInsertCheckControl;
 import co.dev.web.user.MailSendControl;
 import co.dev.web.user.UserFindControl;
+
 
 @WebServlet("/FrontController")
 public class FrontController extends HttpServlet {
@@ -84,7 +90,8 @@ public class FrontController extends HttpServlet {
 		map.put("/makeTempPwd.do", new UserFindControl("makeTempPwd"));
 		map.put("/mailSend.do", new MailSendControl());
 		map.put("/userInsert.do", new UserInsertControl()); //유저 회원가입
-
+		map.put("/userInsertCheck.do", new UserInsertCheckControl()); //유저 가입시 아이디, 닉네임 중복 체크
+		
 		// review
 		map.put("/review.do", new ReviewListControl("review"));			// 리뷰 리스트
 		map.put("/myReview.do", new ReviewListControl("myReview"));		// 내 리뷰 리스트
@@ -96,6 +103,7 @@ public class FrontController extends HttpServlet {
 		map.put("/likeCheck.do", new LikeCheckControl());				// 좋아요 체크	
 		map.put("/starAvg.do", new StarAvgControl());					// 평균 평점 조회
 		map.put("/cafeInfo.do", new ReviewListControl("cafeInfo"));		// 마이페이지 카페 정보
+
 		
 		 // cafe
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회(페이징)
@@ -111,7 +119,10 @@ public class FrontController extends HttpServlet {
 
 		//notice
 		map.put("/notice.do", new noticeListControl()); //공지사항리스트(페이징)
-		map.put("/noticeInsert.do", new noticeInsertControl());
+		map.put("/noticeInsert.do", new noticeInsertControl()); //공지사항 등록
+		map.put("/noticeUpdate.do", new noticeUpdateControl()); //공지사항 수정
+		map.put("/noticeSelect.do", new noticeSelectControl()); //공지사항 내용보기
+		map.put("/noticeDelete.do", new noticeDeleteControl()); //공지사항 삭제
 		
 		//admin page
 		map.put("/user.do", new userListControl()); //유저 리스트
