@@ -127,7 +127,7 @@ public class NoticeDAO extends DAO implements NoticeService {
 				vo.setNo(rs.getInt("notice_no"));
 				vo.setTitle(rs.getString("notice_title"));
 				vo.setContent(rs.getString("notice_content"));
-				vo.setDate(rs.getString("notice_date"));
+				vo.setDate(rs.getString("notice_date").substring(0, 10));
 				vo.setImg(rs.getString("notice_img"));
 				vo.setView(rs.getInt("notice_view"));
 				vo.setUser(rs.getString("notice_user"));

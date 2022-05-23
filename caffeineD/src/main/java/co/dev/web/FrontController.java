@@ -16,10 +16,10 @@ import co.dev.myPage.myBoardControl;
 import co.dev.myPage.myCommentControl;
 import co.dev.myPage.myPageLoadController;
 import co.dev.myPage.updateInfoControl;
-import co.dev.myPage.updateInfoControl;
 import co.dev.web.admin.adCafeControl;
 import co.dev.web.admin.adCafeListControl;
 import co.dev.web.admin.totalReviewListControl;
+import co.dev.web.admin.userDeleteControl;
 import co.dev.web.admin.userListControl;
 import co.dev.web.board.BoardContentsControl;
 import co.dev.web.board.BoardDeleteControl;
@@ -27,7 +27,7 @@ import co.dev.web.board.BoardInsertControl;
 import co.dev.web.board.BoardLoadControl;
 import co.dev.web.board.BoardUpdateControl;
 import co.dev.web.bookmark.BookmarkCheckControl;
-import co.dev.web.bookmark.BookmarkSelectControl;
+import co.dev.web.bookmark.MyBookmarkListControl;
 import co.dev.web.cafeinfo.CafeInfoDelteControl;
 import co.dev.web.cafeinfo.CafeInfoInsertControl;
 import co.dev.web.cafeinfo.CafeInfoSelectControl;
@@ -49,8 +49,8 @@ import co.dev.web.review.ReviewUpdateControl;
 import co.dev.web.review.StarAvgControl;
 import co.dev.web.user.LoginControl;
 import co.dev.web.user.LogoutControl;
-import co.dev.web.user.UserCheckControl;
 import co.dev.web.user.UserInsertCheckControl;
+import co.dev.web.user.UserInsertControl;
 import co.dev.web.user.MailSendControl;
 import co.dev.web.user.UserFindControl;
 
@@ -115,7 +115,7 @@ public class FrontController extends HttpServlet {
 		
 		// bookmark
 		map.put("/bookmarkCheck.do", new BookmarkCheckControl()); //북마크 +-체크
-		map.put("/bookmarkSelect.do", new BookmarkSelectControl()); //내 북마크 조회
+		map.put("/myBookmark.do", new MyBookmarkListControl()); //내 북마크 조회
 
 		//notice
 		map.put("/notice.do", new noticeListControl()); //공지사항리스트(페이징)
@@ -126,6 +126,7 @@ public class FrontController extends HttpServlet {
 		
 		//admin page
 		map.put("/user.do", new userListControl()); //유저 리스트
+		map.put("/userDelete.do", new userDeleteControl()); //유저삭제
 		map.put("/totalReviewList.do", new totalReviewListControl()); // 리뷰 리스트
 		map.put("/adList.do", new adCafeListControl());	// 광고 리스트
 		map.put("/adCafeInsertView.do", new adCafeControl("view"));

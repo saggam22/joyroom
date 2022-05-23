@@ -130,10 +130,10 @@ public class UserDAO extends DAO implements UserService {
 	}
 
 	// 내 북마크 조회
-	public List<CafeVO> selectBookmark(String userId) {
+	public List<CafeVO> myBookmark(String userId) {
 
 		conn();
-		String sql = "SELECT * FROM cafe WHERE cafe_no IN (SELECT cafe_no FROM bookmark WHERE user_id LIKE ?)";
+		String sql = "SELECT * FROM cafe WHERE cafe_no IN (SELECT cafe_no FROM bookmark WHERE user_id = ?)";
 
 		List<CafeVO> list = new ArrayList<CafeVO>();
 
@@ -247,6 +247,27 @@ public class UserDAO extends DAO implements UserService {
 			disconn();
 		}
 		return list;
+	}
+	
+	// 회원 삭제
+	public void deleteUser(String userId) {
+		conn();
+		String sql = "DELETE FROM cfn_user WHERE user_id=?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userId);
+
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				System.out.println("회원정보" + r + "건 삭제");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}	
 	}
 	
 	//아이디 중복 확인

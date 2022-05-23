@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<title>userList.jsp</title>
+  	<title>myBookmark.jsp</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/table.css">
@@ -31,38 +31,38 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">회원리스트</h2>
+					<h2 class="heading-section">MY BOOKMARK</h2>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap" style="overflow-x: hidden">
 						<c:choose>
-						<c:when test="${empty list }"><h4>회원이 없습니다.</h4></c:when>
+						<c:when test="${empty list }"><h6 style="text-align:center;">나의 카페를 추가해보세요.</h6></c:when>
 						<c:otherwise>
 						<table class="table">
 						  <thead class="thead-primary">
 						    <tr>
 						      <th></th>
-						      <th>회원ID</th>
-						      <th>닉네임</th>
-						      <th>전화번호</th>
-							  	<th>프로필사진</th>
+						      <th>상호명</th>
+						      <th></th>
+						      <th>주소</th>
+							  	<th>전화번호</th>
 						    </tr>
 						  </thead>
 						  <tbody>
-							<c:forEach items="${list }" var="users">
+							<c:forEach items="${list }" var="cafe">
 						    <tr>
-									<td><input type="checkbox" name="usersId" value="${users.id }"></td>
-						      <td>${users.id }</td>
-						      <td>${users.nickname }</td>
-						      <td>${users.tel }</td>
-							  	<td><img width="50px" alt="" src="${pageContext.servletContext.contextPath }/img/profimg/${users.img }"></td>
+									<td><input type="checkbox" name="cafeNo" value="${cafe.no }"></td>
+						      <td><a href="${pageContext.servletContext.contextPath }/cafeInfoSelect.do?mybookmark=true&no=${cafe.no}">${cafe.name }</a></td>
+						      <td><img width="50px" alt="" src="${pageContext.servletContext.contextPath }/img/cafeimg/${cafe.img }"></td>
+						      <td>${cafe.address }</td>
+						      <td>${cafe.tel }</td>
 						    </tr>
 						   </c:forEach>
 						  </tbody>
 						</table>
-							<button id="user_delete_btn" type="button" onclick="userDelete();">삭제</button>
+							<button id="user_delete_btn" type="button" onclick="bookmarkDelete();">삭제</button>
 					</c:otherwise>
 					</c:choose>
 					</div>
@@ -71,12 +71,12 @@
 		</div>
 	</section>
 	<script>
-	function userDelete() {
+	function bookmarkDelete() {
 		if(confirm('정말로 삭제하시겠습니까?') == true ) {
-			let userSelect = document.getElementsByName('usersId');
+			let userSelect = document.getElementsByName('cafeNo');
 			for (let i=0; i<userSelect.length; i++) {
 				if(userSelect[i].checked) {
-					location.href='${pageContext.servletContext.contextPath }/userDelete.do?id='+userSelect[i].value;
+					location.href='${pageContext.servletContext.contextPath }/bookmarkCheck.do?cafeNo='+userSelect[i].value;
 				}
 			}
 			alert("삭제되었습니다.");

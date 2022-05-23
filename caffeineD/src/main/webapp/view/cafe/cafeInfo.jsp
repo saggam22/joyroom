@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cafeInfo.jsp</title>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/theme.css">
+
+</head>
 <body>
     <main role="main">
     <section class="bg-gray200 pt-5 pb-5">
@@ -59,7 +68,10 @@
     					<li>${cafeinfo.tel }</li>
     				</ul>
     				<small class="d-block"><a class="btn btn-sm btn-gray200" href='#' onclick="changeBtn()" id="bookmarkBtn">
-						<img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="30px"> Bookmark</a></small>
+    				<c:choose>
+    					<c:when test="${!empty mybookmark }"><img id=mark src="${pageContext.servletContext.contextPath }/img/bookmark.png" width="30px"></c:when>
+    					<c:otherwise><img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="30px"></c:otherwise>
+    				</c:choose> Bookmark</a></small>
     				<!-- 북마크 기능
                     ================================================== -->
     				<div id="comments" class="mt-4">

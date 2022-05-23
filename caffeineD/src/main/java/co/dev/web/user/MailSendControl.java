@@ -17,7 +17,7 @@ public class MailSendControl implements Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 
-		String userId = request.getParameter("inputId");
+		String userId = request.getParameter("id");
 		
 		// 메일 내용
 		String key = MailSendControl.createKey();
@@ -48,7 +48,7 @@ public class MailSendControl implements Controller {
 			String hostSMTPpwd = "tnqtnql!";		
 			
 			// 메일 보내는 사람 설정
-			String fromEmail = "jeejjd@gmail.com";
+			String fromEmail = "wlqls12@naver.com";
 			String fromName = "caffeineD";
 			
 			// email 전송

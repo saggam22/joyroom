@@ -35,9 +35,14 @@ public class ReviewListControl implements Controller {
 		if (job.equals("review")) {
 
 			CafeVO cvo = (CafeVO) request.getAttribute("cafeinfo");
+			String mybookmark = request.getParameter("mybookmark");
 
 			List<ReviewVO> reviewList = service.reviewList(cvo.getNo());
 
+			if(mybookmark != null) {
+				request.setAttribute("mybookmark", "true");
+			}
+			
 			if (reviewList != null) {
 
 				request.setAttribute("cafeinfo", cvo);
@@ -45,8 +50,8 @@ public class ReviewListControl implements Controller {
 				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
 				return;
 
-			} else {
-
+			} else {	
+				
 				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
 				return;
 

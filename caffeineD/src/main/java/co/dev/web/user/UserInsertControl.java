@@ -1,4 +1,4 @@
-package co.dev.web;
+package co.dev.web.user;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.dev.dao.UserDAO;
 import co.dev.vo.UserVO;
+import co.dev.web.Controller;
 
 public class UserInsertControl implements Controller {
 
