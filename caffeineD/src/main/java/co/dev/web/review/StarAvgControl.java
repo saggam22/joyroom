@@ -23,9 +23,6 @@ public class StarAvgControl implements Controller {
 		float starAvg = reviewInfo[0];
 		int reviewCount = (int) reviewInfo[1];
 		
-		
-
-		
 		response.getWriter().print("{\"starAvg\" : \""+starAvg+"\", \"reviewCount\" : \""+reviewCount+"\"");
 		
 		for (int i = 0; i<starCount.length; i++) {

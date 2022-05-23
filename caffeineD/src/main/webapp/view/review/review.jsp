@@ -29,12 +29,16 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-
-	<article id="reviews_info">
+		
+	<div id="container">
+	<c:choose>
+		<c:when test="${empty reviewList }">등록된 리뷰가 없습니다.</c:when>
+		<c:otherwise>
+			<article id="reviews_info" >
 					<div><span id="star_avg"></span><span style="color:rgb(120, 120, 120);"> / 5</span></div>
 					<div id="star_show"></div>
 					<div id="review_count" ></div>
-						
+
 					<table style="display:inline-block; ">
 						<tr>
 							<td>1</td><td class="star_info">★</td><td><div class="star_count_show"><div class="star_count_show_color"></div></div></td>
@@ -53,15 +57,11 @@
 						</tr>
 					</table>
 						
-	</article>
+			</article>
+		</c:otherwise>
+	</c:choose>
+	
 
-	<div id="container">
-		<c:choose>
-			<c:when test="${empty reviewList }">첫 리뷰를 남겨보세요!</c:when>
-			<c:otherwise>
-
-				
-			
 				<article>
 					<c:choose>
 						<c:when test="${empty user }"></c:when>
@@ -69,8 +69,16 @@
 							<div>
 								<a href="#reviewInsert" id="btn_open" onclick="javascript:topBtnNone();">Write</a>
 							</div>
+						
+					
+							<div class="review" style="text-align: center;">
+								<p style="margin: 0 0 3px 0;">리뷰 수정, 삭제는 마이페이지의 내 리뷰에서 가능합니다.</p>
+								<button type="button" style="text-decoration: underline; color:rgb(120, 120, 120);" 
+									onclick="location.href='${pageContext.servletContext.contextPath }/myReview.do'">내 리뷰 바로가기</button>
+							</div>
 						</c:otherwise>
 					</c:choose>
+					
 					<c:forEach var="review" items="${reviewList }">
 						<div id="${review.no }" class="review">
 							<div class="review_left">
@@ -87,7 +95,8 @@
 									<span class="bold_text"
 										style="margin-left: 15px; position: absolute; bottom: 15px;">${review.userNick }</span>
 								</div>
-								<div class="star" style="position: relative;">
+								<div>
+								<span class="star" style="">
 									<c:choose>
 										<c:when test="${review.star eq '5' }">★★★★★</c:when>
 										<c:when test="${review.star eq '4' }">★★★★☆</c:when>
@@ -95,21 +104,18 @@
 										<c:when test="${review.star eq '2' }">★★☆☆☆</c:when>
 										<c:when test="${review.star eq '1' }">★☆☆☆☆</c:when>
 									</c:choose>
-									<span style="position: absolute; right: 1%; top: 5px; margin-left: 5px;"> 
-									
+								</span>
+									<span class="like_section">
 										<span id="likeCount_${review.no }" style="color:black;">${review.like }</span>
 										<button id="likeBtn_${review.no }" class="likeBtn"
 											type="button" name="nonUser">
 											
 											<img id="heart_${review.no }"
 												src="${pageContext.servletContext.contextPath }/img/eptheart.svg.png"
-												width="15px">
+												width="14px">
 										</button>
-										
-										
 									</span>
 								</div>
-
 								<div style="line-height: 16pt; margin: 20px 0;">${review.content }</div>
 
 							</div>
@@ -120,8 +126,8 @@
 					</c:forEach>
 				</article>
 			<button id="moreBtn" onClick="listMore()"><img src="${pageContext.servletContext.contextPath }/img/moreBtn.png" style="width: 50px;" ></button>
-			</c:otherwise>
-		</c:choose>
+			<div id="topBtn" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>
+	</div>	
 
 
 		<div class="wrap">
@@ -132,16 +138,12 @@
 					<button type="button" id="btn_close">X</button>
 					<br>
 
-					<form 
-						action="${pageContext.servletContext.contextPath }/reviewInsert.do"
-						method="post" enctype="multipart/form-data"
-						onsubmit="return submitCheck();">
+					<form name="insertForm" action="${pageContext.servletContext.contextPath }/reviewInsert.do" 
+					method="post" enctype="multipart/form-data" onsubmit="return submitCheck();">
 						<div class="pop_left">
 							<input type="hidden" name="cafeNo" value="${cafeinfo.no }">
 							<div id="imgSection"><div id="reviewImgDiv"><img id="firstImg" src="${pageContext.servletContext.contextPath }/img/emptyimg.jpg"></div></div>
-							<input type="hidden" id="filePath" disabled="disabled"> <label
-								for="uploadImg" style="border: none; font-size: 10pt; margin:20px 0 0 120px; color:rgb(120, 120, 120); ">사진
-								올리기</label> <input id="uploadImg" name="img" type="file"
+							 <label for="uploadImg" style="border: none; font-size: 10pt; margin:20px 0 0 120px; color:rgb(120, 120, 120); ">사진 올리기</label> <input id="uploadImg" name="img" type="file"
 								accept="image/jpg, image/png, image/jpeg"
 								style="position: absolute; clip: rect(0, 0, 0, 0);">
 						</div>
@@ -178,16 +180,18 @@
 								placeholder="리뷰는 10자 이상 입력해 주세요.&#13;&#10;5MB 이하 PNG, JPG, JPEG 형식의&#13;&#10;파일 1개만 등록 가능합니다."
 								cols="30" rows="9" minlength="10" required
 								oninvalid="this.setCustomValidity('리뷰를 10자 이상 입력해주세요.')"></textarea>
-							<div style="text-align: center;"><button id="innerBtn" type="submit" >Upload</button></div>
+							<div style="text-align: center;"><button id="innerBtn" type="submit">Upload</button></div>
 						</div>
 					</form>
+					
+					
 				</div>
 			</div>
+
 		</div>
 		
-		<div id="topBtn" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>
 		
-	</div>
+
 </body>
 
 <script src="js/review.js"></script>
@@ -212,7 +216,7 @@
 		console.log('more');
 		for (let i = showCount; i < showCount + moreCount; i++) {
 			if (reviews[i] != null) {
-				reviews[i].style.display = 'inline-block';
+				reviews[i].style.display = 'block';
 			} else {
 				moreBtn.style.display = 'none';
 			}

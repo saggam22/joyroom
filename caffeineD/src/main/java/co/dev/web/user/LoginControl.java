@@ -34,7 +34,7 @@ public class LoginControl implements Controller {
 		} else {
 			session.setAttribute("error", "잘못된 아이디 혹은 비밀번호를 입력하셨습니다.");
 			
-			path = "view/user/login.jsp";
+			path = "view/user/login.tiles";
 		}
 
 		

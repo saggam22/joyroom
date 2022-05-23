@@ -16,15 +16,15 @@ public class ReviewDeleteControl implements Controller {
 		
 		response.setContentType("text/json;charset=utf-8");
 		
-		int reviewNo = Integer.valueOf(request.getParameter("reviewNo"));
+		int reviewNo = Integer.valueOf(request.getParameter("review_no"));
 
 		ReviewService service = new ReviewService();
 		
 		
 		if (service.reviewDelete(reviewNo)) {
-			response.getWriter().print("{\"message\" : \"리뷰 삭제가 완료되었습니다.\"}");
+			response.getWriter().print("{\"messege\" : \"리뷰 삭제가 완료되었습니다.\"}");
 		} else {
-			response.getWriter().print("{\"message\" : \"정상적으로 처리되지 않았습니다.\"}");
+			response.getWriter().print("{\"messege\" : \"정상적으로 처리되지 않았습니다.\"}");
 		}
 
 	}

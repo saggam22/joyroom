@@ -1,3 +1,5 @@
+let cafeNo = document.getElementsByName('cafeNo')[0].value;
+
 StarAvg();
 
 if (document.getElementsByName('loginUser')[0].value != '') {
@@ -44,6 +46,8 @@ if (document.getElementsByName('loginUser')[0].value != '') {
 		topBtn.style.display = 'block';
 	});
 }
+
+
 
 
 // 좋아요 버튼 이벤트
@@ -133,7 +137,7 @@ function makeX() {
 // function
 // 평균 평점 조회
 function StarAvg() {
-	let cafeNo = document.getElementsByName('cafeNo')[0].value;
+
 	fetch('starAvg.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

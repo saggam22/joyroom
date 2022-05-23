@@ -36,6 +36,7 @@
 		<a href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.jsp"><input type="button" value="정보 수정"></a> 
 		<a href="${pageContext.servletContext.contextPath }/view/myPage/myBoard.jsp"><input type="button" value="작성글 보기"></a> 
 		<a href="${pageContext.servletContext.contextPath }/view/myPage/myComment.jsp"><input type="button" value="작성댓글 보기"></a>
+		<a href="${pageContext.servletContext.contextPath }/myReview.do"><input type="button" value="내 리뷰"></a>
 	</div>
 
 

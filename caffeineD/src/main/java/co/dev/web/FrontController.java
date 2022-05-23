@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.myPage.myPageLoadController;
+import co.dev.myPage.updateInfoControl;
+import co.dev.web.admin.adCafeControl;
+import co.dev.web.admin.adCafeListControl;
+import co.dev.web.admin.totalReviewListControl;
+import co.dev.web.admin.userListControl;
 import co.dev.web.board.BoardContentsControl;
 import co.dev.web.board.BoardDeleteControl;
 import co.dev.web.board.BoardInsertControl;
 import co.dev.web.board.BoardLoadControl;
-import co.dev.myPage.myPageLoadController;
-import co.dev.myPage.updateInfoControl;
-import co.dev.web.admin.userListControl;
 import co.dev.web.bookmark.BookmarkCheckControl;
 import co.dev.web.bookmark.BookmarkSelectControl;
 import co.dev.web.cafeinfo.CafeInfoDelteControl;
@@ -38,7 +41,8 @@ import co.dev.web.review.ReviewUpdateControl;
 import co.dev.web.review.StarAvgControl;
 import co.dev.web.user.LoginControl;
 import co.dev.web.user.LogoutControl;
-import co.dev.web.user.UserCheckControl;
+import co.dev.web.user.MailSendControl;
+import co.dev.web.user.UserFindControl;
 
 @WebServlet("/FrontController")
 public class FrontController extends HttpServlet {
@@ -67,7 +71,10 @@ public class FrontController extends HttpServlet {
 		// login
 		map.put("/login.do", new LoginControl());
 		map.put("/logout.do", new LogoutControl());
-		map.put("/userIdCheck.do", new UserCheckControl());
+		map.put("/userIdCheck.do", new UserFindControl("findId"));
+		map.put("/userIdCheckForPwd.do", new UserFindControl("findIdForPwd"));
+		map.put("/makeTempPwd.do", new UserFindControl("makeTempPwd"));
+		map.put("/mailSend.do", new MailSendControl());
 		map.put("/userInsert.do", new UserInsertControl()); //유저 회원가입
 
 		// review
@@ -79,7 +86,8 @@ public class FrontController extends HttpServlet {
 		map.put("/reviewDelete.do", new ReviewDeleteControl());			// 리뷰 삭제
 		map.put("/reviewLike.do", new ReviewLikeControl());				// 좋아요 +-
 		map.put("/likeCheck.do", new LikeCheckControl());				// 좋아요 체크	
-		map.put("/starAvg.do", new StarAvgControl());									// 평균 평점 조회
+		map.put("/starAvg.do", new StarAvgControl());					// 평균 평점 조회
+		map.put("/cafeInfo.do", new ReviewListControl("cafeInfo"));		// 마이페이지 카페 정보
 		
 		 // cafe
 		map.put("/cafeList.do", new CafeListControl()); //카페 리스트 조회(페이징)
@@ -99,6 +107,15 @@ public class FrontController extends HttpServlet {
 		
 		//admin page
 		map.put("/user.do", new userListControl()); //유저 리스트
+		map.put("/totalReviewList.do", new totalReviewListControl()); // 리뷰 리스트
+		map.put("/adList.do", new adCafeListControl());	// 광고 리스트
+		map.put("/adCafeInsertView.do", new adCafeControl("view"));
+		map.put("/adCafeInsert.do", new adCafeControl("insert"));
+		map.put("/adCafeDelete.do", new adCafeControl("delete"));
+		map.put("/adCafeUpdate.do", new adCafeControl("update"));
+		
+		//main
+		map.put("/mainAd.do", new mainAdControl());	// 메인 광고
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
