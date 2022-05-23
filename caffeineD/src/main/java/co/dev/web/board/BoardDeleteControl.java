@@ -20,22 +20,22 @@ public class BoardDeleteControl implements Controller {
 		vo = (UserVO) session.getAttribute("user");
 		System.out.println(vo);
 		String param = request.getParameter("no");
-		String param2 = request.getParameter("user"); // 123@123		
+		String param2 = request.getParameter("user"); // 작성자		
 		int num = Integer.parseInt(param);
-		System.out.println("삭제할 게시글번호 : "+num+" 세션유저정보 : "+vo.getId()); // 456@456
+		System.out.println("삭제할 게시글번호 : "+num+" 세션유저정보 : "+vo.getId()); // 현재로그인한사람
 		
 		BoardService d_service = new BoardService();
 		
 		if(param2.equals(vo.getId())) {
 			d_service.boardDelete(num);
 			session.setAttribute("success", "삭제가 완료되었습니다.");
-			//response.sendRedirect("ㅠㅐㅁ.jsp");
+			
 			
 		}
 		else {
-			session.setAttribute("error", "삭제불가능(작성자불일치)");
+			session.setAttribute("error", "작성자가 불일치합니다.");
 		}
-		request.getRequestDispatcher("view/board/board.tiles").forward(request, response);
+		request.getRequestDispatcher("board.do").forward(request, response);
 	}
 
 }

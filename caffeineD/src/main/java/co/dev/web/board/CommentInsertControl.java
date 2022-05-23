@@ -34,9 +34,9 @@ public class CommentInsertControl implements Controller {
 		BoardService service = new BoardService();
 		service.boardInsert(board);
 		
-		session.setAttribute("success", "댓글을 작성했습니다.");
-		response.sendRedirect("board.do");
-		//request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);
+		//session.setAttribute("success", "댓글을 작성했습니다.");
+		//response.sendRedirect("boardContents.do");
+		request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);
 
 	}
 }

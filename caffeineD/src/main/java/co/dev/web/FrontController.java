@@ -49,7 +49,6 @@ import co.dev.web.review.ReviewUpdateControl;
 import co.dev.web.review.StarAvgControl;
 import co.dev.web.user.LoginControl;
 import co.dev.web.user.LogoutControl;
-import co.dev.web.user.UserCheckControl;
 import co.dev.web.user.UserInsertCheckControl;
 import co.dev.web.user.MailSendControl;
 import co.dev.web.user.UserFindControl;

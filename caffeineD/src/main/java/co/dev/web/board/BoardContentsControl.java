@@ -28,7 +28,7 @@ public class BoardContentsControl implements Controller {
 
 		BoardService b_service = new BoardService();
 		b_service.plusView(num); // 조회수 1증가
-		BoardVO vo = b_service.boardLoadOne(num); // 게시글 내용조회해서
+		BoardVO vo = b_service.boardLoadOne(num); // 게시글 내용조회
 		
 		CommentService c_service = new CommentService();
 		List<CommentVO> c_list = c_service.commentList(num);

@@ -7,13 +7,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="css/table.css">
+<style>
+#notice_insert_btn {
+	cursor: pointer;
+	font-weight: 700;
+	text-decoration: none;
+	border-radius: 25px;
+	background: rgb(90, 90, 90);
+	color: white;
+	font-size: 12px;
+}
+
+#notice_insert_btn:hover {
+	background: white;
+	color: rgb(90, 90, 90);
+}
+</style>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${!empty error}">
 			<script>
-				alert("${error }")
+				alert("${error }", "로그인이 필요합니다.")
 			</script>
 			<%
 			request.getSession().removeAttribute("error");
@@ -30,39 +48,50 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-	
-	<h1 style="text-align: center;">My Page</h1>
-	<form >
-		<table border="1">
-			<thead>
-				<tr>
-					<th>아이디</th>
-					<th>닉네임</th>
-					<th>연락처</th>
-					<th>프로필</th>
-			<tbody>
-				<tr>
-					<td>${user.id }</td>
-					<td>${user.nickname }</td>
-					<td>${user.tel }</td>
-					<td><img src = "${pageContext.servletContext.contextPath }/img/profimg/${user.img}" style="max-width: 100px; height: auto;"/>
-				
-				</tr>
-			</tbody>
-		</table>
-	</form>
-
-	<div style="margin-top: 10px;">
-
-		<a href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.tiles"><input type="button" value="정보 수정"></a> 
-		<a href="${pageContext.servletContext.contextPath }/myBoard.do"><input type="button" value="작성글 보기"></a> 
-		<a href="${pageContext.servletContext.contextPath }/myComment.do"><input type="button" value="작성댓글 보기"></a>
-		<a href="${pageContext.servletContext.contextPath }/myReview.do"><input type="button" value="내 리뷰"></a>
-
-	</div>
-
-
-
-
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">My Page</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap" style="overflow-x: hidden">
+						<h2>My Page</h2>
+						<table class="table">
+							<thead class="thead-primary">
+								<tr id="tt">
+									<th>아이디</th>
+									<th>닉네임</th>
+									<th>연락처</th>
+									<th>프로필</th>
+								</tr>
+							<tbody>
+								<tr>
+									<td>${user.id }</td>
+									<td>${user.nickname }</td>
+									<td>${user.tel }</td>
+									<td><img
+										src="${pageContext.servletContext.contextPath }/img/profimg/${user.img}"
+										style="max-width: 100px; height: auto;" />
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<center>
+		<a
+			href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.tiles"><input
+			type="button" value="정보 수정"></a> <a
+			href="${pageContext.servletContext.contextPath }/myBoard.do"><input
+			type="button" value="작성글 보기"></a> <a
+			href="${pageContext.servletContext.contextPath }/myComment.do"><input
+			type="button" value="작성댓글 보기"></a> <a
+			href="${pageContext.servletContext.contextPath }/myReview.do"><input
+			type="button" value="내 리뷰"></a>
 </body>
 </html>

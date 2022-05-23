@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import co.dev.dao.boardDAO;
 import co.dev.service.BoardService;
+import co.dev.service.boardPageService;
 import co.dev.vo.BoardVO;
+import co.dev.vo.PageVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
@@ -18,17 +21,14 @@ public class BoardLoadControl implements Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-
 		UserVO vo = new UserVO();
 		vo = (UserVO) session.getAttribute("user");
 		
-//		request.getRequestDispatcher("view/user/login.jsp").forward(request, response);
-		
+		//request.getRequestDispatcher("view/user/login.jsp").forward(request, response);
+
 		if (vo == null) {
 			session.setAttribute("error", "로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-			response.sendRedirect("view/user/login.jsp");
+			response.sendRedirect("login.do");
 			return;
 
 			

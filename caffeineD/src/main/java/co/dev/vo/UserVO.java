@@ -6,7 +6,6 @@ public class UserVO {
 	private String nickname;
 	private String tel;
 	private String img;
-	private String grade;
 	
 	public String getId() {
 		return id;
@@ -38,13 +37,4 @@ public class UserVO {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	public String getGrade() {
-		return grade;
-	}
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
-
-	
-
 }
