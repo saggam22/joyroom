@@ -21,7 +21,10 @@ public class BoardInsertControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		response.setContentType("text/json;charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+
+		
 		String saveDir = "img";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		System.out.println(saveDir);
@@ -29,29 +32,31 @@ public class BoardInsertControl implements Controller {
 		String encoding = "UTF-8";
 
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
-		request.setCharacterEncoding(encoding);
+		//request.setCharacterEncoding(encoding);
 
-		HttpSession session = request.getSession();
-		UserVO vo = new UserVO();
-		vo = (UserVO) session.getAttribute("user");
-
-		String userId = vo.getId(); // 로그인 사용자 ID
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("img");
-		System.out.println(img);
+		
+		HttpSession session = request.getSession();
+		UserVO vo = new UserVO();
+		vo = (UserVO) session.getAttribute("user");
+				
+		String userId = vo.getId(); // 로그인 사용자 ID
 
 		BoardVO board = new BoardVO();
 		board.setContent(content);
 		board.setTitle(title);
 		board.setUser_id(userId);
 		board.setImg(img);
-
+		
 		BoardService service = new BoardService();
 		service.boardInsert(board);
 
+		request.getSession().setAttribute("success", "글 작성이 완료되었습니다.");
+
 		// response.sendRedirect("board.do");
-		request.getRequestDispatcher("view/board/board.jsp").forward(request, response);
+		request.getRequestDispatcher("board.do").forward(request, response);
 
 	}
 

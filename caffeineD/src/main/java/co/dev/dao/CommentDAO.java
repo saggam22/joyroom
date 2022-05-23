@@ -61,10 +61,32 @@ public class CommentDAO extends DAO {
 			
 			rs = psmt.executeQuery();
 			while (rs.next()) {
-				CommentVO vo = new CommentVO();
-				vo.setComment_no(rs.getInt("comment_no"));
+				CommentVO vo = new CommentVO();				
 				vo.setUser_id(rs.getString("user_id"));
 				vo.setComment_content(rs.getString("comment_content"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
+	}
+	
+	public List<CommentVO> listMyComment(String user_id) {
+		conn();
+		List<CommentVO> list = new ArrayList<CommentVO>();
+		
+		try {
+			psmt = conn.prepareStatement("select * from cfn_comment where user_id = ? order by comment_no asc");
+			psmt.setString(1, user_id);			
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				CommentVO vo = new CommentVO();				
+				vo.setUser_id(rs.getString("user_id"));
+				vo.setComment_content(rs.getString("comment_content"));
+				vo.setComment_date(rs.getString("comment_date"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {

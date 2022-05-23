@@ -1,6 +1,7 @@
-package co.dev.web.board;
+package co.dev.myPage;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,31 +13,26 @@ import co.dev.vo.BoardVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
-public class CommentInsertControl implements Controller {
+public class myBoardControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-
 		HttpSession session = request.getSession();
 		UserVO vo = new UserVO();
 		vo = (UserVO) session.getAttribute("user");
-
-		String userId = vo.getId(); // 로그인 사용자 ID
-
-		BoardVO board = new BoardVO();
-		board.setUser_id(userId);
-		board.setContent(content);
-		board.setTitle(title);
-
-		BoardService service = new BoardService();
-		service.boardInsert(board);
+		String userId = vo.getId();
+		System.out.println("유저아이디 : "+ userId);
 		
-		session.setAttribute("success", "댓글을 작성했습니다.");
-		response.sendRedirect("board.do");
-		//request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);
+		BoardService service = new BoardService();
+		List<BoardVO> list = service.boardMyLoad(userId);
+		
+		request.setAttribute("all", list);
+//		if (user.equals(vo.getId())) {
+//			List<BoardVO> list = service.myBoard();
+//			request.setAttribute("all", list);
+//		}
 
+		request.getRequestDispatcher("view/myPage/myBoard.tiles").forward(request, response);
 	}
+
 }

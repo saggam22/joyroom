@@ -27,8 +27,8 @@ public class BoardLoadControl implements Controller {
 //		request.getRequestDispatcher("view/user/login.jsp").forward(request, response);
 		
 		if (vo == null) {
-			session.setAttribute("error", "로그인이 필요합니다.");
-			response.sendRedirect("index.jsp");
+			session.setAttribute("error", "로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+			response.sendRedirect("view/user/login.jsp");
 			return;
 
 			
@@ -38,7 +38,7 @@ public class BoardLoadControl implements Controller {
 			List<BoardVO> list = service.boardLoad();
 
 			request.setAttribute("all", list);
-			request.getRequestDispatcher("view/board/board.jsp").forward(request, response);
+			request.getRequestDispatcher("view/board/board.tiles").forward(request, response);
 		}
 	}
 }
