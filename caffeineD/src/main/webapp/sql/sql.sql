@@ -143,8 +143,7 @@ NOCYCLE;
 CREATE TABLE ad_cafe
 (
 	ad_cafe_no			NUMBER UNIQUE,
-    ad_cafe_info        VARCHAR2(1000),
-
+  ad_cafe_info        VARCHAR2(1000)
 );
 
 commit;
