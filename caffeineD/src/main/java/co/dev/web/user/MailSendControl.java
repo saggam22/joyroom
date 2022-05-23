@@ -17,16 +17,16 @@ public class MailSendControl implements Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 
-		String userId = request.getParameter("inputId");
+		String userId = request.getParameter("id");
 		
 		// 메일 내용
 		String key = MailSendControl.createKey();
 		String subject = "[ 카페인디 ] 비밀번호 찾기를 위한 인증코드";
 		String msg = "";
 		msg += "<div align='center' style='border:1px solid black;>";
-		msg += "<h3 style ='color:blue;' 비밀번호 찾기 인증코드 입니다. </h3>";
+		msg += "<h3> 비밀번호 찾기 인증코드 입니다. </h3>";
 		msg += "비밀번호 찾기 페이지로 돌아가 인증코드 <strong>";
-		msg += key + "를 입력해 주세요.div><br>";
+		msg += key + "</strong>을(를) 입력해 주세요.<div><br>";
 		
 		sendMail(userId, subject, msg);
 		
@@ -48,7 +48,7 @@ public class MailSendControl implements Controller {
 			String hostSMTPpwd = "tnqtnql!";		
 			
 			// 메일 보내는 사람 설정
-			String fromEmail = "jeejjd@gmail.com";
+			String fromEmail = "wlqls12@naver.com";
 			String fromName = "caffeineD";
 			
 			// email 전송

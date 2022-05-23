@@ -8,12 +8,8 @@
 </head>
 <body>
 	
-	<div id="container">
+	<h2>관리자 페이지</h2>
+	<jsp:include page="/view/admin/adminMenu.jsp"></jsp:include>
 	
-		<a href="${pageContext.servletContext.contextPath }/user.do">회원 리스트</a>
-		<a href="${pageContext.servletContext.contextPath }/totalReviewList.do">리뷰 리스트</a>
-		<a href="${pageContext.servletContext.contextPath }/adList.do">광고 리스트</a>
-		
-	</div>
 </body>
 </html>

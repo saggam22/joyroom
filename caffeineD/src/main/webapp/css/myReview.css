@@ -1,206 +1,63 @@
-@charset "UTF-8";
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
-#container { 
-	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
-	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
-	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
-	font-size: 10pt;
-	box-sizing: border-box;
-	width: 800px;
-	margin: 0 auto;
-	text-align: center;
-}
-
-body {
-	background: #f6f6f6;
-}
-
-.pop_wrap {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, .5);
-	font-size: 0;
-	text-align: center;
-}
-
-.pop_wrap:after {
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-	content: '';
-}
-
-.pop_wrap .pop_inner {
-	display: inline-block;
-	padding: 20px 20px;
-	background: #fff;
-	width: 700px;
-	height: 440px;
-	vertical-align: middle;
-	font-size: 15px;
-	text-align: left;
-	box-shadow: 0 0 10px 1px rgb(120, 120, 120);
-}
-
-.pop_left {
-	width: 50%;
-	padding-left:15px;
-	float: left;
-}
-
-.pop_right {
-	float: right;
-	width: 50%;
-	padding: 20px 0 0 0;
-	text-align: center;
-}
-
-#reviewImgDiv {
-	display:inline-block; position:relative; width:300px; height:300px; margin:5px;
-}
-
-#reviewImg {
-	position:absolute; width:100%; height:100%; object-fit:cover;
-}
-
-#btn_close {
-	margin-bottom: 20px;
-}
-
-#insertStar, #updateStar {
-	margin: 10px 0 30px 0;
-	text-align: center;
-}
-
-textarea {
-	resize: none;
-	border: 0.5px solid rgb(120, 120, 120);
-	padding: 10px;
-}
-
-#innerBtn {
-	display: inline-block;
-	cursor:pointer;
-	width: 100px;
-	height: 50px;
-	border-radius: 30px;
-	background: rgb(90, 90, 90);
-
-	margin-top: 30px;
+	h2 {
+		margin-bottom: 40px;
+	}
 	
-	text-decoration: none;
-	color: white;
-	font-size: 15px;
-	font-weight: 700;
+	.btn_section {
+		width: 680px;
+		margin: 0 auto;
+	}
+	
+	#review_guide_content {
+		position: absolute;
+		background: #323232;
+		color: white;
+		margin-top: 10px;
+		padding: 15px;
+    	left: 50%;
+    	transform: translate(-50%, 0);
+    	z-index: 99;
 
-}
+	}
+	
+	.review_guide {
+		display: block;
+		width: 700px;
+		margin: 20px auto;
+		padding: 25px;
+		background: white;
+		box-shadow: 0 0 10px 1px rgb(240, 240, 240);
+	}
+	
+	.review {
+		margin-top: 50px;
+		margin-bottom: 10px;
+	}
 
-#innerBtn:hover {
-	background: rgb(150, 189, 100);
-}
-
-.star {
-	color: #f5d36c;
-	font-size: 20pt;
-}
-
-.userProf {
-	padding: 0;
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-	border-radius: 70%;
-	overflow: hidden;
-	border: 0.5px solid rgb(200, 200, 200);
-}
-
-.userProf img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-button {
-	background: rgba(0, 0, 0, 0);
-	border: none;
-	padding: 0;
-}
-
-
-
-.review {
-	display: inline-block;
-	width: 700px;
-	margin: 20px;
-	padding: 25px;
-	background: white;
-	box-shadow: 0 0 10px 1px rgb(240, 240, 240);
-	text-align: left;
-}
-
-.review_left {
-	width: 50%;
-	float: left;
-}
-
-.review_right {
-	float: right;
-	width: 50%;
-	padding: 10px 0 0 30px;
-}
-
-.review_right div {
-	margin: 10px 0px;
-}
-
-#moreBtn {
-	margin-bottom: 50px;
-}
-
-a {
-	text-decoration: none;
-	display: inline-block;
-	width: 35px;
-	margin:0;
-}
-
-a button {
-	color: rgb(160, 160, 160);
-}
-
-.btn_section {
-	display: inline-block;
-	padding-left: 20px;
-	margin-bottom: 20px;
-	width: 700px;
-	text-align:left;
-}
-
-#imgSection {
-	width: 310px;
-	min-height: 320px;
-
-}
-
-#topBtn {
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-	border-radius: 70%;
-	padding-top: 17.5px;
-	color:rgb(120, 120, 120);
-	background:white;
-	box-shadow: 0 0 10px 1px rgb(240, 240, 240);
-	position:fixed;
-	left:50px;
-	bottom:50px;
-}
-
-.bold_text {
-	font-weight: 700;
-	font-size: 15px;
-}
+	
+	.cafe_info {
+		overflow: hidden;
+		margin-bottom: 25px;
+	}
+	
+	.cafe_img {
+		width: 45px;
+		height: 45px;
+		float:left;
+		border-radius: 5px;
+		overflow:hidden;
+		box-shadow: 0 0 10px 1px rgb(240, 240, 240);
+	}
+	
+	.cafe_img img {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.cafe_info .cafe_text {
+		float: left;
+		text-align: left;
+		margin-left: 20px;
+	}
+	.cafe_info .cafe_text p {
+		margin:0;
+	}

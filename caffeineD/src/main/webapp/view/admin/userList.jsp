@@ -8,7 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+ 	<jsp:include page="/view/admin/adminMenu.jsp"></jsp:include>
  <c:choose>
+ 
+ 
  	<c:when test="${empty list }"><h4>회원이 없습니다.</h4></c:when>
  	<c:otherwise>
     <table border="1">
