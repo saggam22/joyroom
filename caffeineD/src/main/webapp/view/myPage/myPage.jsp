@@ -53,9 +53,12 @@
 	</form>
 
 	<div style="margin-top: 10px;">
+
 		<a href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.tiles"><input type="button" value="정보 수정"></a> 
 		<a href="${pageContext.servletContext.contextPath }/myBoard.do"><input type="button" value="작성글 보기"></a> 
 		<a href="${pageContext.servletContext.contextPath }/myComment.do"><input type="button" value="작성댓글 보기"></a>
+		<a href="${pageContext.servletContext.contextPath }/myReview.do"><input type="button" value="내 리뷰"></a>
+
 	</div>
 
 

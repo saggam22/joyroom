@@ -1,6 +1,3 @@
-likeCheck();
-
-	
 // 수정 팝업
 let target = document.querySelectorAll('.btn_open');
 let btnPopClose = document.querySelector('#btn_close');
@@ -25,18 +22,17 @@ for (let i = 0; i < likeBtns.length; i++) {
 let delBtns = document.querySelectorAll('.delBtn');
 for (let i = 0; i < delBtns.length; i++) {
 	delBtns[i].addEventListener('click', function() {
-		console.log('click')
 		let result = confirm('정말로 삭제하시겠습니까?');
 		if (result) {
 			console.log("yes")
-			fetch('reviewDelete.do', {
+			fetch(getPathRootJump() + 'reviewDelete.do', {
 				method: 'post',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: `job=like&reviewNo=${this.name.substr(7)}`
+				body: `job=like&review_no=${this.name.substr(7)}`
 			})
 				.then(result => result.json())
 				.then(result => {
-					alert(`${result.message}`);
+					alert(`${result.messege}`);
 					location.reload();
 				})
 				.catch(error => console.log(error));
@@ -120,42 +116,10 @@ function makeX() {
 }
 
 
-// 좋아요 체크 조회
-function likeCheck() {
-
-
-	let reviews = document.querySelectorAll('.review');
-
-	for (let i = 0; i < reviews.length; i++) {
-		fetch('likeCheck.do', {
-			method: 'post',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: `reviewNo=${reviews[i].id}`
-		})
-			.then(result => result.json())
-			.then(likeResult => {
-
-				let likeBtn = document.getElementById(`likeBtn_${reviews[i].id}`);
-				let likeHeart = document.getElementById(`heart_${reviews[i].id}`);
-
-				if (likeResult.likeCheck === 'true') {
-					likeBtn.setAttribute('name', 'like');
-					likeHeart.setAttribute('src', getPathRootJump() + '/img/heart.svg.png');
-				} else {
-					likeBtn.setAttribute('name', 'unlike');
-					likeHeart.setAttribute('src', getPathRootJump() + '/img/eptheart.svg.png');
-				}
-
-			})
-			.catch(error => console.log(error));
-
-	}
-
-} //end of likeCheck()
-
-
 //좋아요 버튼 콜백
 function likeCallBack() {
+	
+	console.log('like btn')
 
 	// 버튼을 누르면 해당 리뷰의 전체 좋아요 수 +1
 	// 현재 유저의 좋아요 정보 추가 -> 다시 들어왔을 때 좋아요가 미리 선택되어 있는 기능 구현하기 위함.
@@ -165,11 +129,11 @@ function likeCallBack() {
 	let likeCount = document.getElementById(`likeCount_${reviewNo}`);
 
 	if (this.name === 'unlike') {
-
+		console.log('like')
 		likeBtn.setAttribute('name', 'like');
 		likeHeart.setAttribute('src', getPathRootJump() + '/img/heart.svg.png');
 
-		fetch('reviewLike.do', {
+		fetch(getPathRootJump() + 'reviewLike.do', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			body: `job=like&reviewNo=${reviewNo}`
@@ -182,7 +146,7 @@ function likeCallBack() {
 		// 한번 더 누르면 전체 좋아요수 -1 / 현재 유저의 좋아요 정보 삭제
 
 	} else if (this.name === 'like') {
-
+		console.log('unlike')
 		likeBtn.setAttribute('name', 'unlike');
 		likeHeart.setAttribute('src', getPathRootJump() + '/img/eptheart.svg.png')
 
@@ -232,7 +196,7 @@ function openPopCallBack() {
 
 	let reviewNo = this.parentNode.childNodes[3].childNodes[0].name.substr(7);
 
-	fetch('reviewSelect.do', {
+	fetch(getPathRootJump() + 'reviewSelect.do', {
 		method: 'post',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 		body: `reviewNo=${reviewNo}`
