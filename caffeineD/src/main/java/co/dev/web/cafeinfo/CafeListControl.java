@@ -6,21 +6,17 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import co.dev.dao.CafeDAO;
 import co.dev.service.CafeService;
 import co.dev.vo.CafeVO;
 import co.dev.vo.PageVO;
-import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
 public class CafeListControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("text/json;charset=utf-8");
 		
 		//첫페이지
 		int pageNum = 1;
@@ -41,6 +37,14 @@ public class CafeListControl implements Controller {
 		request.setAttribute("paging", pasing);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("/view/cafe/cafeList.tiles").forward(request, response);
+		//관리자페이지에서 리스트 호출할 경우
+		String path = request.getParameter("path");
+
+		if (path != null) {
+			request.getRequestDispatcher("/view/admin/adminCafeList.tiles").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/view/cafe/cafeList.tiles").forward(request, response);			
+		}
+		
 	}
 }

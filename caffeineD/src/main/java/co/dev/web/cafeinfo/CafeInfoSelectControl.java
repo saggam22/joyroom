@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import co.dev.dao.CafeDAO;
 import co.dev.service.CafeService;
 import co.dev.vo.CafeVO;
@@ -16,7 +19,7 @@ public class CafeInfoSelectControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		response.setContentType("text/json;charset=utf-8");
+		response.setContentType("application/json;charset=utf-8");
 		int cafeNo = Integer.parseInt(request.getParameter("no"));
 		String mybookmark = request.getParameter("mybookmark");
 		
@@ -29,8 +32,16 @@ public class CafeInfoSelectControl implements Controller {
 		}
 		
 		request.setAttribute("cafeinfo", vo);
-		request.getRequestDispatcher("/review.do").forward(request, response);
-
+		
+		
+		String admin = request.getParameter("path");
+		if (admin != null) { //관리자페이이에서 수정하기 위해 값을 받아옴
+			Gson gson = new GsonBuilder().create();
+			response.getWriter().print(gson.toJson(vo));
+		} else {			
+			request.getRequestDispatcher("/review.do").forward(request, response);
+		}
+		
 	}
 
 }

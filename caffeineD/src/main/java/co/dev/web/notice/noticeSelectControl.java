@@ -24,11 +24,11 @@ public class noticeSelectControl implements Controller {
 		
 		if (job.equals("select")) {
 			
-			path = "/view/notice/selectNotice.tiles";
+			path = "/view/notice/noticeSelect.tiles";
 			
 		} else if (job.equals("update")) {
 			
-			path = "/view/notice/updateNotice.tiles";
+			path = "/view/notice/noticeUpdate.tiles";
 			
 		}
 		

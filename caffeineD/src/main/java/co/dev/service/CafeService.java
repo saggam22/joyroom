@@ -14,6 +14,10 @@ public interface CafeService {
 	public int regionCafeCount(String region);
 	// 카페 지역별 리스트 조회
 	public List<CafeVO> cafeListRegion(String region, int pageNum);
+	// 검색별 카페 페이지 갯수
+	public int searchCafeCount(String keyword);
+	// 검색별 카페 리스트 조회
+	public List<CafeVO> cafeListSearch(String keyword, int pageNum);
 	// 카페 1건 조회
 	public CafeVO selecCafe(int cafeNo);
 	// 카페 등록
