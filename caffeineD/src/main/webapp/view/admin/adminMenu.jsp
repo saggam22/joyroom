@@ -11,6 +11,7 @@
 		<a href="${pageContext.servletContext.contextPath }/user.do">회원 관리</a> 
 		<a href="${pageContext.servletContext.contextPath }/totalReviewList.do">리뷰 관리</a>
 		<a href="${pageContext.servletContext.contextPath }/adList.do">광고 관리</a>
+		<a href="${pageContext.servletContext.contextPath }/cafeList.do?path=admin">카페 관리</a>
 	</div>
 </body>
 </html>
