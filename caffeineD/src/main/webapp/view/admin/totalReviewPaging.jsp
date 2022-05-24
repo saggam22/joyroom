@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="paging">
+	<span id="paging">
 
 		<c:url var="action" value="/totalReviewList.do" />
 		<c:if test="${param.prev}">
@@ -28,6 +28,6 @@
 		<c:if test="${param.next}">
 			<a href="${action}?pageNum=${param.endPage+1}">next</a>
 		</c:if>
-	</div>
+	</span>
 </body>
 </html>

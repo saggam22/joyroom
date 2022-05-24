@@ -131,7 +131,6 @@ public class FrontController extends HttpServlet {
 		map.put("/userSearch.do", new userSearchControl()); //유저검색
 		map.put("/totalReviewList.do", new totalReviewListControl()); // 리뷰 리스트
 		map.put("/adList.do", new adCafeListControl());	// 광고 리스트
-		map.put("/adCafeInsertView.do", new adCafeControl("view"));
 		map.put("/adCafeInsert.do", new adCafeControl("insert"));
 		map.put("/adCafeDelete.do", new adCafeControl("delete"));
 		map.put("/adCafeUpdate.do", new adCafeControl("update"));

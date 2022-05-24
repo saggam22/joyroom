@@ -1,32 +1,7 @@
 @charset "UTF-8";
 
-.admin_menu {
-	margin-top: 58px;
-}
-
-.menu_btn {
-	text-decoration: none;
-	display: inline-block;
-	width: 120px;
-	background: #323232;
-	border-top-left-radius:5px;
-	border-top-right-radius:5px;
-	color: #f6f6f6;
-	font-size: 15px;
-	font-weight: 500;
-	padding: 10px;
-	margin: 0 5px 0 0;
-	text-align: center;
-	
-}
-
-.menu_btn:hover {
-	background: #d9bba9;
-	color: #f6f6f6;
-}
-
 .ftco-section {
-	padding-top: 20px;
+	padding: 80px 0;
 }
 
 .text_center {
@@ -69,10 +44,10 @@
 .width_long {
 	width: 120px;
 }
+
 .width_longlong {
 	width: 200px;
 }
-
 
 .star {
 	color: #ffe378;
@@ -97,7 +72,19 @@
 	color: #323232;
 }
 
+.right_btn {
+	float: right;
+}
+
+#bottom_section {
+	text-align: center;
+}
+
+#bottom_section botton {
+	margin: 0;
+	padding: 0;
+}
+
 #paging {
-	text-align: left;
-	font-size: 11pt;
+	display: inline-block;
 }

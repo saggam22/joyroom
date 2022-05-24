@@ -12,15 +12,70 @@
 	href="${pageContext.servletContext.contextPath }/css/adminTable.css"
 	rel="stylesheet">
 <style>
+
+#ad {
+	background: #d9bba9;
+	color: #2F170F;
+	font-weight: 600;
+}
 textarea {
 	border: solid 0.2px rgb(90, 90, 90);
 	width: 100%;
 	height: 80px;
 }
-#ad {
-			background: #d9bba9;
-			color: #323232;
-		}
+
+#table {
+	width: 100%;
+	text-align: left;
+	font-size: 14px;
+	margin:20px;
+	
+}
+
+#table tbody td {
+	padding: 10px;
+	background: #f6f6f6;
+	background: white;
+}
+
+.wrap {
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+		Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+		'Noto Sans KR', 'Malgun Gothic', sans-serßif;
+	font-size: 10pt;
+	box-sizing: border-box;
+}
+
+.pop_wrap {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, .5);
+	font-size: 0;
+	text-align: center;
+	display: none;
+}
+
+.pop_wrap:after {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	content: '';
+}
+
+.pop_wrap .pop_inner {
+	display: inline-block;
+	padding: 20px 20px;
+	background: #fff;
+	width: 700px;
+	height: 460px;
+	vertical-align: middle;
+	font-size: 15px;
+	text-align: left;
+	box-shadow: 0 0 10px 1px rgb(120, 120, 120);
+}
 </style>
 </head>
 <body>
@@ -30,15 +85,8 @@ textarea {
 
 		<section class="ftco-section">
 			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-6 text-center mb-5">
-						<div class="heading-section"><jsp:include
-								page="/view/admin/adminMenu.jsp"></jsp:include></div>
-					</div>
-				</div>
-				<button class="button_no_back mini_button" type="button"
-					onclick="location.href='${pageContext.servletContext.contextPath }/adCafeInsertView.do'"
-					style="margin-bottom: 10px;">광고 등록</button>
+				<div class="heading-section"><jsp:include
+						page="/view/admin/adminMenu.jsp"></jsp:include></div>
 
 				<div class="row">
 					<div class="col-md-12">
@@ -72,18 +120,56 @@ textarea {
 						<button class="button_no_back mini_button" type="button"
 							onclick="checkChecked(this);">삭제</button>
 
+						<a id="btn_open" class="button_no_back mini_button right_btn"
+							type="button" href="#adInsert">광고 등록</a>
+
+
 					</div>
 				</div>
 			</div>
 		</section>
+
+		<section class="wrap">
+			<div id="adInsert" class="pop_wrap">
+				<div class="pop_inner">
+					<!-- 팝업 닫기 -->
+					<button type="button" id="btn_close" class="button_no_back">X</button>
+					<form
+						action="${pageContext.servletContext.contextPath }/adCafeInsert.do"
+						method="get">
+						<table id="table">
+							<tbody class="text_left">
+								<tr>
+									<td class="table_left">선택</td>
+									<td class="table_right"><select name="cafe_no">
+											<c:forEach items="${cafeList }" var="cafe">
+												<option value="${cafe.no }">${cafe.name }</option>
+											</c:forEach>
+									</select></td>
+								</tr>
+								<tr>
+									<td class="table_left">내용</td>
+									<td class="table_right"><textarea name="cafe_info"></textarea></td>
+								<tr>
+									<td></td>
+									<td class="table_right text_right"><button
+											class="mini_button button_no_back" type="submit">등록</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</section>
+
 	</div>
 </body>
 <script> 
 
 document.addEventListener('DOMContentLoaded', function() {
 	
+	// 내용이 길 경우 텍스트 자른 후 더보기 버튼 생성
  	let contents = document.getElementsByClassName('content');
- 	
  	for (let i=0; i<contents.length; i++) {
  		let text = contents[i].innerHTML.substr(13);
  		if (text.length >= 170) {
@@ -98,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function() {
  		}
  	
  	}
- 	
 	 	// 내용 더보기
 	 	let moreBtns = document.getElementsByClassName('more_btn');
 
@@ -109,12 +194,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	 			let oldText = td.firstChild;									
 	 			let newText = document.createTextNode(moreBtns[i].value);		
 	 			
-	 			// 더보기 전 상태에서 버튼 클릭
+	 			// 더보기 전 상태에서 버튼 클릭하면
 	 			if (this.name === 'cut_state') {
 	 				this.name = 'more_state';	
 	 				this.innerHTML = '닫기';
 	 			
-	 			// 더보기 후 상태에서 버튼 클릭
+	 			// 더보기 후 상태에서 버튼 클릭하면
 	 			} else if (this.name === 'more_state') {
 	 				this.name = 'cut_state';
 	 				this.innerHTML = '더보기';
@@ -127,6 +212,26 @@ document.addEventListener('DOMContentLoaded', function() {
 	 	}
 
 })
+
+// 등록 팝업
+let target = document.querySelector('#btn_open');
+let btnPopClose = document.querySelector('#btn_close');
+let targetID;
+
+// 팝업 열기
+
+target.addEventListener('click', function() {
+	targetID = this.getAttribute('href');
+	document.querySelector(targetID).style.display = 'block';
+});
+
+// 팝업 닫기
+
+btnPopClose.addEventListener('click', function() {
+
+	this.parentNode.parentNode.style.display = 'none';
+
+});
 
 // 선택 체크
 function checkChecked(e) {
@@ -170,12 +275,9 @@ function adCafeDelete(cafeNo) {
 	}
 }
 
-
-
-// 수정 textarea
+// 수정 textarea 생성
 function adCafeUpdateView() {
-
-	console.log('update view');
+	
 	let radios = document.getElementsByName('cafe_no');
 	let contents = document.getElementsByClassName('content');
 	let moreBtns = document.getElementsByClassName('more_btn');
@@ -223,14 +325,11 @@ function adCafeUpdateView() {
 
 // 수정된 광고 저장
 function adCafeUpdate() {
-	console.log('update');
-
+	
 	let radios = document.getElementsByName('cafe_no');
 	for (let i=0; i<radios.length; i++) {
 		if (radios[i].checked) {
-			console.log(radios[i].value); // 카페 넘버
 			let updInfo = document.getElementsByTagName('textarea')[0];
-			console.log(updInfo.value); // 카페 인포
 			fetch('adCafeUpdate.do', {
 				method:'post',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

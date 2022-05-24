@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.dev.dao.ReviewDAO;
 import co.dev.vo.CafeVO;
+import co.dev.vo.MyReviewVO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
@@ -11,8 +12,8 @@ public class ReviewService {
 	ReviewDAO dao = new ReviewDAO();
 
 	// 전체 리뷰 리스트 조회
-	public List<ReviewVO> reviewList(int cafeNo) {
-		return dao.selectReviews(cafeNo);
+	public List<MyReviewVO> reviewList(int cafeNo, String UserId) {
+		return dao.selectReviews(cafeNo, UserId);
 	}
 
 	// 리뷰 등록
@@ -51,7 +52,7 @@ public class ReviewService {
 	}
 	
 	// 내 리뷰 리스트 조회
-	public List<ReviewVO> myReviewList(String user) {
+	public List<MyReviewVO> myReviewList(String user) {
 		return dao.myReviewSelect(user);
 	}
 	
