@@ -8,76 +8,94 @@
 <title>adCafeList.jps</title>
 <link href="${pageContext.servletContext.contextPath }/css/table.css"
 	rel="stylesheet">
+<link
+	href="${pageContext.servletContext.contextPath }/css/adminTable.css"
+	rel="stylesheet">
+<style>
+textarea {
+	border: solid 0.2px rgb(90, 90, 90);
+	width: 100%;
+	height: 80px;
+}
+#ad {
+			background: #d9bba9;
+			color: #323232;
+		}
+</style>
 </head>
 <body>
 
 	<div id="container">
-		<jsp:include page="/view/admin/adminMenu.jsp"></jsp:include>
-		
+
+
 		<section class="ftco-section">
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-6 text-center mb-5">
-						<h2 class="heading-section">광고 리스트</h2>
+						<div class="heading-section"><jsp:include
+								page="/view/admin/adminMenu.jsp"></jsp:include></div>
 					</div>
 				</div>
-				<button type="button"
-					onclick="location.href='${pageContext.servletContext.contextPath }/adCafeInsertView.do'">등록</button>
+				<button class="button_no_back mini_button" type="button"
+					onclick="location.href='${pageContext.servletContext.contextPath }/adCafeInsertView.do'"
+					style="margin-bottom: 10px;">광고 등록</button>
 
 				<div class="row">
 					<div class="col-md-12">
 
 						<div class="table-wrap" style="overflow-x: hidden">
 							<table class="table">
-								<thead class="thead-primary">
+								<thead class="thead-primary text_center">
 									<tr>
 										<th></th>
-										<th>카페 번호</th>
-										<th>카페 이름</th>
-										<th>카페 설명</th>
+										<th>번호</th>
+										<th>이름</th>
+										<th class="text_left">내용</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="text_center">
 									<c:forEach items="${adCafeList }" var="ad_cafe">
 										<tr>
-											<td><input type="radio" name="cafe_no"
+											<td class="radio"><input type="radio" name="cafe_no"
 												value="${ad_cafe.no }"></td>
-											<td>${ad_cafe.no }</td>
-											<td>${ad_cafe.name }</td>
-											<td id="info_${ad_cafe.no }" class="cafe_info">
+											<td class="width_short">${ad_cafe.no }</td>
+											<td class="width_long">${ad_cafe.name }</td>
+											<td id="info_${ad_cafe.no }" class="content text_left">
 												${ad_cafe.info }</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
-						<button type="button" name="update_view_btn"
-							onclick="adCafeUpdateView();">수정</button>
-						<button type="button" onclick="adCafeDelete();">삭제</button>
+						<button class="button_no_back mini_button" type="button"
+							name="update_view_btn" onclick="checkChecked(this);">수정</button>
+						<button class="button_no_back mini_button" type="button"
+							onclick="checkChecked(this);">삭제</button>
 
 					</div>
 				</div>
 			</div>
-	</section>
+		</section>
 	</div>
 </body>
 <script> 
 
 document.addEventListener('DOMContentLoaded', function() {
 	
- 	let contents = document.getElementsByClassName('cafe_info');
+ 	let contents = document.getElementsByClassName('content');
  	
  	for (let i=0; i<contents.length; i++) {
- 		let text = contents[i].innerHTML;
- 		if (text.length >= 30) {
- 			contents[i].innerHTML = text.substr(0, 30);
+ 		let text = contents[i].innerHTML.substr(13);
+ 		if (text.length >= 170) {
+ 			contents[i].innerHTML = text.substr(0, 170);
 	 		let moreBtn = document.createElement('button');
 	 		moreBtn.innerHTML = '더보기';
-	 		moreBtn.setAttribute('class', 'more_btn')
+	 		moreBtn.setAttribute('class', 'more_btn mini_button button_no_back ')
+	 		moreBtn.setAttribute('style', 'display: block;');
 	 		moreBtn.setAttribute('name', 'cut_state');		
 	 		moreBtn.setAttribute('value', text);			
 	 		contents[i].appendChild(moreBtn);				
- 		}	// 30자 이상이면 자르기
+ 		}
  	
  	}
  	
@@ -94,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	 			// 더보기 전 상태에서 버튼 클릭
 	 			if (this.name === 'cut_state') {
 	 				this.name = 'more_state';	
-	 				this.innerHTML = '작게 보기';
+	 				this.innerHTML = '닫기';
 	 			
 	 			// 더보기 후 상태에서 버튼 클릭
 	 			} else if (this.name === 'more_state') {
@@ -110,28 +128,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
 })
 
-// 광고 삭제
-function adCafeDelete() {
-	let result = confirm('정말로 삭제하시겠습니까?');
+// 선택 체크
+function checkChecked(e) {
+	
 	let radios = document.getElementsByName('cafe_no');
-	if (result) {
-		for (let i=0; i<radios.length; i++) {
-			
-			if (radios[i].checked) {
-				console.log(radios[i].value);
-				fetch('adCafeDelete.do', {
-					method:'post',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					body: `cafe_no=${'${radios[i].value }'}`
-				})
-					.then(result => result.json())
-					.then(result => {
-						alert(`${'${result.messege}'}`)
-						location.reload();
-					})
-					.catch(error => console.log(error));
-			}
+	let checkedNo;
+	for (let i=0; i<radios.length; i++) {
+		if (radios[i].checked) {
+			checkedNo = radios[i].value;
 		}
+	}
+	
+	if (!checkedNo) {
+		alert('선택된 광고가 없습니다.');
+	} else {
+		if (e.innerHTML === '수정') {
+			adCafeUpdateView();
+		} else if (e.innerHTML === '삭제') {
+			adCafeDelete(checkedNo);
+		}
+	}
+	
+}
+
+// 광고 삭제
+function adCafeDelete(cafeNo) {
+	let result = confirm('정말로 삭제하시겠습니까?');
+
+	if (result) {
+			fetch('adCafeDelete.do', {
+				method:'post',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: `cafe_no=${'${cafeNo }'}`
+			})
+				.then(result => result.json())
+				.then(result => {
+					alert(`${'${result.messege}'}`)
+					location.reload();
+				})
+				.catch(error => console.log(error));
 	}
 }
 
@@ -142,40 +177,45 @@ function adCafeUpdateView() {
 
 	console.log('update view');
 	let radios = document.getElementsByName('cafe_no');
+	let contents = document.getElementsByClassName('content');
 	let moreBtns = document.getElementsByClassName('more_btn');
 	for (let i=0; i<radios.length; i++) {
 		if (radios[i].checked) {
 			console.log(radios[i].value);
 			
-			let cafeInfo = document.getElementById(`info_${'${radios[i].value }'}`);
-			let textarea = document.createElement('textarea');
-			let text = '';
+			let content = contents[i];
+			let text = content.innerHTML.substr(14);
 			
-			if (moreBtns[i].name === 'cut_state') {
-				text = moreBtns[i].value;
-				moreBtns[i].remove();
-				
-			} else if (moreBtns[i].name === 'more_state') {
-				moreBtns[i].remove();
-				text = cafeInfo.innerHTML;
-			}
+			if (moreBtns[i-1]) {
+				if (moreBtns[i-1].name === 'cut_state') {
+					text = moreBtns[i-1].value;
+				} else {
+					text = content.childNodes[0].nodeValue;
+				}
+				moreBtns[i-1].remove();
+			} 
+			
+			let textarea = document.createElement('textarea');
+			console.log(text);
 			textarea.value = text;
-			cafeInfo.innerText = '';
-			cafeInfo.appendChild(textarea);
+			content.innerText = '';
+			content.appendChild(textarea);
 			
 			let updateBtn = document.createElement('button');
 			updateBtn.setAttribute('type', 'button');
 			updateBtn.setAttribute('name', 'update_btn');
+			updateBtn.setAttribute('class', 'button_no_back mini_button');
 			updateBtn.innerText = '저장';
-			updateBtn.setAttribute('onclick', 'adCafeUpdate();')
-			cafeInfo.appendChild(updateBtn);
+			updateBtn.setAttribute('onclick', 'adCafeUpdate();');
+			content.appendChild(updateBtn);
 			
 			let cancelBtn = document.createElement('button');
 			cancelBtn.setAttribute('type', 'button');
 			cancelBtn.setAttribute('name', 'cancel_btn');
+			cancelBtn.setAttribute('class', 'button_no_back mini_button');
 			cancelBtn.innerText = '취소';
 			cancelBtn.setAttribute('onclick', 'location.reload();')
-			cafeInfo.appendChild(cancelBtn);
+			content.appendChild(cancelBtn); 
 					
 		}
 	}

@@ -172,14 +172,24 @@
 					onsubmit="return submitCheck();">
 					<div class="pop_left">
 						<input type="hidden" name="cafeNo" value="${cafeinfo.no }">
+						
+						
+						
 						<div id="imgSection">
 							<div id="reviewImgDiv">
 								<img id="firstImg"
 									src="${pageContext.servletContext.contextPath }/img/emptyimg.jpg">
 							</div>
 						</div>
+						
+						
+						
+			
 						<label for="uploadImg">사진 올리기</label> <input id="uploadImg"
 							name="img" type="file" accept="image/jpg, image/png, image/jpeg">
+							
+							
+							
 					</div>
 					<div class="pop_right">
 						<div id="insertStar">
