@@ -4,31 +4,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.dev.service.boardPageService;
 import co.dev.vo.BoardVO;
 
-public class boardDAO extends DAO {
-	
+public class boardDAO extends DAO implements boardPageService {
+
 	// 게시판 페이지 갯수
-		public int cafeCount() {
+	public int Count() {
 
-			conn();
-			String sql = "SELECT COUNT(*) as total FROM board";
-			int count = 0;
-			try {
-				psmt = conn.prepareStatement(sql);
-				rs = psmt.executeQuery();
-				if (rs.next()) {
+		conn();
+		String sql = "SELECT COUNT(*) as total FROM board";
+		int count = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
 
-					count = rs.getInt("total");
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				disconn();
+				count = rs.getInt("total");
 			}
-			return count;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
 		}
+		return count;
+	}
+
 	// 글쓰기
 	public void insertBoard(BoardVO board) {
 		conn();
@@ -49,25 +51,25 @@ public class boardDAO extends DAO {
 			disconn();
 		}
 	}
-	
+
 	// 게시글 수정
 	public void updateBoard(BoardVO board) {
 		conn();
-		String sql ="update board set board_title=?, board_content=? where board_no=?";
+		String sql = "update board set board_title=?, board_content=? where board_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, board.getTitle());
 			psmt.setString(2, board.getContent());
 			psmt.setInt(3, board.getNo());
 			psmt.executeUpdate();
-			System.out.println(board.getNo()+"게시글의 내용이 수정되었습니다.");
+			System.out.println(board.getNo() + "게시글의 내용이 수정되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconn();
 		}
 	}
-	
+
 	// 게시글 삭제
 	public void deleteBoard(int num) {
 		conn();
@@ -100,22 +102,24 @@ public class boardDAO extends DAO {
 			disconn();
 		}
 	}
+
 	// 내글 조회
-	public List<BoardVO> myBoard(){
+	public List<BoardVO> myBoard() {
 		conn();
-		
+
 		List<BoardVO> list = new ArrayList<BoardVO>();
-		
+
 		try {
-			psmt=conn.prepareStatement("select * from board where user_id=?");
+			psmt = conn.prepareStatement("select * from board where user_id=?");
 			rs = psmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				BoardVO vo = new BoardVO();
 				vo.setTitle(rs.getString("board_title"));
 				vo.setDate(rs.getString("board_date"));
 				vo.setView(rs.getInt("board_view"));
+				vo.setImg(rs.getString("board_img"));
 				list.add(vo);
-				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -123,7 +127,7 @@ public class boardDAO extends DAO {
 		}
 		return list;
 	}
-	
+
 	// 게시판 조회
 	public List<BoardVO> listBoard() {
 		conn();
@@ -216,10 +220,10 @@ public class boardDAO extends DAO {
 
 		return lastIx;
 	}
-
+	// 게시글 전체 조회
 	public List<BoardVO> listMyBoard(String userId) {
 		conn();
-
+		
 		List<BoardVO> list = new ArrayList<BoardVO>();
 
 		try {
@@ -228,6 +232,43 @@ public class boardDAO extends DAO {
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				BoardVO vo = new BoardVO();
+				vo.setNo(rs.getInt("board_no"));
+				vo.setTitle(rs.getString("board_title"));
+				vo.setUser_id(rs.getString("user_id"));
+				vo.setContent(rs.getString("board_content"));
+				vo.setDate(rs.getString("board_date"));
+				vo.setImg(rs.getString("board_img"));
+				vo.setView(rs.getInt("board_view"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
+	}
+
+	
+	//페이지 짤라버리기
+	@Override
+	public List<BoardVO> boardList(int pageNum) {
+		conn();
+		int startNum = (pageNum-1)*10+1;
+		int endNum = pageNum*10;
+		String sql = "SELECT * FROM (SELECT rownum rn,  a.* FROM (SELECT * FROM board ORDER BY board_no desc) a ) WHERE rn >= ? AND rn <= ?";
+		
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setInt(1, startNum);
+			psmt.setInt(2, endNum);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				BoardVO vo = new BoardVO();
+				
 				vo.setNo(rs.getInt("board_no"));
 				vo.setTitle(rs.getString("board_title"));
 				vo.setUser_id(rs.getString("user_id"));

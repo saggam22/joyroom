@@ -51,15 +51,15 @@
 
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">My Page</h2>
-				</div>
-			</div>
+			
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap" style="overflow-x: hidden">
-						<h2>My Page</h2>
+						<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h1 class="heading-section">My Page</h1>
+				</div>
+			</div>
 						<table class="table">
 							<thead class="thead-primary">
 								<tr id="tt">
@@ -80,11 +80,7 @@
 							</tbody>
 						</table>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<center>
+					<center>
 		<a
 			href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.tiles"><input
 			type="button" value="정보 수정"></a> <a
@@ -96,5 +92,6 @@
 			type="button" value="내 리뷰"></a>  <a
 			href="${pageContext.servletContext.contextPath }/myBookmark.do"><input
 			type="button" value="내 북마크"></a>
+            
 </body>
 </html>

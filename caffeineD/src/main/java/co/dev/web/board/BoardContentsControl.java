@@ -44,10 +44,10 @@ public class BoardContentsControl implements Controller {
 			request.setAttribute("contents", vo); // 화면에뿌리기
 			request.setAttribute("comments", c_list);			
 		}
-
 		if (param_comment != null) {
 			System.out.println("댓글등록요청 : " + param_comment);
 			CommentVO comment = new CommentVO();
+
 			comment.setUser_id(userId);
 			comment.setBoard_no(num);
 			comment.setComment_content(param_comment);
@@ -56,6 +56,7 @@ public class BoardContentsControl implements Controller {
 			//session.setAttribute("success", "댓글을 작성했습니다.");
 			//response.sendRedirect("boardContents.do?no="+num);
 		}
+		
 		request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);
 
 	}

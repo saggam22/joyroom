@@ -5,6 +5,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -13,17 +14,17 @@
 			<type>maven-plugin</type>
 		</dependency>
 
-	  <dependency>
-	    <groupId>org.apache.tiles</groupId>
-	    <artifactId>tiles-extras</artifactId>
-	    <version>3.0.8</version>
-	  </dependency>
-	  
-	  <dependency>
-	  	<groupId>org.apache.commons</groupId>
-	  	<artifactId>commons-email</artifactId>
-	  	<version>1.5</version>
-	  </dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-extras</artifactId>
+			<version>3.0.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.5</version>
+		</dependency>		
 
 	</dependencies>
 
