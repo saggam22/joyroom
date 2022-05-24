@@ -81,6 +81,7 @@ public class FrontController extends HttpServlet {
 		map.put("/myPage.do", new myPageLoadController());
 		map.put("/myBoard.do", new myBoardControl());
 		map.put("/myComment.do", new myCommentControl());
+		
 
 		// login
 		map.put("/login.do", new LoginControl());

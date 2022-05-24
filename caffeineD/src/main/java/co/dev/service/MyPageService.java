@@ -23,4 +23,11 @@ public class MyPageService {
 	public List<BoardVO> myBoard() {		
 		return bdao.listBoard();
 	}
+	
+	public UserVO userSearch(String id) {
+		return dao.searchInfo(id);
+	}
+	public List<UserVO> userList(){
+		return dao.userList();
+	}
 }
