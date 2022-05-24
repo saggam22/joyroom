@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<div id="container">
     <main role="main">
         
     <section class="mt-4 mb-5">
@@ -74,5 +75,6 @@
     <jsp:param value="${paging.next}" name="next"/>
 </jsp:include>	
 	</div>
+</div>
 </body> 
 </html> 

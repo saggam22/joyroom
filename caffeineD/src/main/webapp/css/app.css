@@ -5,6 +5,17 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /* line 1, node_modules/bootstrap/scss/_root.scss */
+@charset "UTF-8";
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+#container { 
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
+	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
+	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
+	font-size: 10pt;
+	box-sizing: border-box;
+}
+
 :root {
   --blue: #5b53ec;
   --indigo: #6610f2;
@@ -171,13 +182,13 @@ sup {
 
 /* line 198, node_modules/bootstrap/scss/_reboot.scss */
 a {
-  color: #bd081c;
+  color: #bdbebd;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects; }
   /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
   a:hover {
-    color: #740511;
+    color: #686868;
     text-decoration: underline; }
 
 /* line 216, node_modules/bootstrap/scss/_reboot.scss */

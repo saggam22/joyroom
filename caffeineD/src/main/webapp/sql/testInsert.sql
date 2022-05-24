@@ -85,3 +85,5 @@ values(5, review_seq.NEXTVAL, 'imssg1@naver.com', 'imssg1', 'prof3.png', '2022-0
 하나는 따뜻한 커피가 더 좋을듯 싶었네요^-^
 아이스크림 맛있었구요 화장실도 깨끗했고 직원분도 친절하셨어요
 바로 옆에 쭈꾸미집이 있어서 저녁도 편하게 해결했네요:)', 'review1.jpeg');
+
+commit;

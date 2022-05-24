@@ -11,7 +11,7 @@
 @charset "UTF-8";
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-* { 
+#container { 
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
 	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
 	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
@@ -19,7 +19,14 @@
 	box-sizing: border-box;
 }
 
-#notice_insert_section {
+pre {
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
+	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
+	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
+	font-size: 10pt;
+}
+
+#notice_select_section {
 	width: 100%;
 	text-align: center;
 	margin-top: 70px;
@@ -36,7 +43,7 @@ table {
     border: 0;
     color: #fff;
     line-height: 1.5;
-    width: 60%;
+    width: 55%;
     border: 0;
 }
 
@@ -107,7 +114,8 @@ span {
 	}
 </style>
 <body>
-<section id="notice_insert_section">
+<div id="container">
+<section id="notice_select_section">
 <h2>NOTICE</h2>
 <table border="1">
 	<tbody>
@@ -115,11 +123,11 @@ span {
 		<tr class="line"><th>작성자</th><td><div id=inner_td>${notice.user }<div id=inner_td_date>작성일<span>${notice.date }</span></div><div id=inner_td_view>조회수<span>${notice.view }</span></div></div></td></tr>
 		<tr><td colspan="2"><div id="td_content"><pre><c:out value="${notice.content }" /></pre>
 		<c:if test="${!empty notice.img }">
-		<img width="50px" alt="" src="${pageContext.servletContext.contextPath }/img/noticeimg/${notice.img }"></c:if></div></td></tr>
+		<img alt="" src="${pageContext.servletContext.contextPath }/img/noticeimg/${notice.img }"></c:if></div></td></tr>
 	</tbody>
 </table>
  <c:if test="${user.nickname eq '관리자' }">
- 	<button type="button" onclick="location.href='${pageContext.servletContext.contextPath }/noticeSelect.do?job=update&title=${notice.title }'">수정</button>
+ 	<button type="button" onclick="location.href='${pageContext.servletContext.contextPath }/noticeSelect.do?job=update&no=${notice.no }'">수정</button>
  	<button type="button" onclick="deleteBtn()">삭제</button>
  </c:if>
 </section>
@@ -131,5 +139,6 @@ span {
 	 }
  }
  </script>
+</div>
 </body>
 </html>
