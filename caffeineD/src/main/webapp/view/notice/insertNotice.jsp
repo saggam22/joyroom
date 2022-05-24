@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>insertNotice.jsp</title>
 <style>
 @charset "UTF-8";
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -36,6 +36,7 @@ input {
 	border: none;
 	padding: 10px;
 	width: 300px;
+	background: #f6f6f6
 }
 
 .inner_section {
@@ -58,6 +59,7 @@ textarea {
     height: 6.25em;
     border: none;
     resize: none;
+    background: #f6f6f6
   }
 
 #notice_insert_btn {
@@ -76,7 +78,7 @@ textarea {
 }
 
 #notice_insert_btn:hover {
-	background: rgb(150, 189, 100);
+	background: #d9bba9;
 }
 </style>
 </head>
@@ -85,7 +87,7 @@ textarea {
 		<h2>NOTICE</h2>
 		<form action="${pageContext.servletContext.contextPath }/noticeInsert.do" method="post" enctype="multipart/form-data">
 			<div class="inner_section">
-				<label for="check" style="width:100px">공지사항 상단 고정</label><input style="width:50px" type="checkbox" name="id" name="check" value="checked">
+				<label for="check" style="width:100px">공지사항 상단 고정</label><input style="width:50px" type="checkbox" name="check" value="checked">
 			</div>
 			<div class="inner_section">
 				<label for="title" style="text-align:left">제목</label><input id="title" type="text" size="40" name="title">

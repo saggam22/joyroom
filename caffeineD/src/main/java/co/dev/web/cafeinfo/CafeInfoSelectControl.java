@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import co.dev.dao.CafeDAO;
 import co.dev.service.CafeService;
@@ -19,12 +18,17 @@ public class CafeInfoSelectControl implements Controller {
 
 		response.setContentType("text/json;charset=utf-8");
 		int cafeNo = Integer.parseInt(request.getParameter("no"));
+		String mybookmark = request.getParameter("mybookmark");
+		
 		System.out.println(cafeNo);
 		CafeService service = new CafeDAO();
 		CafeVO vo = service.selecCafe(cafeNo);
 		
+		if(mybookmark != null) {
+			request.setAttribute("mybookmark", "true");
+		}
+		
 		request.setAttribute("cafeinfo", vo);
-
 		request.getRequestDispatcher("/review.do").forward(request, response);
 
 	}

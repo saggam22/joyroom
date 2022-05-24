@@ -61,7 +61,7 @@
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
-  --bs-body-bg: #fff;
+  --bs-body-bg: #f6f6f6;
 }
 
 *,
@@ -11396,7 +11396,7 @@ p {
 .cta {
   padding-top: 4rem;
   padding-bottom: 4rem;
-  background-color: #dbdbdb;
+  background-color: #d4d0c7;
 }
 .cta .cta-inner {
   position: relative;

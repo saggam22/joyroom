@@ -58,7 +58,7 @@
 		<a href="${pageContext.servletContext.contextPath }/myBoard.do"><input type="button" value="작성글 보기"></a> 
 		<a href="${pageContext.servletContext.contextPath }/myComment.do"><input type="button" value="작성댓글 보기"></a>
 		<a href="${pageContext.servletContext.contextPath }/myReview.do"><input type="button" value="내 리뷰"></a>
-
+		<a href="${pageContext.servletContext.contextPath }/myBookmark.do"><input type="button" value="내 북마크"></a>
 	</div>
 
 

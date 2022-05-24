@@ -59,8 +59,6 @@
 								<c:choose>
 									<c:when test="${user.nickname == '관리자'}"> <a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/view/admin/adminPage.tiles" style="display: inline-block;">admin</a></c:when>
 									<c:otherwise><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/myPage.do" style="float:left;">${user.nickname }</a></c:otherwise>
-								</c:choose>
-								
 						</li>
 					</c:otherwise>
 				</c:choose>

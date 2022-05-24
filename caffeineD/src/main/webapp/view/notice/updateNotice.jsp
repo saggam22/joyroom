@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>updateNotice.jsp</title>
 <style>
 @charset "UTF-8";
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-* { 
+* { s
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
 	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
 	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
@@ -34,7 +34,7 @@ form ul {
 	    <div><label for="content">내용</label>
 	      <textarea cols="60" row="5" id="content" name="content"><c:out value="${notice.content }" /></textarea></div>
 	    <div><label for="nfile">파일첨부</label>
-	      <input id="nfile" type="file" name="nfile"><span>${notice.img }</span></div>
+	      <input id="nfile" type="file" name="nfile" value="${notice.img }"><span>${notice.img }</span></div>
 	    <div><button type="submit">수정하기</button></div>
 	  </div>
 </fieldset>
