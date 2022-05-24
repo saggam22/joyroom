@@ -1,4 +1,4 @@
-package co.dev.web.admin;
+package co.dev.web.cafeinfo;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,16 +7,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.dao.UserDAO;
-import co.dev.service.UserService;
+import co.dev.dao.CafeDAO;
+import co.dev.service.CafeService;
+import co.dev.vo.CafeVO;
 import co.dev.vo.PageVO;
-import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
-public class userListControl implements Controller {
+public class CafeSearchListControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String findKeyword = request.getParameter("findKeyword");
 
 		// 첫페이지
 		int pageNum = 1;
@@ -25,18 +27,27 @@ public class userListControl implements Controller {
 		if (request.getParameter("pageNum") != null) {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}
-		
+
 		PageVO pasing = new PageVO();
 		pasing.setPageNum(pageNum);
-		
-		UserService service = new UserDAO();
-		int total = service.userCount();
+
+		CafeService dao = new CafeDAO();
+		int total = dao.searchCafeCount(findKeyword);
 		pasing.setTotal(total);
-		List<UserVO> list = service.userList(pageNum);
+		List<CafeVO> list = dao.cafeListSearch(findKeyword, pageNum);
 
 		request.setAttribute("paging", pasing);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/view/admin/userList.tiles").forward(request, response);
+
+		// 관리자페이지에서 리스트 호출할 경우
+		String path = request.getParameter("path");
+
+		if (path != null) {
+			request.getRequestDispatcher("/view/admin/adminCafeList.tiles").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/view/cafe/cafeList.tiles").forward(request, response);
+		}
 
 	}
+
 }

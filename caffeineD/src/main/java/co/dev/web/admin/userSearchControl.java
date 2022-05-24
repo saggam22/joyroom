@@ -13,10 +13,13 @@ import co.dev.vo.PageVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
-public class userListControl implements Controller {
+public class userSearchControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String category = request.getParameter("findType");
+		String findKeyword = request.getParameter("findKeyword");
 
 		// 첫페이지
 		int pageNum = 1;
@@ -25,18 +28,20 @@ public class userListControl implements Controller {
 		if (request.getParameter("pageNum") != null) {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}
-		
+
 		PageVO pasing = new PageVO();
 		pasing.setPageNum(pageNum);
-		
+
 		UserService service = new UserDAO();
-		int total = service.userCount();
+		int total = service.userSearchCount(category, findKeyword);
 		pasing.setTotal(total);
-		List<UserVO> list = service.userList(pageNum);
+		List<UserVO> list = service.searchUserList(category, findKeyword, pageNum);
 
 		request.setAttribute("paging", pasing);
 		request.setAttribute("list", list);
+
 		request.getRequestDispatcher("/view/admin/userList.tiles").forward(request, response);
 
 	}
+
 }

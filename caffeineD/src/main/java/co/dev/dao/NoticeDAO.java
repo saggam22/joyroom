@@ -70,20 +70,46 @@ public class NoticeDAO extends DAO_mac implements NoticeService {
 		return list;
 	}
 
-	// 검색 조회
-	public List<NoticeVO> searchList(String title) {
+	// 검색별 공지 갯수(페이징)
+	public int noticeSearchCount(String keyword) {
 		conn();
-		String sql = "SELECT * FROM notice WHERE notice_title LIKE '%'||?||'%'";
+		String sql = "SELECT COUNT(*) as total FROM notice WHERE notice_title LIKE '%'||?||'%'";
+		int count = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, keyword);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+
+				count = rs.getInt("total");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return count;
+	}
+
+	// 검색 조회
+	public List<NoticeVO> searchList(String keyword, int pageNum) {
+		int startNum = (pageNum - 1) * 10 + 1;
+		int endNum = pageNum * 10;
+		
+		conn();
+		String sql = "select * from (select rownum rn,  a.* from (select * from notice where notice_title LIKE '%'||?||'%' order by notice_no ) a ) where rn >= ? and rn <= ?";
 
 		List<NoticeVO> list = new ArrayList<NoticeVO>();
 		NoticeVO vo = null;
 
 		try {
-
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, title);
+			psmt.setString(1, keyword);
+			psmt.setInt(2, startNum);
+			psmt.setInt(3, endNum);
 			rs = psmt.executeQuery();
-			
+
 			while (rs.next()) {
 
 				vo = new NoticeVO();
@@ -119,11 +145,11 @@ public class NoticeDAO extends DAO_mac implements NoticeService {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, noticeNo);
 			rs = psmt.executeQuery();
-			
+
 			if (rs.next()) {
-				
+
 				vo = new NoticeVO();
-				
+
 				vo.setNo(rs.getInt("notice_no"));
 				vo.setTitle(rs.getString("notice_title"));
 				vo.setContent(rs.getString("notice_content"));
@@ -181,7 +207,7 @@ public class NoticeDAO extends DAO_mac implements NoticeService {
 			psmt.setString(4, vo.getCheck());
 			psmt.setInt(5, vo.getNo());
 			int r = psmt.executeUpdate();
-			
+
 			if (r > 0) {
 				System.out.println(r + "건 수정");
 			}

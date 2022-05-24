@@ -9,7 +9,6 @@ import co.dev.vo.CafeVO;
 
 public class CafeDAO extends DAO_mac implements CafeService {
 
-	
 	// 카페 페이지 갯수
 	public int cafeCount() {
 
@@ -31,25 +30,25 @@ public class CafeDAO extends DAO_mac implements CafeService {
 		}
 		return count;
 	}
-	
+
 	// 카페 리스트 전체 조회
 	public List<CafeVO> cafeList(int pageNum) {
-		
-		int startNum = (pageNum-1)*10+1;
-		int endNum = pageNum*10;
+
+		int startNum = (pageNum - 1) * 10 + 1;
+		int endNum = pageNum * 10;
 		conn();
 		String sql = "SELECT * FROM (SELECT rownum rn,  a.* FROM (SELECT * FROM cafe ORDER BY cafe_no ) a ) WHERE rn >= ? AND rn <= ?";
 
 		List<CafeVO> list = new ArrayList<CafeVO>();
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, startNum);
 			psmt.setInt(2, endNum);
 			rs = psmt.executeQuery();
-			
+
 			while (rs.next()) {
-				
+
 				CafeVO vo = new CafeVO();
 
 				vo.setNo(rs.getInt("cafe_no"));
@@ -58,7 +57,7 @@ public class CafeDAO extends DAO_mac implements CafeService {
 				vo.setTel(rs.getString("cafe_tel"));
 				vo.setImg(rs.getString("cafe_img"));
 				vo.setRegion(rs.getString("cafe_region"));
-				
+
 				list.add(vo);
 
 			}
@@ -72,33 +71,33 @@ public class CafeDAO extends DAO_mac implements CafeService {
 	}
 
 	// 지역별 카페 페이지 갯수
-		public int regionCafeCount(String region) {
+	public int regionCafeCount(String region) {
 
-			conn();
-			String sql = "SELECT COUNT(*) as total FROM cafe WHERE cafe_region = ?";
-			int count = 0;
-			try {
-				psmt = conn.prepareStatement(sql);
-				psmt.setString(1, region);
-				rs = psmt.executeQuery();
-				
-				if (rs.next()) {
-					count = rs.getInt("total");
-				}
+		conn();
+		String sql = "SELECT COUNT(*) as total FROM cafe WHERE cafe_region = ?";
+		int count = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, region);
+			rs = psmt.executeQuery();
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				disconn();
+			if (rs.next()) {
+				count = rs.getInt("total");
 			}
-			return count;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
 		}
-		
+		return count;
+	}
+
 	// 지역별 카페 리스트 조회
 	public List<CafeVO> cafeListRegion(String region, int pageNum) {
-		int startNum = (pageNum-1)*10+1;
-		int endNum = pageNum*10;
-		
+		int startNum = (pageNum - 1) * 10 + 1;
+		int endNum = pageNum * 10;
+
 		conn();
 		String sql = "select * from (select rownum rn,  a.* from (select * from cafe where cafe_region = ? order by cafe_no ) a ) where rn >= ? and rn <= ?";
 		List<CafeVO> list = new ArrayList<CafeVO>();
@@ -131,19 +130,78 @@ public class CafeDAO extends DAO_mac implements CafeService {
 		return list;
 	}
 
+	// 검색별 카페 페이지 갯수
+	public int searchCafeCount(String keyword) {
+
+		conn();
+		String sql = "SELECT COUNT(*) as total FROM cafe WHERE cafe_name LIKE '%'||?||'%'";
+		int count = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, keyword);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				count = rs.getInt("total");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return count;
+	}
+
+	// 검색별 카페 리스트 조회
+	public List<CafeVO> cafeListSearch(String keyword, int pageNum) {
+		int startNum = (pageNum - 1) * 10 + 1;
+		int endNum = pageNum * 10;
+
+		conn();
+		String sql = "select * from (select rownum rn,  a.* from (select * from cafe where cafe_name LIKE '%'||?||'%' order by cafe_no ) a ) where rn >= ? and rn <= ?";
+		List<CafeVO> list = new ArrayList<CafeVO>();
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, keyword);
+			psmt.setInt(2, startNum);
+			psmt.setInt(3, endNum);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+
+				CafeVO vo = new CafeVO();
+				vo.setNo(rs.getInt("cafe_no"));
+				vo.setName(rs.getString("cafe_name"));
+				vo.setAddress(rs.getString("cafe_address"));
+				vo.setTel(rs.getString("cafe_tel"));
+				vo.setImg(rs.getString("cafe_img"));
+				vo.setRegion(rs.getString("cafe_region"));
+				list.add(vo);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
+	}
+
 	// 카페 1건 조회
 	public CafeVO selecCafe(int cafeNo) {
 
 		conn();
 		String sql = "SELECT * FROM cafe WHERE cafe_no=?";
-		
+
 		CafeVO vo = null;
-				
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, cafeNo);
 			rs = psmt.executeQuery();
-			while (rs.next()) {		
+			while (rs.next()) {
 				vo = new CafeVO();
 				vo.setNo(rs.getInt("cafe_no"));
 				vo.setName(rs.getString("cafe_name"));
@@ -152,7 +210,7 @@ public class CafeDAO extends DAO_mac implements CafeService {
 				vo.setImg(rs.getString("cafe_img"));
 				vo.setRegion(rs.getString("cafe_region"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -57,6 +57,7 @@ public class BoardInsertControl implements Controller {
 
 		//response.sendRedirect("board.do");
 		request.getRequestDispatcher("board.do").forward(request, response);
+		
 
 	}
 
