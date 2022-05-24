@@ -22,9 +22,11 @@
 		</p>
 		
 		<form action="makeTempPwd.do" method="post">
-			<input type="text" name="input_key" autofocus required><input class="btn" type="submit" value="enter" >
+			<input class="long_input" type="text" name="input_key" autofocus required>
+			<div>
+				<input class="body_btn" type="submit" value="enter" >
+			</div>
 		</form>
-		${key }
 	</div>
 
 </div>

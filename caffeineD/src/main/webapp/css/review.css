@@ -10,15 +10,35 @@
 
 }
 
+.button_no_back {
+	background: none;
+	border: none;
+}
+
+.cursor_pointer {
+	cursor:pointer;
+}
+
+.text_center {
+	text-align: center;
+}
+
+.text_left {
+	text-align: left;
+}
+
+.text_right {
+	text-align: right;
+}
+
 body {
 	background: #f6f6f6;
 	margin: 0;
-	text-align: center;
 }
 
 #container {
 	margin: 0 auto;
-	text-align: center;
+	padding: 50px 0;
 }
 
 #reviews_info {
@@ -27,39 +47,6 @@ body {
 	margin-bottom: 20px;
 }
 
-#star_avg {
-	font-size:30pt;
-}
-
-#star_show {
-	font-size: 30pt;
-	color:  #ffe378;
-	margin-bottom: 20px;
-}
-
-#review_count {
-	color:rgb(120, 120, 120);
-	margin-bottom: 10px;
-}
-
-.star_count_show {
-	background: rgb(200, 200, 200);
-	width: 120px;
-	height: 7px;
-	margin: 0 5px;
-}
-
-.star_count_show_color {
-	background: #8d8d8d;
-	width: 0px;
-	height: 7px;
-	margin: 0;
-	position: absolute;
-}
-
-.star_info {
-	color: #ffe378;    
-}
 
 .wrap {
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
@@ -78,6 +65,7 @@ body {
 	background: rgba(0, 0, 0, .5);
 	font-size: 0;
 	text-align: center;
+	display: none;
 }
 
 .pop_wrap:after {
@@ -92,30 +80,30 @@ body {
 	padding: 20px 20px;
 	background: #fff;
 	width: 700px;
-	height: 490px;
+	height: 460px;
 	vertical-align: middle;
 	font-size: 15px;
 	text-align: left;
 	box-shadow: 0 0 10px 1px rgb(120, 120, 120);
 }
 
-#btn_open {
+.review_btn {
 	font-weight: 700;
-	letter-spacing : 1px;
 	text-decoration: none;
 	display: inline-block;
 	width: 100px;
 	height: 50px;
 	border-radius: 30px;
+	border: none;
 	background: rgb(90, 90, 90);
 	color: white;
 	font-size: 15px;
-	padding-top: 15px;
 	margin: 20px;
 }
 
-#btn_open:hover {
-	background: rgb(150, 189, 100);
+.review_btn:hover {
+	background: #d9bba9;
+	color: white;
 }
 
 .pop_left {
@@ -127,8 +115,36 @@ body {
 .pop_right {
 	float: right;
 	width: 50%;
-	padding: 15px 0 0 0;
+	padding: 10px 0 0 0;
 	text-align: center;
+}
+
+p {
+	margin: 0 0 3px 0;
+}
+
+.mini_button {
+	text-decoration: underline; 
+	color:rgb(120, 120, 120);
+	padding: 2px;
+
+}
+
+.mini_button:hover {
+	color:#323232;
+}
+
+.review_img {
+	border-radius: 5px;
+	overflow:hidden;
+	box-shadow: 0 0 10px 1px rgb(240, 240, 240);
+}
+
+#imgSection label {
+	border: none; 
+	font-size: 10pt; 
+	margin:20px 0 0 120px; 
+	color:rgb(120, 120, 120); 
 }
 
 #reviewImgDiv {
@@ -139,13 +155,22 @@ body {
 	position:absolute; width:100%; height:100%; object-fit:cover;
 }
 
+#uploadImg {
+	position: absolute; 
+	clip: rect(0, 0, 0, 0);
+}
+
 #btn_close {
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 #insertStar, #updateStar {
 	margin: 10px 0 30px 0;
 	text-align: center;
+}
+
+.starBtn img {
+	width:30px;
 }
 
 textarea {
@@ -154,26 +179,6 @@ textarea {
 	padding: 10px;
 }
 
-#innerBtn {
-	display: inline-block;
-	cursor:pointer;
-	width: 100px;
-	height: 50px;
-	border-radius: 30px;
-	background: rgb(90, 90, 90);
-
-	margin-top: 30px;
-	
-	text-decoration: none;
-	color: white;
-	font-size: 15px;
-	font-weight: 700;
-
-}
-
-#innerBtn:hover {
-	background: rgb(150, 189, 100);
-}
 
 .star {
 	color: #ffe378;
@@ -184,15 +189,23 @@ textarea {
 	float:right;
 	margin: 14px 0 0 118px;
 }
+.review_user_prof {
+	position: relative;
+}
 
-.userProf {
+.review_user_nick {
+	margin-left: 15px; 
+	position: absolute; 
+	bottom: 15px;
+}
+#container .userProf {
 	padding: 0;
 	display: inline-block;
 	width: 50px;
 	height: 50px;
 	border-radius: 70%;
 	overflow: hidden;
-	border: 0.5px solid rgb(200, 200, 200);
+	box-shadow: 0 0 10px 1px rgb(240, 240, 240);
 }
 
 .userProf img {
@@ -201,16 +214,35 @@ textarea {
 	object-fit: cover;
 }
 
-button {
+.like_section span {
+	color:black;
+}
+
+.like_section img {
+	width: 14px;
+}
+
+.likeBtn {
 	background: rgba(0, 0, 0, 0);
 	border: none;
 	padding: 0;
 }
 
+.review_content {
+	line-height: 16pt; 
+	margin: 20px 0;
+}
+
+.review_date {
+	font-size: 8pt; 
+	color: rgb(190, 190, 190); 
+	clear: both; 
+	text-align: right;
+}
+
 #moreBtn {
 	margin-bottom: 50px;
 }
-
 
 .review {
 	display: block;
@@ -219,7 +251,7 @@ button {
 	padding: 25px;
 	background: white;
 	box-shadow: 0 0 10px 1px rgb(240, 240, 240);
-	text-align: left;
+
 }
 
 .review_left {
@@ -260,7 +292,7 @@ button {
 	box-shadow: 0 0 5px 1px rgb(240, 240, 240);
 	position:fixed;
 	right: 10%;
-	bottom: 10%;
+	bottom: 20%;
 }
 
 .bold_text {

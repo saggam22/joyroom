@@ -6,47 +6,55 @@
 <head>
 <meta charset="UTF-8">
 <title>totalReviewList.jsp</title>
+<link href="${pageContext.servletContext.contextPath }/css/table.css"
+	rel="stylesheet">
 </head>
 <body>
 	<div id="container">
-	
-		<div class="admin_menu">
-		<a href="${pageContext.servletContext.contextPath }/user.do">회원 리스트</a>
-		<a href="${pageContext.servletContext.contextPath }/totalReviewList.do">리뷰 리스트</a>
-		<a href="${pageContext.servletContext.contextPath }/adList.do">광고 리스트</a>
-		</div>
+		<jsp:include page="/view/admin/adminMenu.jsp"></jsp:include>
 		
-		<table border="1">
-			<thead>
-				<tr>
-					<th></th>
-					<th>카페 번호</th>
-					<th>리뷰 번호</th>
-					<th>아이디</th>
-					<th>작성 날짜</th>
-					<th>좋아요 수</th>
-					<th>평점</th>
-					<th>내용</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${totalReviewList }" var="review">
-					<tr id="${review.no }">
-						<td><input type="checkbox" name="review_no" value="${review.no }"></td>
-						<td>${review.cafeNo }</td>
-						<td>${review.no }</td>
-						<td>${review.userId }</td>
-						<td>${review.date }</td>
-						<td>${review.like }</td>
-						<td>${review.star }</td>
-						<td class="review_content">${review.content }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		
-		<button type="button" onclick="reviewDelete();">삭제</button>
+		<section class="ftco-section">
+			<div class="container">
 
+				<div class="row justify-content-center">
+					<div class="col-md-6 text-center mb-5">
+						<h2 class="heading-section">리뷰 리스트</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrap" style="overflow-x: hidden">
+							<table class="table">
+								<thead class="thead-primary">
+									<tr>
+										<th></th>
+										<th>카페 번호</th>
+										<th>리뷰 번호</th>
+										<th>아이디</th>
+										<th>작성 날짜</th>
+										<th>좋아요 수</th>
+										<th>평점</th>
+										<th>내용</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${totalReviewList }" var="review">
+										<tr id="${review.no }">
+											<td><input type="checkbox" name="review_no"
+												value="${review.no }"></td>
+											<td>${review.cafeNo }</td>
+											<td>${review.no }</td>
+											<td>${review.userId }</td>
+											<td>${review.date }</td>
+											<td>${review.like }</td>
+											<td>${review.star }</td>
+											<td class="review_content">${review.content }</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+		<button type="button" onclick="reviewDelete();">삭제</button>
 		<jsp:include page="/view/admin/totalReviewPaging.jsp">
 			<jsp:param value="${paging.pageNum}" name="pageNum" />
 			<jsp:param value="${paging.startPage}" name="startPage" />
@@ -54,8 +62,14 @@
 			<jsp:param value="${paging.prev}" name="prev" />
 			<jsp:param value="${paging.next}" name="next" />
 		</jsp:include>
-	
-	
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+
 	</div>
 </body>
 <script>
@@ -66,15 +80,15 @@ document.addEventListener('DOMContentLoaded', function() {
  	
  	for (let i=0; i<contents.length; i++) {
  		let text = contents[i].innerHTML;
- 		if (text.length >= 20) {
+ 		if (text.length >= 20) { // 20자 이상이면 자르기
  			contents[i].innerHTML = text.substr(0, 20);
- 		}	// 20자 이상이면 자르기
- 		let moreBtn = document.createElement('button');
- 		moreBtn.innerHTML = '더보기';
- 		moreBtn.setAttribute('class', 'more_btn')
- 		moreBtn.setAttribute('name', 'cut_state');		// 더보기 전 상태
- 		moreBtn.setAttribute('value', text);			// 자르기 전 텍스트 value에 넣어두기
- 		contents[i].appendChild(moreBtn);				// 더보기 버튼 추가
+	 		let moreBtn = document.createElement('button');
+	 		moreBtn.innerHTML = '더보기';
+	 		moreBtn.setAttribute('class', 'more_btn')
+	 		moreBtn.setAttribute('name', 'cut_state');		// 더보기 전 상태
+	 		moreBtn.setAttribute('value', text);			// 자르기 전 텍스트 value에 넣어두기
+	 		contents[i].appendChild(moreBtn);				// 더보기 버튼 추가
+ 		}	
  	
  	}
  	

@@ -6,16 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>adReviewInsert.jsp</title>
+
 </head>
 <body>
 
-	<div class="admin_menu">
-		<a href="${pageContext.servletContext.contextPath }/user.do">회원
-			리스트</a> <a
-			href="${pageContext.servletContext.contextPath }/totalReviewList.do">리뷰
-			리스트</a> <a href="${pageContext.servletContext.contextPath }/adList.do">광고
-			리스트</a>
-	</div>
+	<jsp:include page="/view/admin/adminMenu.jsp"></jsp:include>
 
 	<form
 		action="${pageContext.servletContext.contextPath }/adCafeInsert.do"
