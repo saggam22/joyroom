@@ -56,7 +56,7 @@ public class BoardInsertControl implements Controller {
 		request.getSession().setAttribute("success", "글 작성이 완료되었습니다.");
 
 		//response.sendRedirect("board.do");
-		request.getRequestDispatcher("view/board/board.tiles").forward(request, response);
+		request.getRequestDispatcher("board.do").forward(request, response);
 
 	}
 
