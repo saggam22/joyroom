@@ -23,6 +23,12 @@ public class ReviewInsertControl implements Controller {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
+
+		String url = this.getClass().getResource("").getPath(); 
+		url = url.substring(1,url.indexOf(".metadata"))+"caffeineD/webapp";
+		System.out.println(url);
+
+		
 		String saveDir = "img/reviewimg";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		int maxSize = 1024 * 1024 * 10;
@@ -58,7 +64,7 @@ public class ReviewInsertControl implements Controller {
 		service.reviewInsert(rvo);
 		System.out.println(cafeNo);
 		
-		request.getRequestDispatcher("/cafeInfoSelect.do?no="+cafeNo).forward(request, response);
+		response.sendRedirect("cafeInfoSelect.do?no="+cafeNo);
 		
 
 	}

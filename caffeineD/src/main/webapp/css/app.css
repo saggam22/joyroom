@@ -5,6 +5,17 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /* line 1, node_modules/bootstrap/scss/_root.scss */
+@charset "UTF-8";
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+#container { 
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
+	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
+	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
+	font-size: 10pt;
+	box-sizing: border-box;
+}
+
 :root {
   --blue: #5b53ec;
   --indigo: #6610f2;
@@ -75,7 +86,7 @@ body {
   line-height: 1.5;
   color: #343a40;
   text-align: left;
-  background-color: #fff; }
+  background-color: #f6f6f6; }
 
 /* line 73, node_modules/bootstrap/scss/_reboot.scss */
 [tabindex="-1"]:focus {
@@ -171,13 +182,13 @@ sup {
 
 /* line 198, node_modules/bootstrap/scss/_reboot.scss */
 a {
-  color: #bd081c;
+  color: #bdbebd;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects; }
   /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
   a:hover {
-    color: #740511;
+    color: #686868;
     text-decoration: underline; }
 
 /* line 216, node_modules/bootstrap/scss/_reboot.scss */
@@ -4974,7 +4985,7 @@ input[type="button"].btn-block {
           flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #f6f6f6;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem; }
@@ -7027,7 +7038,7 @@ button.bg-gray200:focus {
 
 /* line 13, node_modules/bootstrap/scss/utilities/_background.scss */
 .bg-white {
-  background-color: #fff !important; }
+  background-color: #f6f6f6 !important; }
 
 /* line 17, node_modules/bootstrap/scss/utilities/_background.scss */
 .bg-transparent {

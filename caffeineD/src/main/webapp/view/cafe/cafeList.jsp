@@ -9,13 +9,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home - Pintereso Bootstrap Template</title>
+    <title>cafeList.jsp</title>
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/theme.css">
 
 </head>
 
 <body>
+<div id="container">
     <main role="main">
         
     <section class="mt-4 mb-5">
@@ -74,5 +75,6 @@
     <jsp:param value="${paging.next}" name="next"/>
 </jsp:include>	
 	</div>
+</div>
 </body> 
 </html> 

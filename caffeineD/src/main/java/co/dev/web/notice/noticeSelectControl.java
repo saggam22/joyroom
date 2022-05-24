@@ -16,7 +16,7 @@ public class noticeSelectControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String title = request.getParameter("title");
+		int noticeNo = Integer.parseInt(request.getParameter("no"));
 		String job = request.getParameter("job");
 		String path = "";
 		
@@ -24,7 +24,6 @@ public class noticeSelectControl implements Controller {
 		
 		if (job.equals("select")) {
 			
-			service.viewCntNotice(title);
 			path = "/view/notice/selectNotice.tiles";
 			
 		} else if (job.equals("update")) {
@@ -33,7 +32,7 @@ public class noticeSelectControl implements Controller {
 			
 		}
 		
-		NoticeVO vo = service.selectNotice(title);
+		NoticeVO vo = service.selectNotice(noticeNo);
 		request.setAttribute("notice", vo);
 		request.getRequestDispatcher(path).forward(request, response);
 	}

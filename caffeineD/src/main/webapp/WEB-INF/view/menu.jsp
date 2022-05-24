@@ -9,7 +9,6 @@
     <style>
     .userProf {
 		padding:0;
-		display: inline-block;
 		width: 30px;
 	   	height: 30px; 
 	    border-radius: 70%;
@@ -22,6 +21,8 @@
 	    height: 100%;
 	    object-fit: cover;
 	}
+	
+	
 	
     </style>
 </head>
@@ -54,12 +55,10 @@
 					<c:when test="${empty user }"></c:when>
 					<c:otherwise>
 						<li class="nav-item px-lg-4">
-								<span class="userProf"><img src="${pageContext.servletContext.contextPath }/img/profimg/${user.img }"></span>
+								<span class="userProf" style="float:left;"><img src="${pageContext.servletContext.contextPath }/img/profimg/${user.img }"></span>
 								<c:choose>
-									<c:when test="${user.id == 'admin'}"> <a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/view/admin/adminPage.tiles" style="display: inline-block;">admin</a></c:when>
-									<c:otherwise><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/myPage.do" style="display: inline-block;">${user.nickname }</a></c:otherwise>
-								</c:choose>
-								
+									<c:when test="${user.nickname == '관리자'}"> <a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/view/admin/adminPage.tiles" style="display: inline-block;">admin</a></c:when>
+									<c:otherwise><a class="nav-link text-uppercase" href="${pageContext.servletContext.contextPath }/myPage.do" style="float:left;">${user.nickname }</a></c:otherwise></c:choose>
 						</li>
 					</c:otherwise>
 				</c:choose>

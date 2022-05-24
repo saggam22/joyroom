@@ -37,6 +37,7 @@ input {
 	border: none;
 	padding: 10px;
 	width: 300px;
+	background: #f6f6f6
 }
 
 .inner_section {
@@ -69,7 +70,7 @@ form {
 }
 
 #user_insert_btn:hover {
-	background: rgb(150, 189, 100);
+	background: #d9bba9;
 }
 
 </style>

@@ -16,9 +16,11 @@ public interface UserService {
 	// 북마크 삭제
 	public void deleteBookmark(int cafeNo, String userId);
 	// 내 북마크 조회
-	public List<CafeVO> selectBookmark(String userId);
+	public List<CafeVO> myBookmark(String userId);
 	// 회원리스트 조회
 	public List<UserVO> userList();
+	// 회원 삭제
+	public void deleteUser(String userId);
 	//아이디 중복 확인
 	public boolean checkId(String userId);
 	//닉네임 중복 확인

@@ -19,7 +19,7 @@
 	
 	<p><strong>${findId }</strong></p>
 	
-	<a class="link_move_btn" href="${pageContext.servletContext.contextPath }/view/user/login.tiles">로그인 페이지로 이동	</a>
+	<a class="login_move_btn" href="${pageContext.servletContext.contextPath }/view/user/login.tiles">로그인 페이지로 이동	</a>
 
 </div>
 </body>

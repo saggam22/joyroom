@@ -48,6 +48,7 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
+
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">

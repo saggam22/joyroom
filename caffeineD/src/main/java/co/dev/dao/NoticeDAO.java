@@ -109,15 +109,15 @@ public class NoticeDAO extends DAO implements NoticeService {
 	}
 
 	// 공지글 내용 조회
-	public NoticeVO selectNotice(String title) {
+	public NoticeVO selectNotice(int noticeNo) {
 		conn();
-		String sql = "SELECT * FROM notice WHERE notice_title = ?";
+		String sql = "SELECT * FROM notice WHERE notice_no = ?";
 
 		NoticeVO vo = null;
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, title);
+			psmt.setInt(1, noticeNo);
 			rs = psmt.executeQuery();
 			
 			if (rs.next()) {
@@ -127,7 +127,7 @@ public class NoticeDAO extends DAO implements NoticeService {
 				vo.setNo(rs.getInt("notice_no"));
 				vo.setTitle(rs.getString("notice_title"));
 				vo.setContent(rs.getString("notice_content"));
-				vo.setDate(rs.getString("notice_date"));
+				vo.setDate(rs.getString("notice_date").substring(0, 10));
 				vo.setImg(rs.getString("notice_img"));
 				vo.setView(rs.getInt("notice_view"));
 				vo.setUser(rs.getString("notice_user"));
@@ -218,12 +218,12 @@ public class NoticeDAO extends DAO implements NoticeService {
 	}
 
 	// 공지글 조회수
-	public void viewCntNotice(String title) {
+	public void viewCntNotice(int noticeNo) {
 		conn();
-		String sql = "UPDATE notice SET notice_view=notice_view+1 WHERE notice_title=?";
+		String sql = "UPDATE notice SET notice_view=notice_view+1 WHERE notice_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, title);
+			psmt.setInt(1, noticeNo);
 
 			int r = psmt.executeUpdate();
 			if (r > 0) {

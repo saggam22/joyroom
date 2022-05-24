@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -13,7 +12,6 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import co.dev.dao.NoticeDAO;
 import co.dev.service.NoticeService;
 import co.dev.vo.NoticeVO;
-import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
 public class noticeUpdateControl implements Controller {
@@ -30,29 +28,39 @@ public class noticeUpdateControl implements Controller {
 		
 		MultipartRequest multi = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
 
-		int no = Integer.parseInt(multi.getParameter("no"));
+		int noticeNo = Integer.parseInt(multi.getParameter("no"));
+		NoticeService service = new NoticeDAO();
+		String saveFile = service.selectNotice(noticeNo).getImg();
+		
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
 		String img = multi.getFilesystemName("nfile");
 		String check = multi.getParameter("check");
-		
+
 		NoticeVO notice = new NoticeVO();
-		notice.setNo(no);
+		notice.setNo(noticeNo);
 		notice.setTitle(title);
 		notice.setContent(content);
 		
-		if(img!=null) {			
-			notice.setImg(img);
+		if (saveFile != null ) {
+			if(img!=null) {	//저장된 파일이 있지만 파일 수정함	
+				notice.setImg(img);
+			} else { //저장된 파일이 있고 수정 안함
+				notice.setImg(saveFile);					
+			}	
+		} else {
+			if(img!=null) {	//만약 저장된 파일이 없고 파일 추가함	
+				notice.setImg(img);	
+			}
+			//저장된 파일이 없고 수정 안함
 		}
 		
 		if(check!=null) {			
 			notice.setCheck(check);
 		}
 		
-		NoticeService service = new NoticeDAO();
 		service.updateNotice(notice);
-		
-		response.sendRedirect("notice.do");
+		request.getRequestDispatcher("/noticeSelect.do?job=select&no="+noticeNo).forward(request, response);
 
 	}
 
