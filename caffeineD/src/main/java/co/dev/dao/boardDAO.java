@@ -7,7 +7,28 @@ import java.util.List;
 import co.dev.vo.BoardVO;
 
 public class boardDAO extends DAO {
+	
+	// 게시판 페이지 갯수
+		public int cafeCount() {
 
+			conn();
+			String sql = "SELECT COUNT(*) as total FROM board";
+			int count = 0;
+			try {
+				psmt = conn.prepareStatement(sql);
+				rs = psmt.executeQuery();
+				if (rs.next()) {
+
+					count = rs.getInt("total");
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				disconn();
+			}
+			return count;
+		}
 	// 글쓰기
 	public void insertBoard(BoardVO board) {
 		conn();

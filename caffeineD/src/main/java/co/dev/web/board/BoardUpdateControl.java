@@ -34,14 +34,14 @@ public class BoardUpdateControl implements Controller {
 		}
 
 		else {
-			// 기존데이터 셀렉트해서 뿌려라 + 작성자가맞는지 확인해라
+			// 기존데이터 셀렉트해서 뿌리기? + 작성자가맞는지 확인
 			String param = request.getParameter("no");
 			String param2 = request.getParameter("user");
 //		String title = request.getParameter("title");
 //		String content = request.getParameter("content");
 			System.out.println("no값 :" + request.getParameter("no"));
 			System.out.println("글작성자 :" + param);
-// db에서 select해와서 세팅해야함
+
 
 			int num = Integer.parseInt(param);
 			System.out.println("수정할 게시글 번호 :" + num + "세션유저정보 : " + vo.getId());
@@ -57,11 +57,7 @@ public class BoardUpdateControl implements Controller {
 			}
 			board = u_service.boardLoadOne(num); // db에서 기존내용 가져오기
 			request.setAttribute("board", board); // 가져온 내용 화면(jsp)으로 보내기
-			// 1.기존데이터로 화면을채워야하니까 db에있는 내용을 가져옴
-			// 2.화면에뿌리기
-
-			// 3.수정할데이터입력해서
-			// 4.게시글 수정
+		
 
 			request.getRequestDispatcher("view/board/boardUpdate.tiles").forward(request, response);
 		}

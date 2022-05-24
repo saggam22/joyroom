@@ -28,7 +28,7 @@ public class BoardContentsControl implements Controller {
 
 		BoardService b_service = new BoardService();
 		b_service.plusView(num); // 조회수 1증가
-		BoardVO vo = b_service.boardLoadOne(num); // 게시글 내용조회해서
+		BoardVO vo = b_service.boardLoadOne(num); // 게시글 내용조회
 		
 		CommentService c_service = new CommentService();
 		List<CommentVO> c_list = c_service.commentList(num);
@@ -53,7 +53,7 @@ public class BoardContentsControl implements Controller {
 			comment.setComment_content(param_comment);
 
 			c_service.commentInsert(comment);
-			session.setAttribute("success", "댓글을 작성했습니다.");
+			//session.setAttribute("success", "댓글을 작성했습니다.");
 			//response.sendRedirect("boardContents.do?no="+num);
 		}
 		request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);
