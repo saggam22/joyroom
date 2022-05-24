@@ -53,7 +53,7 @@ public class BoardContentsControl implements Controller {
 			comment.setComment_content(param_comment);
 
 			c_service.commentInsert(comment);
-			session.setAttribute("success", "댓글을 작성했습니다.");
+			//session.setAttribute("success", "댓글을 작성했습니다.");
 			//response.sendRedirect("boardContents.do?no="+num);
 		}
 		request.getRequestDispatcher("view/board/boardContents.tiles").forward(request, response);

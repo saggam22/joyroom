@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,23 +87,28 @@ textarea {
 <body>
 	<section id="notice_insert_section">
 		<h2 style="margin-top: 10px;">글을 수정하는 공간입니다.</h2>
-		<form action="${pageContext.servletContext.contextPath }/boardUpdate.do" method="post" enctype="multipart/form-data">
-			<div class="inner_section">			
-			<label for="title" style="text-align: left">제목</label>			
-			<textarea name="title" rows="1" cols="100"  required>${board.title} </textarea><br>
-			</div>
-			<div class="inner_section">		
-			<label for="content">내용</label>	
-			<textarea name="content" rows="15" cols="150" placeholder="내용" required>${board.content}</textarea><br>
+		<form
+			action="${pageContext.servletContext.contextPath }/boardUpdate.do"
+			method="post">
+			<div class="inner_section">
+				<label for="title" style="text-align: left">제목</label>
+				<textarea name="title" placeholder="제목" rows="1" cols="150" required>${board.title} </textarea>
+				<br>
 			</div>
 			<div class="inner_section">
-				<input type="file" name="img" value=img><br>				
-				<input type="hidden" name="board_no" value="${board.no}">
-			</div>	
-				<input id="notice_insert_btn" type="submit" value="수정">  
-        		<a href = "${pageContext.servletContext.contextPath }/board.do"><input id="notice_insert_btn" type="button" value="돌아가기"></a>   
-        	 	
-    	</form>  
-	
+				<label for="content">내용</label>
+			<textarea name="content" rows="15" cols="150" placeholder="내용"
+				required>${board.content}</textarea><br>
+				</div>
+			<div class="inner_section">			
+				<input type="file" name="img" value=img><br> <input
+					type="hidden" name="board_no" value="${board.no}">
+			</div>			
+				<input id="notice_insert_btn" type="submit" value="수정"> <a
+					href="${pageContext.servletContext.contextPath }/board.do"><input
+				id="notice_insert_btn" type="button" value="돌아가기"></a>
+			</div>
+		</form>
+		</section>
 </body>
 </html>
