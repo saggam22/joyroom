@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import co.dev.myPage.myBoardControl;
 import co.dev.myPage.myCommentControl;
 import co.dev.myPage.myPageLoadController;
@@ -49,10 +48,11 @@ import co.dev.web.review.ReviewUpdateControl;
 import co.dev.web.review.StarAvgControl;
 import co.dev.web.user.LoginControl;
 import co.dev.web.user.LogoutControl;
-import co.dev.web.user.UserInsertCheckControl;
-import co.dev.web.user.UserInsertControl;
 import co.dev.web.user.MailSendControl;
 import co.dev.web.user.UserFindControl;
+import co.dev.web.user.UserInsertCheckControl;
+import co.dev.web.user.UserInsertControl;
+import co.dev.web.user.kakaoLoginControl;
 
 
 @WebServlet("/FrontController")
@@ -84,6 +84,7 @@ public class FrontController extends HttpServlet {
 
 		// login
 		map.put("/login.do", new LoginControl());
+		map.put("/kakaoLogin.do", new kakaoLoginControl());	
 		map.put("/logout.do", new LogoutControl());
 		map.put("/userIdCheck.do", new UserFindControl("findId"));
 		map.put("/userIdCheckForPwd.do", new UserFindControl("findIdForPwd"));

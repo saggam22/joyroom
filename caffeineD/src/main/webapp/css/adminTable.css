@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+.admin_menu {
+	margin-top: 58px;
+}
+
+.menu_btn {
+	text-decoration: none;
+	display: inline-block;
+	width: 120px;
+	background: #323232;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	color: #f6f6f6;
+	font-size: 15px;
+	font-weight: 500;
+	padding: 10px;
+	margin: 0 5px 0 0;
+	text-align: center;
+	
+}
+
+.menu_btn:hover {
+	background: #d9bba9;
+	color: #f6f6f6;
+}
+
+.ftco-section {
+	padding-top: 20px;
+}
+
+.text_center {
+	text-align: center;
+}
+
+.text_right {
+	text-align: right;
+}
+
+.text_left {
+	text-align: left;
+}
+
+.button_no_back {
+	background: none;
+	border: none;
+}
+
+.table thead th {
+	padding: 15px 15px;
+}
+
+.table tbody td {
+	padding: 15px 15px;
+}
+
+.checkbox, .radio {
+	width: 50px;
+}
+
+.width_short {
+	width: 70px;
+}
+
+.width_mideum {
+	width: 90px;
+}
+
+.width_long {
+	width: 120px;
+}
+.width_longlong {
+	width: 200px;
+}
+
+
+.star {
+	color: #ffe378;
+}
+
+.date {
+	width: 130px;
+}
+
+.content {
+	line-height: 16pt;
+}
+
+.mini_button {
+	text-decoration: underline;
+	color: rgb(120, 120, 120);
+	padding: 2px;
+	margin-top: 5px;
+}
+
+.mini_button:hover {
+	color: #323232;
+}
+
+#paging {
+	text-align: left;
+	font-size: 11pt;
+}

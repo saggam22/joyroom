@@ -6,7 +6,7 @@ import java.util.List;
 
 import co.dev.vo.BoardVO;
 
-public class boardDAO extends DAO {
+public class boardDAO extends DAO_mac {
 	
 	// 게시판 페이지 갯수
 		public int cafeCount() {
