@@ -22,9 +22,9 @@
 </head>
 <body>
 <div id="container">
-	<div class="heading-section"><jsp:include page="/view/admin/adminMenu.jsp"></jsp:include></div>
 	<section class="ftco-section">
 		<div class="container">
+			<div class="heading-section"><jsp:include page="/view/admin/adminMenu.jsp"></jsp:include></div>
 			<c:if test="${!empty success }">
 				<script>alert("${success }")</script>
 				<% request.getSession().removeAttribute("success"); %>
