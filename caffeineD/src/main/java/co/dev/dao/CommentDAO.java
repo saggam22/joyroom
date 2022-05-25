@@ -20,7 +20,7 @@ public class CommentDAO extends DAO {
 			psmt.setString(4, comment.getUser_id());
 			
 			int r = psmt.executeUpdate();
-			//System.out.println(r + "건 입력됨.");
+			System.out.println(r + "건 입력됨.");
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
