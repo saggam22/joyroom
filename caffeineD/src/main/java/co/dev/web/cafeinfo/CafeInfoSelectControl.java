@@ -6,9 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import co.dev.dao.CafeDAO;
 import co.dev.service.CafeService;
 import co.dev.vo.CafeVO;
@@ -32,15 +29,7 @@ public class CafeInfoSelectControl implements Controller {
 		}
 		
 		request.setAttribute("cafeinfo", vo);
-		
-		
-		String admin = request.getParameter("path");
-		if (admin != null) { //관리자페이이에서 수정하기 위해 값을 받아옴
-			Gson gson = new GsonBuilder().create();
-			response.getWriter().print(gson.toJson(vo));
-		} else {			
-			request.getRequestDispatcher("/review.do").forward(request, response);
-		}
+		request.getRequestDispatcher("/review.do").forward(request, response);
 		
 	}
 

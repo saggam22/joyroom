@@ -246,19 +246,14 @@ public class CafeDAO extends DAO implements CafeService {
 	}
 
 	// 카페 수정
-	public void updateCafe(CafeVO vo) {
+	public void updateCafe(int cafeNo, String newImg) {
 
 		conn();
-		String sql = "UPDATE cafe SET cafe_name=?, cafe_address=?, cafe_tel=?, cafe_img=?, cafe_region=?) "
-				+ "WHERE cafe_no=?";
+		String sql = "UPDATE cafe SET cafe_img=? WHERE cafe_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, vo.getName());
-			psmt.setString(2, vo.getAddress());
-			psmt.setString(3, vo.getTel());
-			psmt.setString(4, vo.getImg());
-			psmt.setString(5, vo.getImg());
-			psmt.setInt(6, vo.getNo());
+			psmt.setString(1, newImg);
+			psmt.setInt(2, cafeNo);
 
 			int r = psmt.executeUpdate();
 			if (r > 0) {
