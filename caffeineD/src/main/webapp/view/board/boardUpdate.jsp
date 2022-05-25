@@ -109,7 +109,7 @@ textarea {
 					<tbody>
 						<tr class="line">
 							<th>제목</th>
-							<td><input id="title" type="text" value="${board.title}" name="title" required></td>
+							<td><input id="title" type="text" value="${board.title}" name="title" autofocus required></td>
 						</tr>
 						<tr>
 							<th>내용</th>

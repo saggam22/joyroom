@@ -1,4 +1,4 @@
-package co.dev.myPage;
+package co.dev.web.myPage;
 
 import java.io.IOException;
 
@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import co.dev.dao.UserDAO;
 import co.dev.service.UserService;
@@ -19,7 +22,7 @@ public class myPageLoadController implements Controller {
 
 		HttpSession session = request.getSession();
 		UserVO vo = (UserVO) session.getAttribute("user");
-
+		
 		if (vo == null) {
 			session.setAttribute("error", "로그인이 필요합니다. 로그인 페이지로 이동합니다.");
 			response.sendRedirect("view/user/login.jsp");

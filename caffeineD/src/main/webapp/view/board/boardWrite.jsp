@@ -107,7 +107,7 @@ textarea {
 				<tbody>					
 					<tr class="line">
 						<th>제목</th>
-						<td><input id="title" type="text" name="title" required></td>
+						<td><input id="title" type="text" name="title" autofocus required></td>
 					</tr>
 					<tr>
 						<th>내용</th>
@@ -120,7 +120,7 @@ textarea {
 					</tr>
 					<tr>
 						<td colspan="2"><div class="td_content">
-								<input id="file" type="file" name="img"> <img id="preview" />
+								<input id="file" type="file" name="img"> <img id="preview" >
 							</div></td>
 					</tr>					
 				</tbody>
