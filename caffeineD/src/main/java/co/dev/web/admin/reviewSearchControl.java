@@ -7,15 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.dao.CafeDAO;
-import co.dev.service.CafeService;
 import co.dev.service.ReviewService;
-import co.dev.vo.CafeVO;
 import co.dev.vo.PageVO;
 import co.dev.vo.ReviewVO;
 import co.dev.web.Controller;
 
-public class totalReviewListControl implements Controller {
+public class reviewSearchControl implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,15 +28,17 @@ public class totalReviewListControl implements Controller {
 		PageVO paging = new PageVO();
 		paging.setPageNum(pageNum);
 		
+		String keyword = request.getParameter("keyword");
+		
 		ReviewService service = new ReviewService();
-		int total = service.totalReviewCount();
+		int total = service.searchReviewCount(keyword);
 		paging.setTotal(total);
-		List<ReviewVO> list = service.totalReviewList(pageNum);
-
+		
+		List<ReviewVO> list = service.searchReview(keyword, pageNum);
+		
 		request.setAttribute("paging", paging);
 		request.setAttribute("reviewList", list);
 		request.getRequestDispatcher("/view/admin/totalReviewList.tiles").forward(request, response);
-			
 
 	}
 

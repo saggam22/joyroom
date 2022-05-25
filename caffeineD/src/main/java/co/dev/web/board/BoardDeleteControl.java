@@ -28,14 +28,15 @@ public class BoardDeleteControl implements Controller {
 		
 		if(param2.equals(vo.getId())) {
 			d_service.boardDelete(num);
-			session.setAttribute("success", "삭제가 완료되었습니다.");
+			//session.setAttribute("success", "삭제가 완료되었습니다.");
 			
-			
+			request.getRequestDispatcher("board.do").forward(request, response);
 		}
 		else {
 			session.setAttribute("error", "작성자가 불일치합니다.");
+			response.sendRedirect("boardContents.do?no="+num);
 		}
-		request.getRequestDispatcher("board.do").forward(request, response);
+
 	}
 
 }

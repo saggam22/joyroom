@@ -53,7 +53,7 @@ public class BoardInsertControl implements Controller {
 		BoardService service = new BoardService();
 		service.boardInsert(board);
 		System.out.println(img);
-		request.getSession().setAttribute("success", "글 작성이 완료되었습니다.");
+//		request.getSession().setAttribute("success", "글 작성이 완료되었습니다.");
 
 		//response.sendRedirect("board.do");
 		request.getRequestDispatcher("board.do").forward(request, response);

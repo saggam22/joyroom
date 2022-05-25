@@ -9,6 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/table.css">
 	<link rel="stylesheet" href="css/adminCafe.css">
+	<style>
+		.ftco-section {
+			padding: 80px 0;
+		}
+		#cafe {
+			background: #d9bba9;
+			color: #2F170F;
+			font-weight: 600;
+		}
+	</style>
 </head>
 <body>
 <div id="container">

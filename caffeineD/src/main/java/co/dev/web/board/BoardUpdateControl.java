@@ -52,13 +52,13 @@ public class BoardUpdateControl implements Controller {
 
 			if (!param2.equals(vo.getId())) {
 				session.setAttribute("error", "작성자가 불일치합니다.");
-				response.sendRedirect("board.do");
+				response.sendRedirect("boardContents.do?no="+num);
 				return;
 			}
 			board = u_service.boardLoadOne(num); // db에서 기존내용 가져오기
 			request.setAttribute("board", board); // 가져온 내용 화면(jsp)으로 보내기
 		
-
+			
 			request.getRequestDispatcher("view/board/boardUpdate.tiles").forward(request, response);
 		}
 	}

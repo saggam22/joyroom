@@ -17,6 +17,30 @@
 	color: #2F170F;
 	font-weight: 600;
 }
+.search_form {
+ 	float: right;
+	display: inline-block;
+	font-size: 10pt;
+}
+
+.search_form input,button {
+	display: inline;
+}
+
+input[type=text] {
+	font-size: 10pt;
+	width: 150px;
+	height: 30px;
+	border: 0.1px solid rgb(90,90,90);
+}
+
+.search_btn {
+	border: 0;
+	border-radius: 4px;
+	background: #323232;
+	color: #f6f6f6;
+	
+}
 </style>
 </head>
 <body>
@@ -25,9 +49,12 @@
 
 		<section class="ftco-section">
 			<div class="container">
-				<div class="heading-section"><jsp:include
-						page="/view/admin/adminMenu.jsp"></jsp:include></div>
-
+				<div class="heading-section">
+					<jsp:include
+						page="/view/admin/adminMenu.jsp"></jsp:include>
+					
+				</div>
+				
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-wrap" style="overflow-x: hidden">
@@ -47,7 +74,7 @@
 								</thead>
 								<tbody class="text_center">
 
-									<c:forEach items="${totalReviewList }" var="review">
+									<c:forEach items="${reviewList }" var="review">
 										<tr id="${review.no }">
 											<td class="checkbox"><input type="checkbox"
 												name="review_no" value="${review.no }"></td>
@@ -69,6 +96,10 @@
 							</table>
 						</div>
 						<div id="bottom_section">
+						
+							<button class="button_no_back mini_button text_right left_btn"
+								type="button" onclick="checkChecked();" style="margin:0; padding:0;">리뷰 삭제</button>
+								
 							<jsp:include page="/view/admin/totalReviewPaging.jsp">
 								<jsp:param value="${paging.pageNum}" name="pageNum" />
 								<jsp:param value="${paging.startPage}" name="startPage" />
@@ -76,8 +107,11 @@
 								<jsp:param value="${paging.prev}" name="prev" />
 								<jsp:param value="${paging.next}" name="next" />
 							</jsp:include>
-							<button class="button_no_back mini_button text_right right_btn"
-								type="button" onclick="checkChecked();" style="margin:0; padding:0;">리뷰 삭제</button>
+							<form class="search_form" action="reviewSearch.do">
+								<input type="text" name="keyword" placeholder="검색어를 입력하세요" 
+								class="form-control mr-2" required>
+								<button class="search_btn">검색</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -91,13 +125,15 @@
 </body>
 <script>
 
+// 더보기 버튼
 document.addEventListener('DOMContentLoaded', function() {
 	
  	let contents = document.getElementsByClassName('content');
  	
+ 	// 글자 자르기
  	for (let i=0; i<contents.length; i++) {
  		let text = contents[i].innerHTML;
- 		if (text.length >= 37) { // 글자 자르기
+ 		if (text.length >= 37) { 
  			contents[i].innerHTML = text.substr(0, 37);
 	 		let moreBtn = document.createElement('button');
 	 		moreBtn.innerHTML = '더보기';
@@ -159,7 +195,7 @@ function checkChecked() {
 	
 }
 
-//광고 삭제
+// 리뷰 삭제
 function reviewDelete(ary) {
 	let result = confirm('정말로 삭제하시겠습니까?');
 

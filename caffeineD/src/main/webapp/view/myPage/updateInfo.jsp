@@ -104,69 +104,32 @@ textarea {
 
 </head>
 <body>
-<!--<center>
- <section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">정보 수정</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="table-wrap" style="overflow-x: hidden">
-						<form class="table"
-							action="${pageContext.servletContext.contextPath }/myPage.do"
-							method="post" enctype="multipart/form-data">
-							아이디: <input type="text" name="id" readonly value="${user.id }"><br>
-							비밀번호: <input type="password" name="pwd" value="${user.pwd }"><br>
-							닉네임: <input type="text" name="nickname" value="${user.nickname }"><br>
-							연락처: <input type="text" name="tel" value="${user.tel }"><br>							
-							<input type="submit" value="수정"> <a href= "${pageContext.servletContext.contextPath }/myPage.do"><input type="button" value="돌아가기"></a>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> -->
+ 
 <div id="container">
 		<section id="notice_insert_section">
 			<h2>정보 수정</h2>
 			<form class="table"
-				action="${pageContext.servletContext.contextPath }/updateInfo.do"
+				action="${pageContext.servletContext.contextPath }/realUpdate.do"
 				method="post">
 				<table border="1">
-					<tbody>
+					<tbody>					
 						<tr class="line">
 							<th>아이디</th>
-							<td><input id="id" type="text" value="${user.id}" name="id"
-								required></td>
+							<td><input id="id" type="text" value="${user.id}" name="id" required></td>
 						</tr>
 						<tr class="line">
 							<th>비밀번호</th>
-						<td><input id="pwd" type="password" value="${user.pwd }"
-							name="pwd" required></td>
+						<td><input id="pwd" type="password" value="${user.pwd }" autofocus name="pwd" required></td>
 						</tr>
-						<tr class="line">
-							
+						<tr class="line">							
 						<th>닉네임</th>
-						<td><input id="nickname" type="text"
-							value="${user.nickname }" name="nickname" required></td>
+						<td><input id="nickname" type="text" value="${user.nickname }" name="nickname" required></td>
 						</tr>
-
-						<tr class="line">
-							
+						<tr class="line">							
 						<th>연락처</th>
-						<td><input id="tel" type="text" value="${user.tel }"
-							name="tel" required></td>
-						</tr>
-						<tr class="line"><th>프로필</th>
-						<td><img
-							src="${pageContext.servletContext.contextPath }/img/profimg/${user.img}"
-							style="max-width: 100px; height: auto;">
-						</tr>
+						<td><input id="tel" type="text" value="${user.tel }" name="tel" required></td>
+						</tr>				
 						
-					
 					</tbody>
 				</table>
 				<input id="notice_insert_btn" type="submit" value="수정"> 

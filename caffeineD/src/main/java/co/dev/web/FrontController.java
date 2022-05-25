@@ -11,12 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.dev.myPage.myBoardControl;
-import co.dev.myPage.myCommentControl;
-import co.dev.myPage.myPageLoadController;
-import co.dev.myPage.updateInfoControl;
 import co.dev.web.admin.adCafeControl;
 import co.dev.web.admin.adCafeListControl;
+import co.dev.web.admin.reviewSearchControl;
 import co.dev.web.admin.totalReviewListControl;
 import co.dev.web.admin.userDeleteControl;
 import co.dev.web.admin.userListControl;
@@ -33,6 +30,11 @@ import co.dev.web.cafeinfo.CafeInfoUpdateControl;
 import co.dev.web.cafeinfo.CafeListControl;
 import co.dev.web.cafeinfo.CafeReionListControl;
 import co.dev.web.cafeinfo.CafeSearchListControl;
+import co.dev.web.myPage.myBoardControl;
+import co.dev.web.myPage.myCommentControl;
+import co.dev.web.myPage.myPageLoadController;
+import co.dev.web.myPage.realUpdateControl;
+import co.dev.web.myPage.updateInfoControl;
 import co.dev.web.notice.noticeDeleteControl;
 import co.dev.web.notice.noticeInsertControl;
 import co.dev.web.notice.noticeListControl;
@@ -76,6 +78,7 @@ public class FrontController extends HttpServlet {
 		map.put("/boardContents.do", new BoardContentsControl());
 		map.put("/boardDelete.do", new BoardDeleteControl());
 		map.put("/boardUpdate.do", new BoardUpdateControl());
+		map.put("/realUpdate.do", new realUpdateControl());
 		
 		// myPage
 		map.put("/updateInfo.do", new updateInfoControl());
@@ -131,6 +134,7 @@ public class FrontController extends HttpServlet {
 		map.put("/userDelete.do", new userDeleteControl()); //유저삭제
 		map.put("/userSearch.do", new userSearchControl()); //유저검색
 		map.put("/totalReviewList.do", new totalReviewListControl()); // 리뷰 리스트
+		map.put("/reviewSearch.do", new reviewSearchControl()); // 리뷰 검색
 		map.put("/adList.do", new adCafeListControl());	// 광고 리스트
 		map.put("/adCafeInsert.do", new adCafeControl("insert"));
 		map.put("/adCafeDelete.do", new adCafeControl("delete"));

@@ -71,11 +71,12 @@ public class ReviewService {
 		return dao.selectReviewInfo(cafeNo);
 	}
 	
-	// 평점 개수 세기
+	// 평점마다 개수 세기
 	public int[] starCountSelect(int cafeNo) {
 		return dao.selectStarCount(cafeNo);
 	}
 	
+	// 관리자페이지 페이징; 전체 리뷰 카운트
 	public int totalReviewCount() {
 		return dao.selectReviewCount();
 	}
@@ -85,13 +86,16 @@ public class ReviewService {
 		return dao.selectTotalReview(pageNum);
 	}
 	
-	// 카페 정보 간단 조회
-	public CafeVO cafeInfo(int cafeNo) {
-		return dao.selectCafeInfo(cafeNo);
+	// 리뷰 검색 페이징; 검색된 리뷰 카운트
+	public int searchReviewCount(String keyword) {
+		return dao.selectSearchReviewCount(keyword);
+	}
+	
+	// 단어로 리뷰 검색
+	public List<ReviewVO> searchReview(String keyword, int pageNum) {
+		return dao.selectReviewKeyword(keyword, pageNum);
 		
 	}
-
-	
 	
 	
 	
@@ -120,6 +124,10 @@ public class ReviewService {
 	public boolean userLogin(String userId, String userPwd) {
 		return dao.userForLogin(userId, userPwd);
 	}
+
+	
+
+	
 
 
 	
