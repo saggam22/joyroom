@@ -5,14 +5,8 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import co.dev.dao.UserDAO;
-import co.dev.service.MyPageService;
-import co.dev.service.UserService;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
@@ -31,6 +25,7 @@ public class updateInfoControl implements Controller {
 		service.setTel(user_tel);
 		UserDAO dao = new UserDAO();
 		dao.updateInfo(service);
+	
 		
 		response.sendRedirect("view/myPage/updateInfo.tiles");
 

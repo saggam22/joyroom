@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import co.dev.service.MyPageService;
+import co.dev.service.ReviewService;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
@@ -35,7 +36,10 @@ public class realUpdateControl implements Controller {
 		MyPageService service = new MyPageService();
 		service.userUpdate(user);
 		
-		request.setAttribute("myInfo", user);
+		
+		ReviewService newUser = new ReviewService();
+		UserVO vo1 = newUser.userSelect(id);
+		session.setAttribute("user", vo1);
 //		request.getSession().setAttribute("success", "정보 수정이 완료되었습니다.");
 
 		//response.sendRedirect("myPage.do");
