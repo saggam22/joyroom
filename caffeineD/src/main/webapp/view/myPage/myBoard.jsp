@@ -22,16 +22,22 @@
 	background: white;
 	color: rgb(90, 90, 90);
 }
+
+.ftco-section {
+	padding: 80px 0;
+}
+#my_board {
+	background: #d9bba9;
+	color: #2F170F;
+	font-weight: 600;
+}
+
 </style>
 </head>
 <body>
 		<section class="ftco-section">
 			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-6 text-center mb-5">
-						<h2 style="margin-top:10px;" class="heading-section">내가 쓴 글</h2>
-					</div>
-				</div>
+				<div class="heading-section"><jsp:include page="/view/myPage/myPageMenu.jsp"></jsp:include></div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-wrap" style="overflow-x: hidden">
@@ -70,7 +76,5 @@
 				</div>
 			</div>
 		</section>
-		<center>
-		<a href ="${pageContext.servletContext.contextPath }/myPage.do"><input style="margin-bottom: 10px; text-align: center" type="button" value="돌아가기"></a>
 </body>
 </html>

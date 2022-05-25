@@ -24,16 +24,22 @@
 	#user_delete_btn:hover {
 		background: #d9bba9;
 	}
+	
+	.ftco-section {
+		padding: 80px 0;
+	}
+	#my_bookmark {
+		background: #d9bba9;
+		color: #2F170F;
+		font-weight: 600;
+	}
 	</style>
 </head>
 <body>
+<div id="container">
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">MY BOOKMARK</h2>
-				</div>
-			</div>
+			<div class="heading-section"><jsp:include page="/view/myPage/myPageMenu.jsp"></jsp:include></div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap" style="overflow-x: hidden">
@@ -70,6 +76,7 @@
 			</div>
 		</div>
 	</section>
+</div>
 	<script>
 	function bookmarkDelete() {
 		if(confirm('정말로 삭제하시겠습니까?') == true ) {
