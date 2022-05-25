@@ -15,10 +15,6 @@
 		<jsp:include page="/view/admin/adminMenu.jsp"></jsp:include>
 	<section class="ftco-section">
 		<div class="container">
-			<c:if test="${!empty success }">
-				<script>alert("${success }")</script>
-				<% request.getSession().removeAttribute("success"); %>
-			</c:if>
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
 					<h2 class="heading-section">ADMIN CAFES</h2>
@@ -33,7 +29,7 @@
 						<table class="table">
 						  <thead class="thead-primary">
 						    <tr>
-						      <th>cafeNO</th>
+						      <th></th>
 						      <th>상호명</th>
 						      <th></th>
 						      <th>주소</th>
@@ -43,9 +39,9 @@
 						  <tbody>
 							<c:forEach items="${list }" var="cafe">
 						    <tr>
-									<td>${cafe.no }</td>
+									<td><input type="radio" name="cafeNo" value="${cafe.no }"></td>
 						      <td><a href="${pageContext.servletContext.contextPath }/cafeInfoSelect.do?no=${cafe.no}">${cafe.name }</a></td>
-						      <td><a href="javascript:openPop(`${cafe.img}`, `${cafe.no}`);"><img width="50px" alt="" src="<c:url value='/img/cafeimg/${cafe.img }'/>">&nbsp;&nbsp;&nbsp;수정</a></td>
+						      <td><img width="50px" alt="" src="${pageContext.servletContext.contextPath }/img/cafeimg/${cafe.img }"></td>
 						      <td>${cafe.address }</td>
 						      <td>${cafe.tel }</td>
 						    </tr>
@@ -71,48 +67,54 @@
       <div style="height: 10px; width: 375px; float: top;">
         <a href="javascript:closePop();"><img src="${pageContext.servletContext.contextPath }/img/ic_close.svg" class="m_header-banner-close" width="30px" height="30px"></a>
       </div>
+      <!--팝업 컨텐츠 영역-->
       <div class="popup_cont">
-          <h5>사진 변경</h5>
-         <div id="cafeImg"><img id="saveImg" width="250px"></div>
+          <h5> </h5>
+         <div id="cafeImg"><img id="saveImg"></div>
       </div>
-      <div id="cafeImg_input">
-         <form action="${pageContext.servletContext.contextPath }/cafeInfoUpdate.do" method="post" enctype="multipart/form-data">
-         	<input type="file" name="newImg" id="newImg" onchange="preUrl(this)">
-         	<input type="hidden" name="cafeNo" value="" />
-         	<input id="update_btn" type="submit" value="수정" />
-         </form>
-       </div>
-      <div class="popup_btn" style="float: bottom;">
+      <!--팝업 버튼 영역-->
+      <div class="popup_btn" style="float: bottom; margin-top: 200px;">
           <a href="javascript:closePop();">닫기</a>
       </div>
   </div>
 	</div>
 </div>
-	<script>	
+	<script>
 	//팝업 열기
-	function openPop(img, no) {
+	function openPop() {
 	    document.getElementById("popup_layer").style.display = "block";
-	    document.getElementById("saveImg").src = "${pageContext.servletContext.contextPath }/img/cafeimg/"+img;
-	    var cafeNo = document.getElementsByName("cafeNo");
-	    cafeNo[0].value = no;
+	    selecCafePop();
 	}
 	//팝업 닫기
 	function closePop() {
 	    document.getElementById("popup_layer").style.display = "none";
 	}
-	
-	//변경된 이미지 미리보기
-	function preUrl(input) {
-		  if (input.files && input.files[0]) {
-		    var reader = new FileReader();
-		    reader.onload = function(e) {
-		      document.getElementById('saveImg').src = e.target.result;
-		    };
-		    reader.readAsDataURL(input.files[0]);
-		  } else {
-		    document.getElementById('saveImg').src = "";
-		  }
+	//팝업창에 내용 전달
+	function selecCafePop() {
+		let cafeSelect = document.getElementsByName('cafeNo');
+		for (let i=0; i<cafeSelect.length; i++) {
+			if (cafeSelect[i].checked) {
+				console.log(cafeSelect[i].value)
+		    fetch('${pageContext.servletContext.contextPath }/cafeInfoSelect.do', {
+		    	method: 'post',
+		    	headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		    	body: 'no='+cafeSelect[i].value
+		    })
+		    	.then(result => result.json())
+		    	.then(review => {
+		    			if (review.img != null) {
+		    			
+		    			var cafeImgDiv = document.querySelector('#cafeImg');	// 이미지가 보여지는 섹션 div	
+		    			var saveImg = document.querySelector('#saveImg');
+        
+		    			firstImg.setAttribute('id', 'saveImg');
+		    			firstImg.setAttribute('src', `${pageContext.servletContext.contextPath }/img/cafeimg/${cafe.img }`);
+		    			}
+		    	})
+		    	.catch(error => console.log(error));	
+			}
 		}
+	}
 
 	</script>
 	<div id="page">
