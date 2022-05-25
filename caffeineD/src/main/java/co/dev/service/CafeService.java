@@ -23,7 +23,7 @@ public interface CafeService {
 	// 카페 등록
 	public void insertCafe(CafeVO vo);
 	// 카페 수정
-	public void updateCafe(int cafeNo, String newImg);
+	public void updateCafe(CafeVO vo);
 	// 카페 삭제
 	public void deleteCafe(int cafeNo);
 
