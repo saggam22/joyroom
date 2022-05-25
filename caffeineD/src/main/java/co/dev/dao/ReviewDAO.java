@@ -9,7 +9,7 @@ import co.dev.vo.MyReviewVO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
-public class ReviewDAO extends DAO {
+public class ReviewDAO extends DAO_mac {
 
 
 	
@@ -63,7 +63,6 @@ public class ReviewDAO extends DAO {
 
 	}
 	
-	
 	// 전체 리뷰 카운트
 	public int selectReviewCount() {
 		conn();
@@ -92,6 +91,98 @@ public class ReviewDAO extends DAO {
 
 		return 0;
 	}
+
+	
+	// 단어로 리뷰 검색
+	public List<ReviewVO> selectReviewKeyword(String keyword, int pageNum) {
+		conn();
+		
+		String sql = "SELECT * FROM ("
+				+ "       SELECT rownum rn, r.* "
+				+ "       FROM (SELECT * FROM review WHERE review_content LIKE ? ORDER BY review_no desc ) r ) "
+				+ "       WHERE rn >= ? AND rn <= ?";
+		
+		int startNum = (pageNum-1)*10+1;
+		int endNum = pageNum*10;
+		List<ReviewVO> list = new ArrayList<>();
+		
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, "%"+keyword+"%");
+			psmt.setInt(2, startNum);
+			psmt.setInt(3, endNum);
+			
+			rs = psmt.executeQuery();
+		
+			while (rs.next()) {
+				
+				ReviewVO vo = new MyReviewVO();
+				
+				vo.setCafeNo(rs.getInt("cafe_no"));
+				vo.setNo(rs.getInt("review_no"));
+				vo.setUserId(rs.getString("review_userid"));
+				vo.setUserNick(rs.getString("review_usernick"));
+				vo.setUserImg(rs.getString("review_userimg"));
+				vo.setDate(rs.getString("review_date").substring(0, 10));
+				vo.setLike(rs.getInt("review_like"));
+				vo.setStar(rs.getInt("review_star"));
+				vo.setContent(rs.getString("review_content"));
+				vo.setImg(rs.getString("review_img"));
+				
+				list.add(vo);
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				System.out.println("리뷰 검색 " + r + "건");
+				return list;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return null;
+	}
+
+	
+	public int selectSearchReviewCount(String keyword) {
+		conn();
+		String sql = "SELECT count(*) AS review_count FROM review \n"
+				+ "WHERE review_content LIKE ?\n"
+				+ "ORDER BY review_date DESC";
+		
+		try {	
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, "%"+keyword+"%");
+			
+			rs = psmt.executeQuery();
+			
+			int pageNum = 0;
+		
+			while (rs.next()) {
+				
+				pageNum = rs.getInt("review_count");
+			}
+			
+			int r = psmt.executeUpdate();
+			if (r>0) {
+				return pageNum;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return 0;
+	}
+	
 	
 	// 카페 상세 정보 리뷰 리스트 조회
 	public List<MyReviewVO> selectReviews(int cafeNo, String userId) {
@@ -593,44 +684,8 @@ public class ReviewDAO extends DAO {
 
 		return null;
 	}
-
-	// 카페 간단 조회
-	public CafeVO selectCafeInfo(int cafeNo) {
-		
-		conn();
-		String sql = "SELECT cafe_no, cafe_name, cafe_img FROM cafe "
-				+ "WHERE cafe_no=?";
-		
-		CafeVO vo = new CafeVO();
-		
-		try {
-			
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, cafeNo);
-			
-			rs = psmt.executeQuery();
-			if (rs.next()) {
-				
-				vo.setNo(Integer.valueOf(cafeNo));
-				vo.setName(rs.getString("cafe_name"));
-				vo.setImg(rs.getString("cafe_img"));
-			}
-			
-			int r = psmt.executeUpdate();
-			if (r>0) {
-				System.out.println("카페 " + r + "건 조회");
-				return vo;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-		
-		return null;
-	}
 	
+
 	
 	
 	
@@ -777,7 +832,6 @@ public class ReviewDAO extends DAO {
 
 
 
-	
 	
 	
 }

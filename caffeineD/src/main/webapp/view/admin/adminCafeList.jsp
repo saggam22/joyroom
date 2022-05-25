@@ -9,20 +9,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/table.css">
 	<link rel="stylesheet" href="css/adminCafe.css">
+	<style>
+		.ftco-section {
+			padding: 80px 0;
+		}
+		#cafe {
+			background: #d9bba9;
+			color: #2F170F;
+			font-weight: 600;
+		}
+	</style>
 </head>
 <body>
 <div id="container">
-		<jsp:include page="/view/admin/adminMenu.jsp"></jsp:include>
 	<section class="ftco-section">
 		<div class="container">
 			<c:if test="${!empty success }">
 				<script>alert("${success }")</script>
 				<% request.getSession().removeAttribute("success"); %>
 			</c:if>
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">ADMIN CAFES</h2>
-				</div>
+			<div class="heading-section">
+				<jsp:include
+					page="/view/admin/adminMenu.jsp"></jsp:include>
+					
 			</div>
 			<div class="row">
 				<div class="col-md-12">

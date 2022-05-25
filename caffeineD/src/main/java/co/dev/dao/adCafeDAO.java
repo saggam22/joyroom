@@ -7,7 +7,7 @@ import java.util.List;
 import co.dev.vo.CafeVO;
 import co.dev.vo.adCafeVO;
 
-public class adCafeDAO extends DAO {
+public class adCafeDAO extends DAO_mac {
 
 	// 메인 광고
 	public List<adCafeVO> selectAdCafe() {
@@ -95,8 +95,13 @@ public class adCafeDAO extends DAO {
 	public List<CafeVO> selectCafeList() {
 		
 		conn();
-		String sql = "SELECT cafe_no, cafe_name "
-				+ "FROM cafe";
+		String sql = "SELECT cafe_no, cafe_name FROM CAFE\n"
+				+ "WHERE cafe_no IN (\n"
+				+ "		SELECT cafe_no\n"
+				+ "		FROM cafe\n"
+				+ "		MINUS\n"
+				+ "		SELECT ad_cafe_no\n"
+				+ "		FROM ad_cafe)";
 		
 		List<CafeVO> list = new ArrayList<>();
 		
