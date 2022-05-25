@@ -9,7 +9,7 @@ import co.dev.vo.MyReviewVO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
-public class ReviewDAO extends DAO_mac {
+public class ReviewDAO extends DAO {
 
 
 	
