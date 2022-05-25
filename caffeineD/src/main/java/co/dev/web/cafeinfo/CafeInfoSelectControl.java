@@ -18,15 +18,10 @@ public class CafeInfoSelectControl implements Controller {
 
 		response.setContentType("application/json;charset=utf-8");
 		int cafeNo = Integer.parseInt(request.getParameter("no"));
-		String mybookmark = request.getParameter("mybookmark");
 		
 		System.out.println(cafeNo);
 		CafeService service = new CafeDAO();
 		CafeVO vo = service.selecCafe(cafeNo);
-		
-		if(mybookmark != null) {
-			request.setAttribute("mybookmark", "true");
-		}
 		
 		request.setAttribute("cafeinfo", vo);
 		request.getRequestDispatcher("/review.do").forward(request, response);

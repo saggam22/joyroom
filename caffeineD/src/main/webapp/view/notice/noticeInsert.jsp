@@ -94,6 +94,17 @@ textarea {
 #notice_insert_btn:hover {
 	background: #d9bba9;
 	}
+
+#preview_img {
+	position: static;
+}
+
+#preview {
+	position: relative;
+	top: 10px;
+	left: 5px;
+	margin-bottom: 10px;
+}
 	
 </style>
 <body>
@@ -107,10 +118,12 @@ textarea {
 		<tr class="line"><th>제목</th><td><input id="title" type="text" name="title" required
 			oninvalid="this.setCustomValidity('제목을 입력해주세요.')"></td></tr>
 		<tr><th>내용</th><td></td></tr>
-		<tr><td colspan="2"><div class="td_content"><textarea cols="60" row="5" id="content" name="content"></textarea></div></td></tr>
-		<tr><td colspan="2"><div class="td_content">
+		<tr><td colspan="2"><div class="td_content"><textarea style="width:100%; height:250px;" id="content" name="content"></textarea></div></td></tr>
+		<tr><td colspan="2">
+		<div class="td_content">
 			<input id="nfile" type="file" name="nfile" onchange="preUrl(this);">
-			<img id="preview" /></div></td></tr>
+			<div id="preview_img">
+			<img id="preview" /></div></div></td></tr>
 	</tbody>
 </table>
 		<input id="notice_insert_btn" type="submit" value="등록하기">

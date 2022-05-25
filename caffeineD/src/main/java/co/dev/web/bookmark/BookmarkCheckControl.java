@@ -30,16 +30,21 @@ public class BookmarkCheckControl implements Controller {
 		String userId = vo.getId();
 		
 		int cafeNo = Integer.valueOf(request.getParameter("cafeNo"));
+		String dbChange = request.getParameter("change");
 					
 		UserService service = new UserDAO();
 		boolean check = service.checkBookmark(cafeNo, userId);
 		
 		if (check) {
 			response.getWriter().print("{\"bookmarkCheck\" : \"true\"}");
-			service.deleteBookmark(cafeNo, userId);
+			if(dbChange != null) {				
+				service.deleteBookmark(cafeNo, userId);
+			}
 		} else {
 			response.getWriter().print("{\"bookmarkCheck\" : \"false\"}");
-			service.insertBookmark(cafeNo, userId);
+			if(dbChange != null) {				
+				service.insertBookmark(cafeNo, userId);
+			}
 		}
 	}
 

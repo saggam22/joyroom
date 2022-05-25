@@ -23,12 +23,10 @@
 </head>
 <body>
 <div id="container">
-
+	<div class="heading-section"><jsp:include
+						page="/view/admin/adminMenu.jsp"></jsp:include></div>
 	<section class="ftco-section">
 		<div class="container">
-			<div class="heading-section"><jsp:include
-						page="/view/admin/adminMenu.jsp"></jsp:include></div>
-						
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap" style="overflow-x: hidden">

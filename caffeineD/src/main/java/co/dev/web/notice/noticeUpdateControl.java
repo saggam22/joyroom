@@ -43,13 +43,15 @@ public class noticeUpdateControl implements Controller {
 		notice.setContent(content);
 		
 		if (saveFile != null ) {
-			if(img!=null) {	//저장된 파일이 있지만 파일 수정함	
+			if(img!=null) {	//저장된 파일이 있지만 파일 수정함
+				
 				notice.setImg(img);
+			
 			} else { //저장된 파일이 있고 수정 안함
-				notice.setImg(saveFile);					
+				notice.setImg(saveFile);
 			}	
 		} else {
-			if(img!=null) {	//만약 저장된 파일이 없고 파일 추가함	
+			if(img!=null) {	//만약 저장된 파일이 없고 파일 추가함
 				notice.setImg(img);	
 			}
 			//저장된 파일이 없고 수정 안함

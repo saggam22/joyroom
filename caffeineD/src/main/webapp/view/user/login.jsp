@@ -38,6 +38,14 @@ p {
 		request.getSession().removeAttribute("error");
 		%>
 	</c:if>
+	<c:if test="${!empty userInsert}">
+		<script>
+			alert("${userInsert }")
+		</script>
+		<%
+		request.getSession().removeAttribute("userInsert");
+		%>
+	</c:if>
 	<div id="container">
 		<h2>이메일 로그인</h2>
 		<p>가입하신 이메일로 로그인하세요.</p>

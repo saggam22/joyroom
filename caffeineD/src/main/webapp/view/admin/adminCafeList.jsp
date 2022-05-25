@@ -22,17 +22,13 @@
 </head>
 <body>
 <div id="container">
+	<div class="heading-section"><jsp:include page="/view/admin/adminMenu.jsp"></jsp:include></div>
 	<section class="ftco-section">
 		<div class="container">
 			<c:if test="${!empty success }">
 				<script>alert("${success }")</script>
 				<% request.getSession().removeAttribute("success"); %>
 			</c:if>
-			<div class="heading-section">
-				<jsp:include
-					page="/view/admin/adminMenu.jsp"></jsp:include>
-					
-			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap" style="overflow-x: hidden">
@@ -54,7 +50,7 @@
 						    <tr>
 									<td>${cafe.no }</td>
 						      <td><a href="${pageContext.servletContext.contextPath }/cafeInfoSelect.do?no=${cafe.no}">${cafe.name }</a></td>
-						      <td><a href="javascript:openPop(`${cafe.img}`, `${cafe.no}`);"><img width="50px" alt="" src="<c:url value='/img/cafeimg/${cafe.img }'/>">&nbsp;&nbsp;&nbsp;수정</a></td>
+						      <td><a href="javascript:openPop(`${cafe.img}`, `${cafe.no}`);"><img width="50px" height="38px" alt="" src="<c:url value='/img/cafeimg/${cafe.img }'/>">&nbsp;&nbsp;&nbsp;수정</a></td>
 						      <td>${cafe.address }</td>
 						      <td>${cafe.tel }</td>
 						    </tr>
@@ -67,7 +63,6 @@
 						class="form-control mr-2">
 						<button class="btn btn-success">검 색</button>
 					</form>
-					<button id="cafe_update_btn" type="button" onclick="openPop();">수정</button>
 					</c:otherwise>
 					</c:choose>
 					</div>
@@ -82,7 +77,7 @@
       </div>
       <div class="popup_cont">
           <h5>사진 변경</h5>
-         <div id="cafeImg"><img id="saveImg" width="250px"></div>
+         <div id="cafeImg"><img id="saveImg" width="250px" height="187.5px"></div>
       </div>
       <div id="cafeImg_input">
          <form action="${pageContext.servletContext.contextPath }/cafeInfoUpdate.do" method="post" enctype="multipart/form-data">

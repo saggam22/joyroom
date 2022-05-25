@@ -14,7 +14,7 @@ public class UserDAO extends DAO implements UserService {
 	public void userInsert(UserVO vo) {
 
 		conn();
-		String sql = "INSERT INTO cfn_user(user_id, user_pwd, user_nick, user_tel)" + "VALUES(?,?,?,?)";
+		String sql = "INSERT INTO cfn_user(user_id, user_pwd, user_nick, user_tel, user_img)" + "VALUES(?,?,?,?,?)";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -22,6 +22,7 @@ public class UserDAO extends DAO implements UserService {
 			psmt.setString(2, vo.getPwd());
 			psmt.setString(3, vo.getNickname());
 			psmt.setString(4, vo.getTel());
+			psmt.setString(5, vo.getImg());
 
 			int r = psmt.executeUpdate();
 			if (r > 0) {
@@ -404,19 +405,30 @@ public class UserDAO extends DAO implements UserService {
 		}
 	}
 
-	// 아이디 중복 확인
-	public boolean checkId(String userId) {
+	// 아이디, 닉네임 중복 확인
+	public boolean userInsertcheck(String category, String keyword) {
+		String column = "";
+
+		switch (category) {
+		case "id":
+			column = "user_id";
+			break;
+		case "nickname":
+			column = "user_nick";
+			break;
+		}
+
 		conn();
-		String sql = "SELECT * FROM cfn_user WHERE user_id=?";
+		String sql = "SELECT * FROM cfn_user WHERE " + column + " =?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, userId);
+			psmt.setString(1, keyword);
 
 			int r = psmt.executeUpdate();
 
 			if (r > 0) {
-				System.out.println("유저아이디 " + r + "건 조회");
+				System.out.println("유저 " + r + "건 조회");
 				return true;
 			}
 
@@ -427,31 +439,6 @@ public class UserDAO extends DAO implements UserService {
 		}
 		return false;
 	}
-
-	// 닉네임 중복 확인
-	public boolean checkNickname(String userNickname) {
-		conn();
-		String sql = "SELECT * FROM cfn_user WHERE user_nick=?";
-
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, userNickname);
-
-			int r = psmt.executeUpdate();
-
-			if (r > 0) {
-				System.out.println("유저닉네임 " + r + "건 조회");
-				return true;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconn();
-		}
-		return false;
-	}
-
 	
 	public boolean checkUser(String id) {
 		conn();

@@ -31,10 +31,8 @@ public interface UserService {
 	List<UserVO> searchUserList(String category, String keyword, int pageNum);
 	// 회원 삭제
 	public void deleteUser(String userId);
-	//아이디 중복 확인
-	public boolean checkId(String userId);
-	//닉네임 중복 확인
-	public boolean checkNickname(String userNickname);
+	//아이디, 닉네임 중복 확인
+	public boolean userInsertcheck(String category, String keyword);
 	// 임시 비밀번호 발급 -> 아이디값 받아 비밀번호 정보만 변경
 	public void updatePwd(String tempPwd, String userId);
 
