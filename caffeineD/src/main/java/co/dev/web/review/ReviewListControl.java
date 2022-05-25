@@ -29,7 +29,14 @@ public class ReviewListControl implements Controller {
 
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-
+		
+		HttpSession session = request.getSession();
+		UserVO vo = (UserVO) session.getAttribute("user");
+		String userId = null;
+		if(vo != null) {
+			userId = vo.getId();
+		}
+		
 		ReviewService service = new ReviewService();
 
 		if (job.equals("review")) {
@@ -37,7 +44,7 @@ public class ReviewListControl implements Controller {
 			CafeVO cvo = (CafeVO) request.getAttribute("cafeinfo");
 			String mybookmark = request.getParameter("mybookmark");
 
-			List<ReviewVO> reviewList = service.reviewList(cvo.getNo());
+			List<MyReviewVO> reviewList = service.reviewList(cvo.getNo(), userId);
 
 			if(mybookmark != null) {
 				request.setAttribute("mybookmark", "true");
@@ -50,61 +57,18 @@ public class ReviewListControl implements Controller {
 				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
 				return;
 
-			} else {	
-				
-				request.getRequestDispatcher("/view/cafe/cafeInfo.tiles").forward(request, response);
-				return;
-
 			}
 
 		} else if (job.equals("myReview")) {
 
-			HttpSession session = request.getSession();
-			UserVO vo = (UserVO) session.getAttribute("user");
-
-			String userId = vo.getId();
-
-			List<ReviewVO> reviewList = service.myReviewList(userId);
+			List<MyReviewVO> myList = service.myReviewList(userId);
 			
-			List<MyReviewVO> myList = new ArrayList<>();
-			
-			
-			for (int i=0; i<reviewList.size(); i++) {
-				
-				
-				MyReviewVO myVO = new MyReviewVO();
-				
-				if (service.likeInfoSelect(userId, reviewList.get(i).getNo())) {
-					
-					myVO.setLikeCheck("true");
-					
-				} else {
-					
-					myVO.setLikeCheck("false");
-				}
-				
-				CafeVO cvo = service.cafeInfo(reviewList.get(i).getCafeNo());
-				
-				myVO.setUserId(reviewList.get(i).getUserId());
-				myVO.setUserImg(reviewList.get(i).getUserImg());
-				myVO.setUserNick(reviewList.get(i).getUserNick());
-				myVO.setContent(reviewList.get(i).getContent());
-				myVO.setDate(reviewList.get(i).getDate());
-				myVO.setImg(reviewList.get(i).getImg());
-				myVO.setLike(reviewList.get(i).getLike());
-				myVO.setNo(reviewList.get(i).getNo());
-				myVO.setStar(reviewList.get(i).getStar());
-				myVO.setCafeNo(reviewList.get(i).getCafeNo());
-				myVO.setCafeName(cvo.getName());
-				myVO.setCafeImg(cvo.getImg());
-				
-				myList.add(myVO);
-				
-			}
+			if (myList != null) {
 			
 			request.setAttribute("myReviewList", myList);
 			request.getRequestDispatcher("/view/review/myReview.tiles").forward(request, response);
-
+			
+			}
 		}
 
 

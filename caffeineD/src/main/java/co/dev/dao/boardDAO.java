@@ -7,6 +7,7 @@ import java.util.List;
 import co.dev.service.boardPageService;
 import co.dev.vo.BoardVO;
 
+
 public class boardDAO extends DAO implements boardPageService {
 
 	// 게시판 페이지 갯수

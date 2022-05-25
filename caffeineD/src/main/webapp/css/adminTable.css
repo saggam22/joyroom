@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+.ftco-section {
+	padding: 80px 0;
+}
+
+.text_center {
+	text-align: center;
+}
+
+.text_right {
+	text-align: right;
+}
+
+.text_left {
+	text-align: left;
+}
+
+.button_no_back {
+	background: none;
+	border: none;
+}
+
+.table thead th {
+	padding: 15px 15px;
+}
+
+.table tbody td {
+	padding: 15px 15px;
+}
+
+.checkbox, .radio {
+	width: 50px;
+}
+
+.width_short {
+	width: 70px;
+}
+
+.width_mideum {
+	width: 90px;
+}
+
+.width_long {
+	width: 120px;
+}
+
+.width_longlong {
+	width: 200px;
+}
+
+.star {
+	color: #ffe378;
+}
+
+.date {
+	width: 130px;
+}
+
+.content {
+	line-height: 16pt;
+}
+
+.mini_button {
+	text-decoration: underline;
+	color: rgb(120, 120, 120);
+	padding: 2px;
+	margin-top: 5px;
+}
+
+.mini_button:hover {
+	color: #323232;
+}
+
+.right_btn {
+	float: right;
+}
+
+#bottom_section {
+	text-align: center;
+}
+
+#bottom_section botton {
+	margin: 0;
+	padding: 0;
+}
+
+#paging {
+	display: inline-block;
+}

@@ -73,15 +73,15 @@ public class UserDAO extends DAO implements UserService {
 		} finally {
 			disconn();
 		}
-	}	
+	}
 
-  
+
 	// 임시비밀번호 발급 -> 아이디값 받아 비밀번호 정보만 변경
 	public void updatePwd(String tempPwd, String userId) {
-		
+
 		conn();
 		String sql = "UPDATE cfn_user SET user_pwd=? where user_id =?";
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, tempPwd);
@@ -97,10 +97,8 @@ public class UserDAO extends DAO implements UserService {
 		} finally {
 			disconn();
 		}
-		
-		
-	}
 
+	}
 
 	// 북마크 추가
 	public void insertBookmark(int cafeNo, String userId) {
@@ -183,7 +181,7 @@ public class UserDAO extends DAO implements UserService {
 		return list;
 	}
 
-	// 카페 중복체크
+	// 북마크 확인(중복체크)
 	public boolean checkBookmark(int cafeNo, String userId) {
 		conn();
 		String sql = "SELECT * FROM bookmark " + "WHERE cafe_no=? AND user_id=?";
@@ -209,19 +207,19 @@ public class UserDAO extends DAO implements UserService {
 		return false;
 	}
 
-
+	// 내정보
 	public UserVO userOne(String userId) {
 		conn();
 		String sql = "select * from cfn_user where user_id = ?";
 		UserVO vo = new UserVO();
-		
+
 		try {
-			psmt =conn.prepareStatement(sql);
+			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, userId);
-			
+
 			rs = psmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				vo.setId(rs.getString("user_id"));
 				vo.setNickname(rs.getString("user_nick"));
 				vo.setTel(rs.getString("user_tel"));
@@ -231,25 +229,51 @@ public class UserDAO extends DAO implements UserService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return vo;
 	}
 
-	//유저리스트
-	public List<UserVO> userList() {
+	// 회원리스트 수
+	public int userCount() {
 		conn();
-		String sql = "SELECT * FROM cfn_user";
+		String sql = "SELECT COUNT(*) as total FROM cfn_user";
+		int count = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+
+				count = rs.getInt("total");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return count;
+	}
+
+	// 회원리스트 조회(페이징)
+	public List<UserVO> userList(int pageNum) {
+
+		int startNum = (pageNum - 1) * 10 + 1;
+		int endNum = pageNum * 10;
+		conn();
+		String sql = "SELECT * FROM (SELECT rownum rn,  a.* FROM (SELECT * FROM cfn_user ORDER BY user_id ) a ) WHERE rn >= ? AND rn <= ?";
 
 		List<UserVO> list = new ArrayList<UserVO>();
 
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, startNum);
+			psmt.setInt(2, endNum);
 			rs = psmt.executeQuery();
-			
+
 			while (rs.next()) {
 
 				UserVO vo = new UserVO();
-				
+
 				vo.setId(rs.getString("user_id"));
 				vo.setPwd(rs.getString("user_pwd"));
 				vo.setNickname(rs.getString("user_nick"));
@@ -267,7 +291,98 @@ public class UserDAO extends DAO implements UserService {
 		}
 		return list;
 	}
-	
+
+	// 검색별 회원수
+	public int userSearchCount(String category, String keyword) {
+		String column = "";
+
+		switch (category) {
+		case "id":
+			column = "user_id";
+			break;
+		case "nickname":
+			column = "user_nick";
+			break;
+		case "tel":
+			column = "user_tel";
+			break;
+		}
+
+		conn();
+		String sql = "SELECT COUNT(*) as total FROM cfn_user WHERE " + column + " LIKE '%'||?||'%'";
+		int count = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, keyword);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+
+				count = rs.getInt("total");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return count;
+	}
+
+	// 검색 조회
+	public List<UserVO> searchUserList(String category, String keyword, int pageNum) {
+
+		int startNum = (pageNum - 1) * 10 + 1;
+		int endNum = pageNum * 10;
+		String column = "";
+
+		switch (category) {
+		case "id":
+			column = "user_id";
+			break;
+		case "nickname":
+			column = "user_nick";
+			break;
+		case "tel":
+			column = "user_tel";
+			break;
+		}
+
+		conn();
+		String sql = "select * from (select rownum rn,  a.* from (select * from cfn_user where " + column
+				+ " LIKE '%'||?||'%' order by user_id ) a ) where rn >= ? and rn <= ?";
+
+		List<UserVO> list = new ArrayList<UserVO>();
+		UserVO vo = null;
+
+		try {
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, keyword);
+			psmt.setInt(2, startNum);
+			psmt.setInt(3, endNum);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+
+				vo = new UserVO();
+
+				vo.setId(rs.getString("user_id"));
+				vo.setPwd(rs.getString("user_pwd"));
+				vo.setNickname(rs.getString("user_nick"));
+				vo.setTel(rs.getString("user_tel"));
+				vo.setImg(rs.getString("user_img"));
+
+				list.add(vo);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return list;
+	}
+
 	// 회원 삭제
 	public void deleteUser(String userId) {
 		conn();
@@ -286,10 +401,10 @@ public class UserDAO extends DAO implements UserService {
 			e.printStackTrace();
 		} finally {
 			disconn();
-		}	
+		}
 	}
-	
-	//아이디 중복 확인
+
+	// 아이디 중복 확인
 	public boolean checkId(String userId) {
 		conn();
 		String sql = "SELECT * FROM cfn_user WHERE user_id=?";
@@ -312,7 +427,8 @@ public class UserDAO extends DAO implements UserService {
 		}
 		return false;
 	}
-	//닉네임 중복 확인
+
+	// 닉네임 중복 확인
 	public boolean checkNickname(String userNickname) {
 		conn();
 		String sql = "SELECT * FROM cfn_user WHERE user_nick=?";
@@ -335,5 +451,64 @@ public class UserDAO extends DAO implements UserService {
 		}
 		return false;
 	}
+
 	
+	public boolean checkUser(String id) {
+		conn();
+		String sql = "SELECT * FROM cfn_user WHERE user_id=?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+
+			int r = psmt.executeUpdate();
+
+			if (r > 0) {
+				System.out.println("유저 " + r + "건 조회");
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		
+		return false;
+	}
+	
+	public boolean kakaoUserInsert(UserVO vo) {
+
+		conn();
+		String sql = "INSERT INTO cfn_user(user_id, user_img, user_nick)" 
+					+ "VALUES(?,?,?)";
+
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, vo.getId());
+			psmt.setString(2, vo.getImg());
+			
+			if (vo.getNickname()!=null) {
+				psmt.setString(3, vo.getNickname());
+			} else {
+				psmt.setString(3, "null");
+			}
+
+			int r = psmt.executeUpdate();
+			if (r > 0) {
+				System.out.println(r + "건 입력");
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		
+		return false;
+	}
+
 }

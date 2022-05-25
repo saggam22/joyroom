@@ -26,14 +26,7 @@ public class adCafeControl implements Controller {
 		
 		response.setContentType("text/json;charset=utf-8");
 		
-		if (job.equals("view")) {
-			
-			List<CafeVO> list = service.totalCafeList();
-			
-			request.setAttribute("cafeList", list);
-			request.getRequestDispatcher("/view/admin/adCafeInsert.tiles").forward(request, response);
-			
-		} else if (job.equals("insert")) {
+		if (job.equals("insert")) {
 			
 			String adCafeNo = request.getParameter("cafe_no");
 			String adCafeInfo = request.getParameter("cafe_info");

@@ -12,7 +12,8 @@
     <title>cafeList.jsp</title>
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/theme.css">
-
+   <style>
+   </style>
 </head>
 
 <body>
@@ -46,6 +47,7 @@
     		</nav>
     	</div>
     </div>
+    
     <div class="container-fluid">
     	<div class="row">
     		<div class="card-columns">
@@ -63,6 +65,11 @@
 				</c:forEach>
     		</div>
     	</div>
+ 			<form name="findF" action="cafeSearchList.do" class="form-inline">
+			<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" 
+			class="form-control mr-2">
+			<button class="btn btn-success">검 색</button>
+			</form>
     </div>
     </section>
     </main>  

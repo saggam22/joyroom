@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.dev.service.AdService;
+import co.dev.vo.CafeVO;
 import co.dev.vo.adCafeVO;
 import co.dev.web.Controller;
 
@@ -17,9 +18,13 @@ public class adCafeListControl implements Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		AdService service = new AdService();
-		List<adCafeVO> list = service.adList();
+		List<adCafeVO> adlist = service.adList();
+		List<CafeVO> cafelist = service.totalCafeList();
 		
-		request.setAttribute("adCafeList", list);
+		
+		request.setAttribute("adCafeList", adlist);
+		request.setAttribute("cafeList", cafelist);
+		
 		request.getRequestDispatcher("/view/admin/adCafeList.tiles").forward(request, response);
 
 	}

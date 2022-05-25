@@ -15,11 +15,17 @@ h2 {
 }
 
 .body_btn {
-	margin: 30px;
+	margin-top: 30px;
+	margin-bottom: 15px;
 }
 
 p {
 	margin: 0 0 35px 0;
+}
+
+#kakao-login-btn {	
+	display: inline-block;
+	margin-bottom: 35px;
 }
 </style>
 </head>
@@ -48,14 +54,14 @@ p {
 					oninvalid="this.setCustomValidity('비밀번호를 입력해주세요.')">
 			</div>
 			<input class="body_btn" type="submit" value="Login">
-<!-- 			<div> -->
+			<div>
 
-<!-- 				<a id="custom-login-btn" href="javascript:loginWithKakao()"> <img -->
-<!-- 					src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" -->
-<!-- 					width="222" alt="카카오 로그인 버튼" /> -->
-<!-- 				</a> -->
+				<a id="kakao-login-btn" href="javascript:loginWithKakao()"> <img
+					src="${pageContext.servletContext.contextPath }/img/kakao_login_medium_narrow.png"
+					width="150" alt="카카오 로그인 버튼" />
+				</a>
 
-<!-- 			</div> -->
+			</div>
 			<div class="outer_section">
 				<a
 					href="${pageContext.servletContext.contextPath }/view/user/findId.tiles"><button
@@ -78,43 +84,49 @@ p {
 
 </body>
 
-<!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
-<!-- <script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
  	Kakao.init('84601a6d23d8e300abd7d586902cde2d');
  	console.log(Kakao.isInitialized());
 
  	function loginWithKakao() {
- 		window.Kakao.Auth.login({
-			scope : 'profile_nickname, profile_image',
- 			success : function(response) {
- 				console.log(response)
- 				window.KaKao.API.request({
- 					url : '/v2/user/me',
- 					success : (res) => {
- 						let kakao.account = res.kakao_account;
- 						console.log(kakao.account)
- 					}
- 				});
- 				window.location.href='/index.jsp';
- 			fail : function(err) {
- 				console.log(err)
- 			},
- 		})
- 	}
- 	//카카오로그아웃  
- 	function kakaoLogout() {
- 		if (Kakao.Auth.getAccessToken()) {
- 			Kakao.API.request({
- 				url : '/v1/user/unlink',
- 				success : function(response) {
- 					console.log(response)
- 				},
- 				fail : function(error) {
- 					console.log(error)
- 				},
- 			})
- 			Kakao.Auth.setAccessToken(undefined)
- 		}
- 	}
-<!-- </script> -->
+ 	    Kakao.Auth.login({
+ 	      success: function(authObj) {
+ 	        console.log(JSON.stringify(authObj));
+ 	        Kakao.API.request({
+                url: '/v2/user/me',
+                success: function(response) {
+                	console.log(response);
+					let id = "kakao_" + response.id;
+                    console.log(id);
+                    
+                    let properties = response.properties;
+                    let nickname = properties.nickname;
+                    console.log(JSON.stringify(nickname));
+                    let userImg = properties.profile_image;
+                    console.log(JSON.stringify(userImg));
+                   
+                    fetch('../../kakaoLogin.do', {
+                    	method: 'post',
+            			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            			body: `id=${'${id }'}&nickname=${'${nickname }'}&userImg=${'${userImg }'}`
+                    })
+                    	.then(result => result.json())
+                    	.then(res => {
+                    		console.log(`${'${res.messege}'}`);
+                    		location.href="<%=request.getContextPath()%>"
+                    	})
+                    	.catch(error => console.log(error))
+                	}
+                    
+                })
+ 	      },
+
+ 	      fail: function(err) {
+ 	    	 console.log(JSON.stringify(err));
+ 	      },
+ 	    })
+ 	  }
+ 	
+</script>
 </html>

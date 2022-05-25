@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,8 @@
 	<div id="container" class="text_center">
 	<h2>내 리뷰</h2>
 	<div class="review_guide text_center">
-		<p>리뷰 정책 위반 시, 관리자에 의해 리뷰가 삭제될 수 있습니다.</p>
+		<p>내 리뷰는 날짜 순으로 나열되며<br>
+		리뷰 정책 위반 시, 관리자에 의해 리뷰가 삭제될 수 있습니다.</p>
 		<div>
 			<button class="mini_button button_no_back review_guide_btn" type="button"
 									onclick="reviewGuidePop();">관련 정책 보기</button>
@@ -79,8 +81,19 @@
 								<div class="review_right text_left">
 									<div class="review_user_prof">
 										<input type="hidden" value="${user.id }" name="loginUser">
-										<span class="userProf"><img
-											src="${pageContext.servletContext.contextPath }/img/profimg/${review.userImg }"></span>
+										
+										<span class="userProf">
+											<c:set var="id" value="${review.userId }" />
+											<c:choose>
+												<c:when test="${fn:substring(id,0,5) == 'kakao' }">
+													<img src="${review.userImg }">
+												</c:when>
+												<c:otherwise>
+													<img src="${pageContext.servletContext.contextPath }/img/profimg/${review.userImg }">
+												</c:otherwise>
+											</c:choose>
+										</span>
+										
 										<span class="review_user_nick bold_text">${review.userNick }</span>
 									</div>
 									<div>

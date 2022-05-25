@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.dev.vo.CafeVO;
+import co.dev.vo.MyReviewVO;
 import co.dev.vo.ReviewVO;
 import co.dev.vo.UserVO;
 
@@ -93,33 +94,64 @@ public class ReviewDAO extends DAO {
 	}
 	
 	// 카페 상세 정보 리뷰 리스트 조회
-	public List<ReviewVO> selectReviews(int cafeNo) {
+	public List<MyReviewVO> selectReviews(int cafeNo, String userId) {
 		
 		conn();
-		String sql = "SELECT * FROM review WHERE cafe_no = ? ORDER BY review_like desc";
 		
-		List<ReviewVO> list = new ArrayList<>();
+		String sql = "";
+		
+		if (userId != null) {
+			
+			sql = "SELECT cafe_no, r.review_no, review_userid, review_usernick, review_userimg, review_date, review_like, review_star, review_content, review_img, like_check\n"
+					+ "FROM (SELECT *\n"
+					+ "        FROM review\n"
+					+ "        WHERE cafe_no=?) r LEFT OUTER JOIN (SELECT review_no, like_check\n"
+					+ "FROM review_like\n"
+					+ "where like_user = ?) l\n"
+					+ "ON r.review_no = l.review_no \n"
+					+ "ORDER BY review_like DESC";
+		} else {
+			
+			sql = "SELECT * FROM review WHERE cafe_no = ? ORDER BY review_like DESC";
+		}
+		
+		
+		List<MyReviewVO> list = new ArrayList<>();
 		
 		try {
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, cafeNo);
+			
+			if(userId != null) {
+				psmt.setString(2, userId);				
+			}
+			
 			rs = psmt.executeQuery();
 		
 			while (rs.next()) {
 				
-				ReviewVO vo = new ReviewVO();
+				MyReviewVO vo = new MyReviewVO();
 				
 				vo.setCafeNo(rs.getInt("cafe_no"));
 				vo.setNo(rs.getInt("review_no"));
-				vo.setContent(rs.getString("review_content"));
-				vo.setDate(rs.getString("review_date").substring(0, 10));
-				vo.setImg(rs.getString("review_img"));
-				vo.setLike(rs.getInt("review_like"));
-				vo.setStar(rs.getInt("review_star"));
 				vo.setUserId(rs.getString("review_userid"));
 				vo.setUserNick(rs.getString("review_usernick"));
 				vo.setUserImg(rs.getString("review_userimg"));
+				vo.setDate(rs.getString("review_date").substring(0, 10));
+				vo.setLike(rs.getInt("review_like"));
+				vo.setStar(rs.getInt("review_star"));
+				vo.setContent(rs.getString("review_content"));
+				vo.setImg(rs.getString("review_img"));
+				
+				if(userId != null) {
+					
+					if (rs.getString("like_check") == null) {
+						vo.setLikeCheck("false");
+					} else {
+						vo.setLikeCheck("true");
+					}
+				}
 				
 				list.add(vo);
 			}
@@ -140,40 +172,57 @@ public class ReviewDAO extends DAO {
 	}
 	
 	// 내 리뷰 리스트
-	public List<ReviewVO> myReviewSelect(String userId) {
+	public List<MyReviewVO> myReviewSelect(String userId) {
 			
 		conn();
-		String sql = "SELECT * FROM review WHERE review_userid = ? ORDER BY review_date desc";
+		String sql = "select cafe_no, cafe_name, cafe_img, r.review_no, review_userid, review_usernick, review_userimg, review_date, review_like, review_star, review_content, review_img, like_check "
+				+ "from (select c.cafe_no, cafe_name, cafe_img, review_no, review_userid, review_usernick, review_userimg, review_date, review_like, review_star, review_content, review_img "
+				+ "        from cafe c, review r "
+				+ "        where c.cafe_no=r.cafe_no) r LEFT OUTER JOIN (select review_no, like_check "
+				+ "from review_like\n"
+				+ "where like_user = ?) l "
+				+ "ON r.review_no = l.review_no "
+				+ "WHERE review_userid = ?"
+				+ "ORDER BY review_date desc";
 		
-		List<ReviewVO> list = new ArrayList<>();
+		List<MyReviewVO> list = new ArrayList<>();
 			
 		try {
-				
+			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, userId);
+			psmt.setString(2, userId);
 			rs = psmt.executeQuery();
 			
 			while (rs.next()) {
-					
-				ReviewVO vo = new ReviewVO();
+				
+				MyReviewVO vo = new MyReviewVO();
 					
 				vo.setCafeNo(rs.getInt("cafe_no"));
+				vo.setCafeName(rs.getString("cafe_name"));
+				vo.setCafeImg(rs.getString("cafe_img"));
 				vo.setNo(rs.getInt("review_no"));
-				vo.setContent(rs.getString("review_content"));
-				vo.setDate(rs.getString("review_date").substring(0, 10));
-				vo.setImg(rs.getString("review_img"));
-				vo.setLike(rs.getInt("review_like"));
-				vo.setStar(rs.getInt("review_star"));
 				vo.setUserId(rs.getString("review_userid"));
 				vo.setUserNick(rs.getString("review_usernick"));
 				vo.setUserImg(rs.getString("review_userimg"));
+				vo.setDate(rs.getString("review_date").substring(0, 10));
+				vo.setLike(rs.getInt("review_like"));
+				vo.setStar(rs.getInt("review_star"));
+				vo.setContent(rs.getString("review_content"));
+				vo.setImg(rs.getString("review_img"));
+				
+				if (rs.getString("like_check") == null) {
+					vo.setLikeCheck("false");
+				} else {
+					vo.setLikeCheck("true");
+				}
 					
 				list.add(vo);
 			}
 				
 			int r = psmt.executeUpdate();
 			if (r>0) {
-				System.out.println("리뷰 " + r + "건 조회");
+				System.out.println("내 리뷰 " + r + "건 조회");
 			}
 				
 			return list;
