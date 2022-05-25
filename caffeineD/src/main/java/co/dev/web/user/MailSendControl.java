@@ -23,10 +23,10 @@ public class MailSendControl implements Controller {
 		String key = MailSendControl.createKey();
 		String subject = "[ 카페인디 ] 비밀번호 찾기를 위한 인증코드";
 		String msg = "";
-		msg += "<div align='center' style='border:1px solid black;>";
+		msg += "<div align='center' style='border:1px solid black;'>";
 		msg += "<h3> 비밀번호 찾기 인증코드 입니다. </h3>";
 		msg += "비밀번호 찾기 페이지로 돌아가 인증코드 <strong>";
-		msg += key + "</strong>을(를) 입력해 주세요.<div><br>";
+		msg += key + "</strong>을(를) 입력해 주세요.</div><br>";
 		
 		sendMail(userId, subject, msg);
 		

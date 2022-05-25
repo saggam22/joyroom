@@ -70,11 +70,11 @@
 								</tr>
 							<tbody>								
 									<tr>
-										<td>${user.id }</td>
-										<td>${user.nickname }</td>
-										<td>${user.tel }</td>
+										<td>${myInfo.id }</td>
+										<td>${myInfo.nickname }</td>
+										<td>${myInfo.tel }</td>
 										<td><img
-											src="${pageContext.servletContext.contextPath }/img/profimg/${user.img}"
+											src="${pageContext.servletContext.contextPath }/img/profimg/${myInfo.img}"
 											style="max-width: 100px; height: auto;">
 									</tr>								
 							</tbody>

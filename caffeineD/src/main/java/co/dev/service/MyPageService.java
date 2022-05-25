@@ -27,7 +27,4 @@ public class MyPageService {
 	public UserVO userSearch(String id) {
 		return dao.searchInfo(id);
 	}
-	public List<UserVO> userList(){
-		return dao.userList();
-	}
 }

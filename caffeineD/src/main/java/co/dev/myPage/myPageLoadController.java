@@ -1,7 +1,6 @@
 package co.dev.myPage;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import co.dev.dao.UserDAO;
-import co.dev.service.MyPageService;
+import co.dev.service.UserService;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
 
@@ -20,7 +19,6 @@ public class myPageLoadController implements Controller {
 
 		HttpSession session = request.getSession();
 		UserVO vo = (UserVO) session.getAttribute("user");
-		UserVO user = new UserVO();
 
 		if (vo == null) {
 			session.setAttribute("error", "로그인이 필요합니다. 로그인 페이지로 이동합니다.");
@@ -29,15 +27,10 @@ public class myPageLoadController implements Controller {
 		} else {
 			System.out.println("로그인유저 : " + vo.getId());
 
-			MyPageService service = new MyPageService();
-			List<UserVO> list = service.userList();
-			request.setAttribute("list", list);
-//			user = service.userOne(vo.getId());
+			UserService service = new UserDAO();
+			UserVO user = service.userOne(vo.getId());
+			request.setAttribute("myInfo", user);
 
-			// session.setAttribute("success", "댓글을 작성했습니다.");
-			// response.sendRedirect("index.jsp");
-
-//			request.setAttribute("user", user);
 			request.getRequestDispatcher("view/myPage/myPage.tiles").forward(request, response);
 		}
 
