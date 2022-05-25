@@ -8,27 +8,30 @@
 <title>totalReviewList.jsp</title>
 <link href="${pageContext.servletContext.contextPath }/css/table.css"
 	rel="stylesheet">
-<link href="${pageContext.servletContext.contextPath }/css/adminTable.css"
+<link
+	href="${pageContext.servletContext.contextPath }/css/adminTable.css"
 	rel="stylesheet">
-	<style>
-		#review {
-			background: #d9bba9;
-			color: #323232;
-		}
-	</style>
+<style>
+#review {
+	background: #d9bba9;
+	color: #2F170F;
+	font-weight: 600;
+}
+</style>
 </head>
 <body>
 	<div id="container">
-		
+
 
 		<section class="ftco-section">
 			<div class="container">
-			<div class="heading-section"><jsp:include page="/view/admin/adminMenu.jsp"></jsp:include></div>
-			
+				<div class="heading-section"><jsp:include
+						page="/view/admin/adminMenu.jsp"></jsp:include></div>
+
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-wrap" style="overflow-x: hidden">
-						
+
 							<table class="table">
 								<thead class="thead-primary text_center">
 									<tr>
@@ -53,29 +56,29 @@
 											<td class="width_longlong">${review.userId }</td>
 											<td class="width_long">${review.date }</td>
 											<td class="width_short">${review.like }</td>
-											<td class="width_mideum star">
-												<c:if test="${review.star eq '5' }">★★★★★</c:if>
-												<c:if test="${review.star eq '4' }">★★★★☆</c:if>
-												<c:if test="${review.star eq '3' }">★★★☆☆</c:if>
-												<c:if test="${review.star eq '2' }">★★☆☆☆</c:if>
-												<c:if test="${review.star eq '1' }">★☆☆☆☆</c:if>
-											</td>
+											<td class="width_mideum star"><c:if
+													test="${review.star eq '5' }">★★★★★</c:if> <c:if
+													test="${review.star eq '4' }">★★★★☆</c:if> <c:if
+													test="${review.star eq '3' }">★★★☆☆</c:if> <c:if
+													test="${review.star eq '2' }">★★☆☆☆</c:if> <c:if
+													test="${review.star eq '1' }">★☆☆☆☆</c:if></td>
 											<td class="content text_left">${review.content }</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
-						<jsp:include page="/view/admin/totalReviewPaging.jsp">
-							<jsp:param value="${paging.pageNum}" name="pageNum" />
-							<jsp:param value="${paging.startPage}" name="startPage" />
-							<jsp:param value="${paging.endPage}" name="endPage" />
-							<jsp:param value="${paging.prev}" name="prev" />
-							<jsp:param value="${paging.next}" name="next" />
-						</jsp:include>
-						<button class="button_no_back mini_button text_right" type="button" onclick="checkChecked();"
-							style="margin-bottom: 10px;"
-						>리뷰 삭제</button>
+						<div id="bottom_section">
+							<jsp:include page="/view/admin/totalReviewPaging.jsp">
+								<jsp:param value="${paging.pageNum}" name="pageNum" />
+								<jsp:param value="${paging.startPage}" name="startPage" />
+								<jsp:param value="${paging.endPage}" name="endPage" />
+								<jsp:param value="${paging.prev}" name="prev" />
+								<jsp:param value="${paging.next}" name="next" />
+							</jsp:include>
+							<button class="button_no_back mini_button text_right right_btn"
+								type="button" onclick="checkChecked();" style="margin:0; padding:0;">리뷰 삭제</button>
+						</div>
 					</div>
 				</div>
 			</div>
