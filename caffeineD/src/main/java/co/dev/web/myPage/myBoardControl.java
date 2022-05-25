@@ -1,4 +1,4 @@
-package co.dev.myPage;
+package co.dev.web.myPage;
 
 import java.io.IOException;
 import java.util.List;

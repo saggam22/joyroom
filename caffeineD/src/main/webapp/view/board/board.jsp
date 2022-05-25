@@ -34,21 +34,21 @@
 		<table class="table">
 			<thead class="thead-primary">
 				<tr>
-					<th class="num">번호</th>
-					<th class="title">제목</th>
-					<th class="name">작성자</th>
-					<th class="date">작성일</th>
-					<th class="view">조회수</th>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${all }" var="board">
+				<c:forEach items="${all }" var="board" varStatus="status">
 					<tr>
-						<td class="num">${board.no }</td>
-						<td class="title"><a href="boardContents.do?no=${board.no}">${board.title }</a></td>
-						<td class="name">${board.user_id }</td>
-						<td class="date">${board.date }</td>
-						<td class="view">${board.view }</td>
+						<th scope="row">${fn:length(all) - status.index }</th>
+						<td><a href="boardContents.do?no=${board.no}">${board.title }</a></td>
+						<td>${board.user_id }</td>
+						<td>${board.date }</td>
+						<td>${board.view }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -66,7 +66,7 @@
 	</div>
 	</div>
 	<center>
-		<a href="view/board/boardWrite.tiles"><input type="button"
+		<a id="notice_insert_btn" href="view/board/boardWrite.tiles"><input type="button"
 			value="글쓰기"></a>
 </body>
 </html>

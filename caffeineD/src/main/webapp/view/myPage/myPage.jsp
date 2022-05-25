@@ -28,27 +28,6 @@
 </style>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${!empty error}">
-			<script>
-				alert("${error }", "로그인이 필요합니다.")
-			</script>
-			<%
-			request.getSession().removeAttribute("error");
-			%>
-		</c:when>
-		<c:otherwise>
-			<c:if test="${!empty success }">
-				<script>
-					alert("${success }")
-				</script>
-				<%
-				request.getSession().removeAttribute("success");
-				%>
-			</c:if>
-		</c:otherwise>
-	</c:choose>
-
 	<section class="ftco-section">
 		<div class="container">
 
@@ -68,30 +47,29 @@
 									<th>연락처</th>
 									<th>프로필</th>
 								</tr>
-							<tbody>								
-									<tr>
-										<td>${myInfo.id }</td>
-										<td>${myInfo.nickname }</td>
-										<td>${myInfo.tel }</td>
-										<td><img
-											src="${pageContext.servletContext.contextPath }/img/profimg/${myInfo.img}"
-											style="max-width: 100px; height: auto;">
-									</tr>								
+							<tbody>
+								<tr>
+									<td>${myInfo.id }</td>
+									<td>${myInfo.nickname }</td>
+									<td>${myInfo.tel }</td>
+									<td><img
+										src="${pageContext.servletContext.contextPath }/img/profimg/${myInfo.img}"
+										style="max-width: 100px; height: auto;">
+								</tr>
 							</tbody>
 						</table>
 					</div>
 					<center>
-						<a
-							href="${pageContext.servletContext.contextPath }/updateInfo.do"><input
+						<a href="${pageContext.servletContext.contextPath }/updateInfo.do?=${user.id}"><input
 							type="button" value="정보 수정"></a> <a
 							href="${pageContext.servletContext.contextPath }/myBoard.do"><input
-							type="button" value="작성글 보기"></a> <a
+							type="button" value="내 글"></a> <a
 							href="${pageContext.servletContext.contextPath }/myComment.do"><input
-							type="button" value="작성댓글 보기"></a> <a
+							type="button" value="내 댓글"></a> <a
 							href="${pageContext.servletContext.contextPath }/myReview.do"><input
-							type="button" value="내 리뷰"></a>  <a
-              href="${pageContext.servletContext.contextPath }/myBookmark.do"><input
-			        type="button" value="내 북마크"></a>
+							type="button" value="내 리뷰"></a> <a
+							href="${pageContext.servletContext.contextPath }/myBookmark.do"><input
+							type="button" value="내 북마크"></a>
 				</div>
 			</div>
 		</div>

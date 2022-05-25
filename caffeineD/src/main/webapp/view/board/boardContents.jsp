@@ -184,7 +184,7 @@ html, body {
 
 .article-detail>.article-writer {
 	width: 100px;
-	height: 86px;
+	height: 90px;
 	background-color: lightgray;
 	border-bottom: 1px solid lightgray;
 	text-align: center;
@@ -260,13 +260,13 @@ html, body {
 #p{
 	display: block;
 	float:left;
+	text-align:left;
 }
 
 </style>
 </head>
-<body>
-	<center>
-		<h2 style="margin-bottom:10px; margin-top:10px;">작성 글</h2>
+<body>	
+		<h2 style="margin-bottom:10px; margin-top:10px; align="center">작성 글</h2>
 		<c:choose>
 			<c:when test="${empty contents }">
 				<h2>게시글이 없습니다.</h2>
@@ -278,7 +278,7 @@ html, body {
 					</div>
 					<table class="cell" border="1">
 						<colgroup>
-							<col width="100px">
+							<col width="100px">							
 						</colgroup>
 						<tbody>
 							<tr class="article-title">
@@ -287,11 +287,11 @@ html, body {
 								<th>글번호</th>
 								<td colspan="3">${contents.no }</td>
 							</tr>
-							<tr class="article-info">
+							<tr class="article-title">
 								<th>날짜</th>
-								<td>${contents.date }</td>
+								<td colspan="3">${contents.date }</td>
 								<th>조회수</th>
-								<td>${contents.view}</td>
+								<td colspan="3">${contents.view}</td>
 							</tr>
 							<tr class="article-body">
 								<td></td>
@@ -303,8 +303,8 @@ html, body {
 					<p id="p">${contents.content }</p>					
 			</c:otherwise>
 		</c:choose>
-		<br> <br>
-		<div style="margin-left: 40%; margin-top: 10px; margin-bottom:10px;">
+		<br> <br>		
+		<div style="margin-left: 86%; margin-top: 10px; margin-bottom:10px;">
 			<a href="boardUpdate.do?no=${contents.no}&user=${contents.user_id}"><input
 				type="button" value="수정"></a> <a
 				href="boardDelete.do?no=${contents.no}&user=${contents.user_id}"><input
@@ -330,15 +330,13 @@ html, body {
 						<form>
 							<table border="1">
 								<thead>
-									<tr>
-										<!-- <th>번호</th> -->
+									<tr>										
 										<th>작성자</th>
 										<th>댓글내용</th>
 									</tr>
 								<tbody>
 									<c:forEach items="${comments }" var="comment">
 										<tr>
-											<!--<td>${comment.comment_no }</td> -->
 											<td>${comment.user_id }</td>
 											<td>${comment.comment_content }</td>
 										</tr>
@@ -351,9 +349,9 @@ html, body {
 		</c:choose>
 		<form style="margin-top: 10px;"	action="boardContents.do?no=${contents.no}" method="post">
 			<textarea style="margin-top: 10px;" name="comment"
-				placeholder="바르고 고운말을 씁시다." rows="3" cols="105" required></textarea>
+				placeholder="바르고 고운말을 씁시다." rows="3" cols="106" required></textarea>
 			<br>
-			<div style="margin-left: 75%; margin-top: 5px; margin-bottom: 5px;">
+			<div style="margin-left: 82%; margin-top: 5px; margin-bottom: 5px;">
 				<input type="submit" value="댓글등록"> <a href="board.do"><input
 					type="button" value="돌아가기"></a>
 			</div>
