@@ -76,6 +76,10 @@
 	float: right;
 }
 
+.left_btn {
+	float: left;
+}
+
 #bottom_section {
 	text-align: center;
 }

@@ -18,24 +18,37 @@
 	color: #2F170F;
 	font-weight: 600;
 }
+
 textarea {
 	border: solid 0.2px rgb(90, 90, 90);
 	width: 100%;
-	height: 80px;
+	height: 200px;
+	resize:none;
 }
 
 #table {
 	width: 100%;
-	text-align: left;
 	font-size: 14px;
-	margin:20px;
-	
+	margin-top: 20px;
 }
 
 #table tbody td {
 	padding: 10px;
 	background: #f6f6f6;
 	background: white;
+}
+
+.table_left {
+	width: 100px;
+}
+
+.table_right {
+	width: 100%;
+}
+
+#cafe_name {
+	width: 100%;
+	height: 30px;
 }
 
 .wrap {
@@ -67,10 +80,9 @@ textarea {
 
 .pop_wrap .pop_inner {
 	display: inline-block;
-	padding: 20px 20px;
+	padding: 30px;
 	background: #fff;
-	width: 700px;
-	height: 460px;
+	width: 500px;
 	vertical-align: middle;
 	font-size: 15px;
 	text-align: left;
@@ -129,31 +141,36 @@ textarea {
 			</div>
 		</section>
 
+		<!-- 광고 등록 -->
 		<section class="wrap">
 			<div id="adInsert" class="pop_wrap">
 				<div class="pop_inner">
 					<!-- 팝업 닫기 -->
 					<button type="button" id="btn_close" class="button_no_back">X</button>
-					<form
+					<form name="ad_insert"
 						action="${pageContext.servletContext.contextPath }/adCafeInsert.do"
 						method="get">
 						<table id="table">
 							<tbody class="text_left">
 								<tr>
-									<td class="table_left">선택</td>
-									<td class="table_right"><select name="cafe_no">
+									<td class="table_td">
+										<select id="cafe_name" name="cafe_no">
 											<c:forEach items="${cafeList }" var="cafe">
 												<option value="${cafe.no }">${cafe.name }</option>
 											</c:forEach>
-									</select></td>
+										</select>
+									</td>
 								</tr>
 								<tr>
-									<td class="table_left">내용</td>
-									<td class="table_right"><textarea name="cafe_info"></textarea></td>
+									<td style="line-height: 16pt;">광고를 등록할 카페를 선택해 주세요.<br>
+										목록에 없는 카페는 이미 광고가 등록된 카페입니다.
+									</td>
+								</tr>
 								<tr>
-									<td></td>
-									<td class="table_right text_right"><button
-											class="mini_button button_no_back" type="submit">등록</button></td>
+									<td class="table_td"><textarea name="cafe_info"></textarea></td>
+								<tr>
+									<td class="table_td text_right"><button
+											class="mini_button button_no_back" type="submit" onclick="return textCheck();">등록</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -164,7 +181,19 @@ textarea {
 
 	</div>
 </body>
-<script> 
+<script>
+
+
+function textCheck() {
+	
+	const frm = document.ad_insert;
+	
+	if (!frm.value) {
+		alert('내용을 입력하세요.');
+		return false;
+	} 
+	
+}
 
 document.addEventListener('DOMContentLoaded', function() {
 	

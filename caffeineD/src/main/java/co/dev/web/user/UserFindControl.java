@@ -61,13 +61,14 @@ public class UserFindControl implements Controller {
 			
 			String inputId = request.getParameter("id");
 			UserVO uvo = reService.userSelect(inputId);
-			userId = uvo.getId();
+			
 
 			if(userId.isEmpty()) {
 				request.setAttribute("error", "입력하신 정보로 조회되는 아이디가 없습니다.");
 				request.getRequestDispatcher("/view/user/findPwd.tiles").forward(request, response);
 				return;
 			} else {
+				userId = uvo.getId();
 				session.setAttribute("inputId", userId);
 				request.getRequestDispatcher("/mailSend.do").forward(request, response);
 				return;

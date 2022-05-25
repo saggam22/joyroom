@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.dev.web.admin.adCafeControl;
 import co.dev.web.admin.adCafeListControl;
+import co.dev.web.admin.reviewSearchControl;
 import co.dev.web.admin.totalReviewListControl;
 import co.dev.web.admin.userDeleteControl;
 import co.dev.web.admin.userListControl;
@@ -133,6 +134,7 @@ public class FrontController extends HttpServlet {
 		map.put("/userDelete.do", new userDeleteControl()); //유저삭제
 		map.put("/userSearch.do", new userSearchControl()); //유저검색
 		map.put("/totalReviewList.do", new totalReviewListControl()); // 리뷰 리스트
+		map.put("/reviewSearch.do", new reviewSearchControl()); // 리뷰 검색
 		map.put("/adList.do", new adCafeListControl());	// 광고 리스트
 		map.put("/adCafeInsert.do", new adCafeControl("insert"));
 		map.put("/adCafeDelete.do", new adCafeControl("delete"));
