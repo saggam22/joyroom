@@ -252,109 +252,118 @@ html, body {
 	content: " : ";
 	font-weight: bold;
 }
-#iii{
-	display:block;
-	width:300px;
-	float:left;
-}
-#p{
+
+#iii {
 	display: block;
-	float:left;
-	text-align:left;
+	width: 300px;
+	float: left;
 }
 
+#p {
+	display: block;
+	float: left;
+	text-align: left;
+}
 </style>
 </head>
-<body>	
-		<h2 style="margin-bottom:10px; margin-top:10px; align="center">작성 글</h2>
-		<c:choose>
-			<c:when test="${empty contents }">
-				<h2>게시글이 없습니다.</h2>
-			</c:when>
-			<c:otherwise>
-				<section class="article-detail table-common con row">
-					<div class="article-writer cell">
-						<span>${user_id }</span>
-					</div>
-					<table class="cell" border="1">
-						<colgroup>
-							<col width="100px">							
-						</colgroup>
-						<tbody>
-							<tr class="article-title">
-								<th>제목</th>
-								<td colspan="3">${contents.title}</td>
-								<th>글번호</th>
-								<td colspan="3">${contents.no }</td>
-							</tr>
-							<tr class="article-title">
-								<th>날짜</th>
-								<td colspan="3">${contents.date }</td>
-								<th>조회수</th>
-								<td colspan="3">${contents.view}</td>
-							</tr>
-							<tr class="article-body">
-								<td></td>
-								<td colspan="4"></td>
-							</tr>
-						</tbody>
-					</table>
-					<p><img id="iii" src="${pageContext.servletContext.contextPath }/img/${contents.img }"></p>
-					<p id="p">${contents.content }</p>					
-			</c:otherwise>
-		</c:choose>
-		<br> <br>		
-		<div style="margin-left: 86%; margin-top: 10px; margin-bottom:10px;">
-			<a href="boardUpdate.do?no=${contents.no}&user=${contents.user_id}"><input
-				type="button" value="수정"></a> <a
-				href="boardDelete.do?no=${contents.no}&user=${contents.user_id}"><input
-				type="button" value="삭제"></a>
-		</div>
-		<hr>
-		<c:choose>
-			<c:when test="${empty comments }">
-				<p>댓글이 없습니다.</p>
-			</c:when>
-			<c:otherwise>
-				<section class="reply-list table-common">
-					<table border="1">
-						<colgroup>
-							<col width="100px">
-						</colgroup>
-						<thead>
-							<tr>
-								<th>작성자</th>
-								<th>댓글내용</th>
-							</tr>
-						</thead>
-						<form>
-							<table border="1">
-								<thead>
-									<tr>										
-										<th>작성자</th>
-										<th>댓글내용</th>
+<body>
+	<div align="center">
+		<h2 style="margin-bottom: 10px; margin-top: 10px;"center">작성 글</h2>
+	</div>
+	<c:choose>
+		<c:when test="${empty contents }">
+			<h2>게시글이 없습니다.</h2>
+		</c:when>
+		<c:otherwise>
+			<section class="article-detail table-common con row">
+				<div class="article-writer cell">
+					<span>${user_id }</span>
+				</div>
+				<table class="cell" border="1">
+					<colgroup>
+						<col width="100px">
+					</colgroup>
+					<tbody>
+						<tr class="article-title">
+							<th>제목</th>
+							<td colspan="3">${contents.title}</td>
+							<th>글번호</th>
+							<td colspan="3">${contents.no }</td>
+						</tr>
+						<tr class="article-title">
+							<th>날짜</th>
+							<td colspan="3">${contents.date }</td>
+							<th>조회수</th>
+							<td colspan="3">${contents.view}</td>
+						</tr>
+						<tr class="article-body">
+							<td></td>
+							<td colspan="4"></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<img id="iii"
+						src="${pageContext.servletContext.contextPath }/img/${contents.img }">
+				</p>
+				<p id="p">${contents.content }</p>
+		</c:otherwise>
+	</c:choose>
+	<br>
+	<br>
+	<div style="margin-left: 86%; margin-top: 10px; margin-bottom: 10px;">
+		<a href="boardUpdate.do?no=${contents.no}&user=${contents.user_id}"><input
+			type="button" value="수정"></a> <a
+			href="boardDelete.do?no=${contents.no}&user=${contents.user_id}"><input
+			type="button" value="삭제"></a>
+	</div>
+	<hr>
+	<c:choose>
+		<c:when test="${empty comments }">
+			<p>댓글이 없습니다.</p>
+		</c:when>
+		<c:otherwise>
+			<section class="reply-list table-common">
+				<table border="1">
+					<colgroup>
+						<col width="100px">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>작성자</th>
+							<th>댓글내용</th>
+						</tr>
+					</thead>
+					<form>
+						<table border="1">
+							<thead>
+								<tr>
+									<th>작성자</th>
+									<th>댓글내용</th>
+								</tr>
+							<tbody>
+								<c:forEach items="${comments }" var="comment">
+									<tr>
+										<td>${comment.user_id }</td>
+										<td>${comment.comment_content }</td>
 									</tr>
-								<tbody>
-									<c:forEach items="${comments }" var="comment">
-										<tr>
-											<td>${comment.user_id }</td>
-											<td>${comment.comment_content }</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+								</c:forEach>
+							</tbody>
+						</table>
 
-						</form>
-			</c:otherwise>
-		</c:choose>
-		<form style="margin-top: 10px;"	action="boardContents.do?no=${contents.no}" method="post">
-			<textarea style="margin-top: 10px;" name="comment"
-				placeholder="바르고 고운말을 씁시다." rows="3" cols="106" required></textarea>
-			<br>
-			<div style="margin-left: 82%; margin-top: 5px; margin-bottom: 5px;">
-				<input type="submit" value="댓글등록"> <a href="board.do"><input
-					type="button" value="돌아가기"></a>
-			</div>
-		</form>
+					</form>
+					</c:otherwise>
+					</c:choose>
+					<form style="margin-top: 10px;"
+						action="boardContents.do?no=${contents.no}" method="post">
+						<textarea style="margin-top: 10px;" name="comment"
+							placeholder="바르고 고운말을 씁시다." rows="3" cols="106" required></textarea>
+						<br>
+						<div
+							style="margin-left: 82%; margin-top: 5px; margin-bottom: 5px;">
+							<input type="submit" value="댓글등록"> <a href="board.do"><input
+								type="button" value="돌아가기"></a>
+						</div>
+					</form>
 </body>
 </html>
