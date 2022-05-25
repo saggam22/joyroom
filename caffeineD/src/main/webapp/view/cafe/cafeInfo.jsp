@@ -59,7 +59,7 @@
 						} 
 					});
 				</script>
-    			<div class="card-body">
+    			<div class="card-body" onload="checkBtn">
     				<h1 class="card-title display-4">
     				INFORMATION</h1>
     				<ul style="list-style-type: none">
@@ -68,10 +68,7 @@
     					<li>${cafeinfo.tel }</li>
     				</ul>
     				<small class="d-block"><a class="btn btn-sm btn-gray200" href='#' onclick="changeBtn()" id="bookmarkBtn">
-    				<c:choose>
-    					<c:when test="${!empty mybookmark }"><img id=mark src="${pageContext.servletContext.contextPath }/img/bookmark.png" width="30px"></c:when>
-    					<c:otherwise><img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="30px"></c:otherwise>
-    				</c:choose> Bookmark</a></small>
+						<img id=mark src="${pageContext.servletContext.contextPath }/img/unbookmark.png" width="30px"> Bookmark</a></small>
     				<!-- 북마크 기능
                     ================================================== -->
     				<div id="comments" class="mt-4">
@@ -81,8 +78,8 @@
              function changeBtn() {
 							fetch('${pageContext.servletContext.contextPath }/bookmarkCheck.do', {
 									method: 'post',
-							headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-							body: 'cafeNo=${cafeinfo.no}'
+									headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+									body: 'cafeNo=${cafeinfo.no}&change=db'
 								})
 								.then(result =>result.json())
 								.then(result => {
@@ -101,6 +98,26 @@
 								})
 								.catch(error => console.log(error));
 							}
+             
+             window.addEventListener('DOMContentLoaded', function(){
+							fetch('${pageContext.servletContext.contextPath }/bookmarkCheck.do', {
+								method: 'post',
+								headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+								body: 'cafeNo=${cafeinfo.no}'
+							})
+							.then(result =>result.json())
+							.then(result => {
+							console.log(typeof result.bookmarkCheck);
+								if(result.bookmarkCheck == "false") {
+									let tag = document.getElementById("mark");
+									tag.setAttribute("src","${pageContext.servletContext.contextPath }/img/unbookmark.png");
+							} else {
+								let tag = document.getElementById("mark");
+								tag.setAttribute("src","${pageContext.servletContext.contextPath }/img/bookmark.png");
+							}
+						})
+						.catch(error => console.log(error));
+            	})
              </script>
     				</div>
     			</div>

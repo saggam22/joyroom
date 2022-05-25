@@ -23,7 +23,7 @@
 }
 
 h2 {
-	margin: 50px 0 15px 0;
+	margin: 50px 0 30px 0;
 	font-size: 25pt;
 }
 
@@ -78,7 +78,12 @@ form {
 <body>
 	<section id="user_insert_section">
 	<h2>회원가입</h2>
-	<form action="${pageContext.servletContext.contextPath }/userInsert.do" method="post" name="insert">
+	<form action="${pageContext.servletContext.contextPath }/userInsert.do" method="post" name="insert" enctype="multipart/form-data">
+		<div class="profile_section">
+			<label for="profileImg" style="text-align: center;">
+			<img id="saveImg" src="${pageContext.servletContext.contextPath }/img/profimg/basic.png" style="border-radius: 70%; width:90px; height: 90px;">프로필사진
+			<input id="profileImg" type="file" name="profileImg" style="display: none;" onchange="preUrl(this)"></label>
+		</div>
 		<div class="inner_section">
 			<label for="uid">아이디(이메일)</label><input id="id" type="email" name="id" placeholder="아이디는 이메일 형식입니다." onchange="idCheck()" required
 			oninvalid="this.setCustomValidity('아이디를 입력해주세요.')">
@@ -164,6 +169,19 @@ form {
 			})
 			.catch(error => console.log(error));
 	 }
+	
+	//프로필 이미지 미리보기
+	function preUrl(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function(e) {
+		      document.getElementById('saveImg').src = e.target.result;
+		    };
+		    reader.readAsDataURL(input.files[0]);
+		  } else {
+		    document.getElementById('saveImg').src = "${pageContext.servletContext.contextPath }/img/profimg/basic.png";
+		  }
+		}
 	</script>
 </body>
 </html>

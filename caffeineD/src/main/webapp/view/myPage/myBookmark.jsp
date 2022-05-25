@@ -54,7 +54,7 @@
 							<c:forEach items="${list }" var="cafe">
 						    <tr>
 									<td><input type="checkbox" name="cafeNo" value="${cafe.no }"></td>
-						      <td><a href="${pageContext.servletContext.contextPath }/cafeInfoSelect.do?mybookmark=true&no=${cafe.no}">${cafe.name }</a></td>
+						      <td><a href="${pageContext.servletContext.contextPath }/cafeInfoSelect.do?no=${cafe.no}">${cafe.name }</a></td>
 						      <td><img width="50px" alt="" src="${pageContext.servletContext.contextPath }/img/cafeimg/${cafe.img }"></td>
 						      <td>${cafe.address }</td>
 						      <td>${cafe.tel }</td>
@@ -76,7 +76,7 @@
 			let userSelect = document.getElementsByName('cafeNo');
 			for (let i=0; i<userSelect.length; i++) {
 				if(userSelect[i].checked) {
-					location.href='${pageContext.servletContext.contextPath }/bookmarkCheck.do?cafeNo='+userSelect[i].value;
+					location.href='${pageContext.servletContext.contextPath }/bookmarkCheck.do?change=db&cafeNo='+userSelect[i].value;
 				}
 			}
 			alert("삭제되었습니다.");

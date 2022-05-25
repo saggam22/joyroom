@@ -25,12 +25,12 @@ public class UserInsertCheckControl implements Controller {
 		if (job.equals("idCheck")) {
 			
 			String id = request.getParameter("id");
-			check = service.checkId(id);
+			check = service.userInsertcheck("id", id);
 				
 		} else if (job.equals("nicknameCheck")) {
 			
 			String nickname = request.getParameter("nickname");
-			check = service.checkNickname(nickname);		
+			check = service.userInsertcheck("nickname", nickname);		
 		}
 		
 		//결과 확인(true일 경우 중복, false일 경우 사용가능)

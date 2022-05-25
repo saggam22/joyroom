@@ -32,6 +32,7 @@ public class noticeSelectControl implements Controller {
 			
 		}
 		
+		service.viewCntNotice(noticeNo);
 		NoticeVO vo = service.selectNotice(noticeNo);
 		request.setAttribute("notice", vo);
 		request.getRequestDispatcher(path).forward(request, response);

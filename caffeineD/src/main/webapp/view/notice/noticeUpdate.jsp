@@ -108,13 +108,16 @@ textarea {
 		<tr class="line"><th>제목</th><td><input id="title" type="text" name="title" value="${notice.title }" required
 			oninvalid="this.setCustomValidity('제목을 입력해주세요.')"></td></tr>
 		<tr><th>내용</th><td></td></tr>
-		<tr><td colspan="2"><div class="td_content"><textarea cols="60" row="5" id="content" name="content"><c:out value="${notice.content }" /></textarea></div></td></tr>
-		<tr><td colspan="2"><div class="td_content"><input id="nfile" type="file" name="nfile" value="${notice.img }"><span>${notice.img }</span></div></td></tr>
+		<tr><td colspan="2"><div class="td_content"><textarea style="width:100%; height:250px;" id="content" name="content"><c:out value="${notice.content }" /></textarea></div></td></tr>
+		<tr><td colspan="2"><div class="td_content"><input id="nfile" type="file" name="nfile" value="${notice.img }"><br>
+		<span id="fileText">${notice.img }</span></div></td></tr>
 	</tbody>
 </table>
 		<input id="notice_update_btn" type="submit" value="수정하기">
 		</form>
 </section>
 </div>
+<script>
+</script>
 </body>
 </html>

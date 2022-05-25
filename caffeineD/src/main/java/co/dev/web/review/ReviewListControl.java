@@ -1,7 +1,6 @@
 package co.dev.web.review;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import co.dev.service.ReviewService;
 import co.dev.vo.CafeVO;
-import co.dev.vo.ReviewVO;
 import co.dev.vo.MyReviewVO;
 import co.dev.vo.UserVO;
 import co.dev.web.Controller;
@@ -42,14 +40,9 @@ public class ReviewListControl implements Controller {
 		if (job.equals("review")) {
 
 			CafeVO cvo = (CafeVO) request.getAttribute("cafeinfo");
-			String mybookmark = request.getParameter("mybookmark");
 
 			List<MyReviewVO> reviewList = service.reviewList(cvo.getNo(), userId);
 
-			if(mybookmark != null) {
-				request.setAttribute("mybookmark", "true");
-			}
-			
 			if (reviewList != null) {
 
 				request.setAttribute("cafeinfo", cvo);
