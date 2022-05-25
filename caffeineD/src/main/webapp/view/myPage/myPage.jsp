@@ -51,15 +51,15 @@
 
 	<section class="ftco-section">
 		<div class="container">
-			
+
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap" style="overflow-x: hidden">
 						<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h1 class="heading-section">My Page</h1>
-				</div>
-			</div>
+							<div class="col-md-6 text-center mb-5">
+								<h1 class="heading-section">My Page</h1>
+							</div>
+						</div>
 						<table class="table">
 							<thead class="thead-primary">
 								<tr id="tt">
@@ -68,30 +68,33 @@
 									<th>연락처</th>
 									<th>프로필</th>
 								</tr>
-							<tbody>
-								<tr>
-									<td>${user.id }</td>
-									<td>${user.nickname }</td>
-									<td>${user.tel }</td>
-									<td><img
-										src="${pageContext.servletContext.contextPath }/img/profimg/${user.img}"
-										style="max-width: 100px; height: auto;" />
-								</tr>
+							<tbody>								
+									<tr>
+										<td>${user.id }</td>
+										<td>${user.nickname }</td>
+										<td>${user.tel }</td>
+										<td><img
+											src="${pageContext.servletContext.contextPath }/img/profimg/${user.img}"
+											style="max-width: 100px; height: auto;">
+									</tr>								
 							</tbody>
 						</table>
 					</div>
 					<center>
-		<a
-			href="${pageContext.servletContext.contextPath }/view/myPage/updateInfo.tiles"><input
-			type="button" value="정보 수정"></a> <a
-			href="${pageContext.servletContext.contextPath }/myBoard.do"><input
-			type="button" value="작성글 보기"></a> <a
-			href="${pageContext.servletContext.contextPath }/myComment.do"><input
-			type="button" value="작성댓글 보기"></a> <a
-			href="${pageContext.servletContext.contextPath }/myReview.do"><input
-			type="button" value="내 리뷰"></a>  <a
-			href="${pageContext.servletContext.contextPath }/myBookmark.do"><input
-			type="button" value="내 북마크"></a>
-            
+						<a
+							href="${pageContext.servletContext.contextPath }/updateInfo.do"><input
+							type="button" value="정보 수정"></a> <a
+							href="${pageContext.servletContext.contextPath }/myBoard.do"><input
+							type="button" value="작성글 보기"></a> <a
+							href="${pageContext.servletContext.contextPath }/myComment.do"><input
+							type="button" value="작성댓글 보기"></a> <a
+							href="${pageContext.servletContext.contextPath }/myReview.do"><input
+							type="button" value="내 리뷰"></a>  <a
+              href="${pageContext.servletContext.contextPath }/myBookmark.do"><input
+			        type="button" value="내 북마크"></a>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

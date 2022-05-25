@@ -34,7 +34,29 @@ public class UserDAO extends DAO implements UserService {
 			disconn();
 		}
 	}
-
+	// myPage 내정보찾기
+	public UserVO searchInfo(String user_id) {
+		conn();
+		String sql="select * from cfn_user where user_id=?";
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, user_id);
+			rs= psmt.executeQuery();
+			if(rs.next()) {		
+				UserVO vo = new UserVO();
+				vo.setId(rs.getString("id"));
+				vo.setNickname(rs.getString("nickname"));
+				vo.setTel(rs.getString("tel"));
+				vo.setImg(rs.getString("img"));
+				return vo;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return null;
+	}
 	// myPage 내정보수정
 	public void updateInfo(UserVO vo) {
 		conn();
@@ -44,14 +66,15 @@ public class UserDAO extends DAO implements UserService {
 			psmt.setString(1, vo.getPwd());
 			psmt.setString(2, vo.getNickname());
 			psmt.setString(3, vo.getTel());
-			psmt.setString(4, vo.getId());
-			psmt.executeUpdate();
+			psmt.setString(4, vo.getId());			
+			psmt.executeUpdate();			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconn();
 		}
 	}
+
 
 	// 임시비밀번호 발급 -> 아이디값 받아 비밀번호 정보만 변경
 	public void updatePwd(String tempPwd, String userId) {
