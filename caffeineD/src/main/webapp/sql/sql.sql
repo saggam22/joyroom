@@ -20,7 +20,7 @@ CREATE TABLE cfn_user
     user_id      VARCHAR2(30),
     user_pwd     VARCHAR2(30),
     user_nick    VARCHAR2(20) UNIQUE,
-    user_tel     VARCHAR2(11),
+    user_tel     VARCHAR2(20),
     user_img     CLOB DEFAULT 'basic.png',
    
     PRIMARY KEY(user_id)
@@ -91,8 +91,7 @@ create sequence seq_board;
 
 -- 커뮤니티 게시판 댓글
 CREATE TABLE cfn_comment
-(
-   comment_code             NUMBER,
+(   
    board_no              NUMBER,
    comment_no         NUMBER,
    comment_content   CLOB,
@@ -100,11 +99,11 @@ CREATE TABLE cfn_comment
    comment_img      CLOB,
    user_id      VARCHAR2(20),
    
-   PRIMARY KEY(comment_code)   
+   PRIMARY KEY(comment_no)
 );
 
 --댓글 코드 시퀀스
-create sequence seq_code;
+create sequence seq_comment;
 
 -- 공지사항 게시판
 CREATE TABLE notice
