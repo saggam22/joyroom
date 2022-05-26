@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
 #notice_insert_btn {
 	cursor: pointer;
 	font-weight: 700;
@@ -21,16 +22,22 @@
 	background: white;
 	color: rgb(90, 90, 90);
 }
+
+.ftco-section {
+	padding: 80px 0;
+}
+#my_comment {
+	background: #d9bba9;
+	color: #2F170F;
+	font-weight: 600;
+}
+	
 </style>
 </head>
 <body>
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 style="margin-top:10px;" class="heading-section">내 댓글</h2>
-				</div>
-			</div>
+			<div class="heading-section" style="z-index:-1;"><jsp:include page="/view/myPage/myPageMenu.jsp"></jsp:include></div>
 			<c:choose>
 				<c:when test="${empty all }">
 					<h3>댓글이 없습니다.</h3>
@@ -60,9 +67,5 @@
 			</c:choose>
 		</div>
 	</section>
-	<center>
-		<a href="${pageContext.servletContext.contextPath }/myPage.do"><input
-			style="margin-bottom: 10px; text-align: center" type="button"
-			value="돌아가기"></a>
 </body>
 </html>

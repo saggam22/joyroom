@@ -133,8 +133,8 @@ textarea {
 					</tbody>
 				</table>
 				<input id="notice_insert_btn" type="submit" value="수정"> 
-				<a href="${pageContext.servletContext.contextPath }/myPage.do"><input
-					id="notice_insert_btn" type="button" value="돌아가기"></a>
+				<input id="notice_insert_btn" type="button" value="돌아가기" onclick="location.href='${pageContext.servletContext.contextPath }/myPage.do'">
+				<!-- 돌아가기 버튼 밑에 a 태그 보여서 코드 수정했습니다! -수빈 -->
 			</form>
 		</section>
 	</div>

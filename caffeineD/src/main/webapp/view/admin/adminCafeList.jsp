@@ -22,9 +22,9 @@
 </head>
 <body>
 <div id="container">
-	<div class="heading-section"><jsp:include page="/view/admin/adminMenu.jsp"></jsp:include></div>
 	<section class="ftco-section">
 		<div class="container">
+			<div class="heading-section"><jsp:include page="/view/admin/adminMenu.jsp"></jsp:include></div>
 			<c:if test="${!empty success }">
 				<script>alert("${success }")</script>
 				<% request.getSession().removeAttribute("success"); %>
@@ -77,7 +77,7 @@
       </div>
       <div class="popup_cont">
           <h5>사진 변경</h5>
-         <div id="cafeImg"><img id="saveImg" width="250px" height="187.5px"></div>
+         <div id="cafeImg"><img id="saveImg" width="250px" height="180px"></div>
       </div>
       <div id="cafeImg_input">
          <form action="${pageContext.servletContext.contextPath }/cafeInfoUpdate.do" method="post" enctype="multipart/form-data">

@@ -11,6 +11,17 @@
 		rel="stylesheet">
 		<link href="${pageContext.servletContext.contextPath }/css/myReview.css"
 		rel="stylesheet">
+	<style>
+		#my_review {
+			background: #d9bba9;
+			color: #2F170F;
+			font-weight: 600;
+		}
+		.admin_menu {
+			display: inline-block;
+			width: 1110px;
+		}
+	</style>
 </head>
 <body>
 
@@ -36,7 +47,9 @@
 	</c:choose>
 
 	<div id="container" class="text_center">
-	<h2>내 리뷰</h2>
+	<div class="admin_menu">
+		<div class="heading-section" style="z-index:-1;"><jsp:include page="/view/myPage/myPageMenu.jsp"></jsp:include></div>
+	</div>
 	<div class="review_guide text_center">
 		<p>내 리뷰는 날짜 순으로 나열되며<br>
 		리뷰 정책 위반 시, 관리자에 의해 리뷰가 삭제될 수 있습니다.</p>
