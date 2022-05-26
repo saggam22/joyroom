@@ -9,8 +9,8 @@ public class CommentService {
 	CommentDAO dao = new CommentDAO();
 	
 	public void commentInsert(CommentVO comment) {
-		int lastIx = dao.findIndex(comment.getBoard_no());
-		dao.insertComment(comment, lastIx);
+		//int lastIx = dao.findIndex(comment.getBoard_no());
+		dao.insertComment(comment);
 	}
 	
 	public List<CommentVO> commentList(int num) {
