@@ -29,6 +29,7 @@
 </style>
 </head>
 <body>
+<div id="container">
 	<div class="container">
 		<h2 class="heading-section">커뮤니티</h2>
 		<table class="table">
@@ -62,7 +63,6 @@
 			<jsp:param value="${paging.prev}" name="prev" />
 			<jsp:param value="${paging.next}" name="next" />
 		</jsp:include>
-	</div>
 	</div>
 	</div>
 	<center>

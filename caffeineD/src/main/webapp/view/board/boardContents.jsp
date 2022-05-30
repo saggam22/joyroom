@@ -10,8 +10,12 @@
 <!-- <meta name="viewport" content="width=device-width" , initial-scale="1"> -->
 <title>Insert title here</title>
 <style>
-html {
-	font-family: "Noto Sans KR", sans-serif;
+* { 
+	font-family: Pretendard, -apple-system, BlinkMacSystemFont, 
+	system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 
+	'Noto Sans KR', 'Malgun Gothic', sans-serßif;
+	font-size: 10pt;
+	box-sizing: border-box;
 }
 
 /* 노말라이즈 */
@@ -304,7 +308,7 @@ html, body {
 				</table>
 				<p>
 					<img id="iii"
-						src="${pageContext.servletContext.contextPath }/img/${contents.img }">
+						src="${pageContext.servletContext.contextPath }/img/comuimg/${contents.img }">
 				</p>
 				<p id="p">${contents.content }</p>
 		</c:otherwise>
@@ -357,7 +361,7 @@ html, body {
 					<form style="margin-top: 10px;"
 						action="boardContents.do?no=${contents.no}" method="post">
 						<textarea style="margin-top: 10px;" name="comment"
-							placeholder="바르고 고운말을 씁시다." rows="3" cols="106" required></textarea>
+							placeholder="바르고 고운말을 씁시다." rows="3" cols="146" required></textarea>
 						<br>
 						<div
 							style="margin-left: 82%; margin-top: 5px; margin-bottom: 5px;">

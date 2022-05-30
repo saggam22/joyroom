@@ -25,7 +25,7 @@ public class BoardInsertControl implements Controller {
 		response.setCharacterEncoding("utf-8");
 
 		
-		String saveDir = "img";
+		String saveDir = "img/comuimg";
 		saveDir = request.getServletContext().getRealPath(saveDir);
 		System.out.println(saveDir);
 		int maxSize = 1024 * 1024 * 10;

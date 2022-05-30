@@ -21,7 +21,7 @@ public class UserInsertControl implements Controller {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		String saveDir = "img/noticeimg";
+		String saveDir = "img/profimg";
 		saveDir = request.getServletContext().getRealPath(saveDir); //getServletContext() 프로젝트명 .getRealPath(saveDir) 폴더명을 읽어옴
 		int maxSize = 1024*1024*5; //(5메가바이트)
 		String encoding = "UTF-8";
@@ -35,7 +35,12 @@ public class UserInsertControl implements Controller {
 		String tel = multi.getParameter("tel");
 
 		UserVO vo = new UserVO();
-		vo.setImg(img);
+		
+		if (img != null) {
+			vo.setImg(img);			
+		} else {
+			vo.setImg("basic.png");
+		}
 		vo.setId(id);
 		vo.setNickname(nickname);
 		vo.setPwd(pwd);
