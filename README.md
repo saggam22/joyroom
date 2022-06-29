@@ -7,8 +7,8 @@
 > **공공데이터를 이용해 대구에 있는 카페 정보를 제공하는 웹사이트 구축**
 
 ## ⚙프로젝트 개발환경
-+ 운영체제 : Window
-+ 통합개발환경(IDE) : Eclips
++ 운영체제 : Windows
++ 통합개발환경(IDE) : Eclipse
 + JDK 버전 : JDK 11
 + 데이터 베이스 : Oracle Database 11g
 + 빌드 툴 : Maven
